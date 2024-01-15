@@ -89,8 +89,13 @@ async function main() {
 }
 
 function filterProposalsByStatus(status) {
-    const filteredProposals = proposalsData.filter(proposal => proposal.state === status);
-    return filteredProposals;
+    for(let i = 0; i < proposals.length; i++) {
+        if(proposalsData[i].state == status) {
+            proposals[i].style.display = "block";
+        } else {
+            proposals[i].style.display = "none";
+        }
+    }
 }
 
 

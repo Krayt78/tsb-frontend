@@ -22,8 +22,6 @@ const ethereumLandAddress = '0x5CC5B05a8A13E3fBDB0BB9FcCd98D38e50F90c38';
 const polygonProvider =  new ethers.InfuraProvider(137,"fb8424682766452f8ca28a2c43ea93e2");
 const ethereumProvider =  new ethers.InfuraProvider(1,"fb8424682766452f8ca28a2c43ea93e2");
 
-
-
 const sandContractEthereum = new ethers.Contract(ethereumSandAddress, genericErc20Abi, ethereumProvider);
 const sandContractPolygon = new ethers.Contract(polygonSANDAddress, genericErc20Abi, polygonProvider);
 const manaContractEthereum = new ethers.Contract(ethereumManaAddress, genericErc20Abi, ethereumProvider);

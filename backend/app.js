@@ -1,5 +1,5 @@
 const express = require('express');
-const geoCodeRoutes = require('./routes/geoCode.js');
+const daoWalletRoutes = require('./routes/daoWallet.js');
 const dotenv = require('dotenv');
 dotenv.config({
     path: '.env'
@@ -20,6 +20,6 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-app.use('/api/geocode', geoCodeRoutes);
+app.use('/api/daoWallet', daoWalletRoutes);
 
 module.exports = app;
