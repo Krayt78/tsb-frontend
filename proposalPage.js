@@ -12,7 +12,7 @@ async function testQueryGeraldineProposals() {
     const url = 'https://testnet.hub.snapshot.org/graphql';
     //const url = 'https://hub.snapshot.org/graphql';
     const query = `query {
-      proposals(first: 20, skip: 0, where: {space_in: ["geraldinehenry.eth"], state: "closed"}, orderBy: "created", orderDirection: desc) {
+      proposals(first: 20, skip: 0, where: {space_in: ["geraldinehenry.eth"]}, orderBy: "created", orderDirection: desc) {
         id
         title
         body
@@ -60,7 +60,9 @@ async function main() {
                         child.innerText = proposalsData[i].title;
                         break;
                     case "proposal-details":
-                        child.innerText = proposalsData[i].body;
+                        const mdParser = new marked.Marked(); // import marked module first
+                        const html = mdParser.parse(proposalsData[i].body); //TODO: Warning: 🚨 Marked does not sanitize the output HTML. Please use a sanitize library, like DOMPurify (recommended), sanitize-html or insane on the output HTML! 
+                        child.innerHTML = html;
                         break;
                     case "proposal-auteur":
                         child.innerText = proposalsData[i].author;
