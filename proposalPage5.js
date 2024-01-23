@@ -83,7 +83,9 @@ function setValuesFromProposalData(proposalData) {
       const answerNb = document.getElementById("answer" + (i+1) + "-nb");
       answerName.innerText = proposalData.choices[i];
       console.log(proposalData.choices[i]);
-      answerNb.innerText = proposalData.scores_by_strategy[i] / proposalData.scores_total * 100;
+      let score = proposalData.scores_by_strategy[i] / proposalData.scores_total * 100;
+      score = score.toFixed(2);
+      answerNb.innerText = score;
       //set answerNb as a percentage of total votes
       
     }
