@@ -72,6 +72,7 @@ function setValuesFromProposalData(proposalData) {
   }
 
   const numberOfChoices = proposalData.choices.length;
+  console.log(numberOfChoices);
 
   if (numberOfChoices > numberOfChoicesLimit) {
     console.log("Too many choices");
@@ -81,6 +82,7 @@ function setValuesFromProposalData(proposalData) {
       const answerName = document.getElementById("answer" + i + "-name");
       const answerNb = document.getElementById("answer" + i + "-nb");
       answerName.innerText = proposalData.choices[i];
+      console.log(proposalData.choices[i]);
       answerNb.innerText = proposalData.scores_by_strategy[i] / proposalData.scores_total * 100;
       //set answerNb as a percentage of total votes
       
