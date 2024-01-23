@@ -185,11 +185,11 @@ async function main() {
                     case "proposal-titre":
                         child.innerText = proposalsData[i].title;
                         break;
-                    case "proposal-details":
-                        const mdParser = new marked.Marked(); // import marked module first
-                        const html = mdParser.parse(proposalsData[i].body); //TODO: Warning: 🚨 Marked does not sanitize the output HTML. Please use a sanitize library, like DOMPurify (recommended), sanitize-html or insane on the output HTML! 
-                        child.innerHTML = html;
-                        break;
+                    // case "proposal-details":
+                    //     const mdParser = new marked.Marked(); // import marked module first
+                    //     const html = mdParser.parse(proposalsData[i].body); //TODO: Warning: 🚨 Marked does not sanitize the output HTML. Please use a sanitize library, like DOMPurify (recommended), sanitize-html or insane on the output HTML! 
+                    //     child.innerHTML = html;
+                    //     break;
                     case "proposal-date":
                         child.innerText = new Date(proposalsData[i].end * 1000);
                         break;
