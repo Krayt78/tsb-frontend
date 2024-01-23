@@ -158,7 +158,7 @@ function setColourDependingOnTimeLeft(component, proposalData) {
 
 function setFilterAmounts() {
     const all = proposalsData.length;
-    const ending = proposalsData.filter(proposal => (proposal.end *1000)- new Date().getTime() < week).length;
+    const ending = proposalsData.filter(proposal => (proposal.end *1000)- new Date().getTime() < day).length;
     const active = proposalsData.filter(proposal => proposal.state == "active").length;
     const closed = proposalsData.filter(proposal => proposal.state == "closed").length;
 
