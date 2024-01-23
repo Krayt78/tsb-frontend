@@ -1,4 +1,4 @@
-const version = "0.0.2";
+const version = "0.0.3";
 var component = document.getElementById("proposal");
 component.style.display = "none";
 var proposalList = document.getElementById("proposals-list");
@@ -181,7 +181,6 @@ async function main() {
 
             var children = duplicatedComponent.querySelectorAll('[id]');
             children.forEach(function (child) {
-                console.log(child.id);
                 switch (child.id) {
                     case "proposal-titre":
                         child.innerText = proposalsData[i].title;
@@ -224,18 +223,18 @@ async function main() {
                         break;
                     case "proposal-margin":
                         if (isProposalEndingSoon(proposalsData[i])) {
-                            component.style.color = yellow;
+                            child.style.color = yellow;
                             component.style.borderColor = yellow;
                             return;
                         }
                         else if (proposalsData[i].state == "closed") {
-                            component.style.color = grey;
-                            component.style.borderColor = grey;
+                            child.style.color = grey;
+                            child.style.borderColor = grey;
                             return;
                         }
 
-                        component.style.color = grey;
-                        component.style.borderColor = grey;
+                        child.style.color = grey;
+                        child.style.borderColor = grey;
                         break;
                     case "proposal-timer":
                         if (proposalsData[i].state == "closed") {
