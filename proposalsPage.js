@@ -145,7 +145,7 @@ function getTimer(endTime) {
 }
 
 function setColourDependingOnTimeLeft(component, proposalData) {
-    if(isProposalEndingSoon(proposalData)) {
+    if (isProposalEndingSoon(proposalData)) {
         component.style.color = yellow;
         return;
     }
@@ -174,7 +174,6 @@ function hideInitialComponent() {
 
 async function main() {
     proposalsData = await testQueryGeraldineProposals();
-    console.log(proposalsData);
     for (let i = 0; i < proposalsData.length; i++) {
         var duplicatedComponent = component.cloneNode(true);
         if (duplicatedComponent) {
@@ -202,10 +201,10 @@ async function main() {
                         if (state == "Closed") {
                             child.style.color = grey;
                             child.style.borderColor = grey;
-                            
+
                         }
                         else if (state == "Active") {
-                            if(isProposalEndingSoon(proposalsData[i])) {
+                            if (isProposalEndingSoon(proposalsData[i])) {
                                 child.style.color = yellow;
                                 child.style.borderColor = yellow;
                                 child.innerText = "Ending Soon";
@@ -224,9 +223,20 @@ async function main() {
                         child.href = "https://testnet.snapshot.org/#/geraldinehenry.eth/proposal/" + proposalsData[i].id;
                         break;
                     case "proposal-margin":
-                        setColourDependingOnTimeLeft(child, proposalsData[i]);
-                        console.log(child.style.color);
-                    break;
+                        if (isProposalEndingSoon(proposalsData[i])) {
+                            component.style.color = yellow;
+                            component.style.borderColor = yellow;
+                            return;
+                        }
+                        else if (proposalsData[i].state == "closed") {
+                            component.style.color = grey;
+                            component.style.borderColor = grey;
+                            return;
+                        }
+
+                        component.style.color = grey;
+                        component.style.borderColor = grey;
+                        break;
                     case "proposal-timer":
                         if (proposalsData[i].state == "closed") {
                             child.innerText = "Closed";
