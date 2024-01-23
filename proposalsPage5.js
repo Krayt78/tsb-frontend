@@ -164,7 +164,7 @@ function setFilterAmounts() {
 
     filterAllNb.innerText = all;
     filterEndingNb.innerText = ending - closed;
-    filterActiveNb.innerText = active;
+    filterActiveNb.innerText = active - ending;
     filterClosedNb.innerText = closed;
 }
 
