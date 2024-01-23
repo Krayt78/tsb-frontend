@@ -223,18 +223,15 @@ async function main() {
                         break;
                     case "proposal-margin":
                         if (isProposalEndingSoon(proposalsData[i])) {
-                            child.style.color = yellow;
-                            component.style.borderColor = yellow;
+                            child.style.backgroundColor = yellow;
                             return;
                         }
                         else if (proposalsData[i].state == "closed") {
-                            child.style.color = grey;
-                            child.style.borderColor = grey;
+                            child.style.backgroundColor = grey;
                             return;
                         }
 
-                        child.style.color = grey;
-                        child.style.borderColor = grey;
+                        child.style.backgroundColor = grey;
                         break;
                     case "proposal-timer":
                         if (proposalsData[i].state == "closed") {
