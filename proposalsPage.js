@@ -1,3 +1,4 @@
+const version = "0.0.1";
 var component = document.getElementById("proposal");
 component.style.display = "none";
 var proposalList = document.getElementById("proposals-list");
