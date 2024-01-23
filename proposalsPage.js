@@ -221,6 +221,9 @@ async function main() {
                     case "proposal-discuss":
                         child.href = "https://testnet.snapshot.org/#/geraldinehenry.eth/proposal/" + proposalsData[i].id;
                         break;
+                    case "proposal-margin":
+                        setColourDependingOnTimeLeft(child, proposalsData[i]);
+                    break;
                     case "proposal-timer":
                         if (proposalsData[i].state == "closed") {
                             child.innerText = "Closed";
