@@ -259,8 +259,6 @@ async function main() {
                 child.id = child.id + i;
             });
 
-            console.log(duplicatedComponent);
-
             proposalList.appendChild(duplicatedComponent);
             proposals.push(duplicatedComponent);
         }
