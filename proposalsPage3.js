@@ -230,8 +230,10 @@ async function main() {
                             child.style.backgroundColor = grey;
                             return;
                         }
+                        else {
+                            child.style.backgroundColor = green;
+                        }
 
-                        child.style.backgroundColor = grey;
                         break;
                     case "proposal-timer":
                         if (proposalsData[i].state == "closed") {
