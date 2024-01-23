@@ -223,6 +223,7 @@ async function main() {
                         break;
                     case "proposal-margin":
                         setColourDependingOnTimeLeft(child, proposalsData[i]);
+                        console.log(child.style.color);
                     break;
                     case "proposal-timer":
                         if (proposalsData[i].state == "closed") {
