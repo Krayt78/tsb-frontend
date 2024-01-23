@@ -181,6 +181,7 @@ async function main() {
 
             var children = duplicatedComponent.querySelectorAll('[id]');
             children.forEach(function (child) {
+                console.log(child.id);
                 switch (child.id) {
                     case "proposal-titre":
                         child.innerText = proposalsData[i].title;
