@@ -78,7 +78,7 @@ function setValuesFromProposalData(proposalData) {
     console.log("Too many choices");
   }
   else {
-    for (let i = 0; i < numberOfChoices; i++) {
+    for (let i = 1; i <= numberOfChoices; i++) {
       const answerName = document.getElementById("answer" + i + "-name");
       const answerNb = document.getElementById("answer" + i + "-nb");
       answerName.innerText = proposalData.choices[i];
