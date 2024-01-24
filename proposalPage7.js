@@ -1,5 +1,6 @@
 const quorum = 500;
 const numberOfChoicesLimit = 3;
+const baseUrl = `https://forum.tsbdao.com/`;
 
 const title = document.getElementById("sip-title");
 const category = document.getElementById("sip-category");
