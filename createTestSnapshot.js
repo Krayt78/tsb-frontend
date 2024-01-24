@@ -105,6 +105,7 @@ async function testQueryGeraldineProposals() {
       scores_updated
       votes
       author
+      discussion
       space {
         id
         name
