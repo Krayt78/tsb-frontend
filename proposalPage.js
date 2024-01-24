@@ -33,6 +33,7 @@ async function fetchProposalData(proposalId) {
         scores_updated
         votes
         author
+        discussion
         space {
           id
           name
@@ -95,6 +96,47 @@ function setValuesFromProposalData(proposalData) {
 
 }
 
+async function getLastDiscourseComments(proposalData) {
+  const discourseUrl = proposalData.discussion;
+  const discourseTopicId = discourseUrl.split("/")[6];
+  console.log(discourseTopicId);
+
+  const posts = await postsInTopic(discourseTopicId);
+  //only keep the username, the create_at and the cooked (the content)
+  const postsData = posts.map(post => {
+    return {
+      username: post.username,
+      created_at: post.created_at,
+      cooked: post.cooked
+    }
+  });
+
+  console.log(postsData);
+}
+
+async function postsInTopic(id) {
+  var result = await fetch
+      (baseUrl + `t/${id}/posts.json`,
+          {
+              method: 'GET',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Api-Key': api_key,
+              }
+          }
+      );
+
+  var data = await result.json();
+  const posts = data.post_stream.posts;
+
+  //remove first post (its the topic)
+  posts.shift();
+  console.log(posts);
+  //only keep the last 3 posts
+  posts.splice(3, posts.length - 3);
+  return posts;
+}
+
 async function main() {
   //get proposal id from url
   const queryString = window.location.search;
@@ -103,6 +145,7 @@ async function main() {
   console.log(proposalId);
   const proposalData = await fetchProposalData(proposalId);
   setValuesFromProposalData(proposalData);
+  await getLastDiscourseComments(proposalData);
 }
 
 main();
