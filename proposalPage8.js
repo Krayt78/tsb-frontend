@@ -1,5 +1,5 @@
 const quorum = 500;
-const numberOfChoicesLimit = 3;
+const numberOfChoicesLimit = 5;
 const baseUrl = `https://forum.tsbdao.com/`;
 
 const title = document.getElementById("sip-title");
@@ -83,13 +83,20 @@ function setValuesFromProposalData(proposalData) {
     for (let i = 0; i < numberOfChoices; i++) {
       const answerName = document.getElementById("answer" + (i+1) + "-name");
       const answerNb = document.getElementById("answer" + (i+1) + "-nb");
+      
       answerName.innerText = proposalData.choices[i];
       console.log(proposalData.choices[i]);
       let score = proposalData.scores_by_strategy[i] / proposalData.scores_total * 100;
       score = score.toFixed(2);
       answerNb.innerText = score;
-      //set answerNb as a percentage of total votes
-      
+
+      const bar = document.getElementById("bar" + (i+1));
+      bar.style.width = score + "%";
+    }
+
+    for (let i = numberOfChoices; i < numberOfChoicesLimit; i++) {
+      const answer = document.getElementById("answer" + (i+1));
+      answer.style.display = "none";
     }
   }
   //proposalData.body;
