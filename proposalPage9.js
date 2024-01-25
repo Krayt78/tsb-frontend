@@ -17,34 +17,10 @@ const votesToQuorum = document.getElementById("sip-quorum");
 const proposalDetails = document.getElementById("filter-all-nb");
 
 async function fetchProposalData(proposalId) {
-  const url = 'https://testnet.hub.snapshot.org/graphql';
-  const query = `query {
-      proposal(id: "${proposalId}") {
-        id
-        title
-        body
-        choices
-        start
-        end
-        snapshot
-        state
-        scores
-        scores_by_strategy
-        scores_total
-        scores_updated
-        votes
-        author
-        discussion
-        space {
-          id
-          name
-        }
-      }
-    }`;
+  const url = `https://15.188.214.102:3000/api/proposals/${proposalId}`;
   const options = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ query })
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
   };
 
   const response = await fetch(url, options);
@@ -81,31 +57,24 @@ function setValuesFromProposalData(proposalData) {
   }
   else {
     for (let i = 0; i < numberOfChoices; i++) {
-      const answerName = document.getElementById("answer" + (i+1) + "-name");
-      const answerNb = document.getElementById("answer" + (i+1) + "-nb");
-      
+      const answerName = document.getElementById("answer" + (i + 1) + "-name");
+      const answerNb = document.getElementById("answer" + (i + 1) + "-nb");
+
       answerName.innerText = proposalData.choices[i];
       console.log(proposalData.choices[i]);
       let score = proposalData.scores_by_strategy[i] / proposalData.scores_total * 100;
       score = score.toFixed(2);
       answerNb.innerText = score;
 
-      const bar = document.getElementById("bar" + (i+1));
+      const bar = document.getElementById("bar" + (i + 1));
       bar.style.width = score + "%";
     }
 
     for (let i = numberOfChoices; i < numberOfChoicesLimit; i++) {
-      const answer = document.getElementById("answer" + (i+1));
+      const answer = document.getElementById("answer" + (i + 1));
       answer.style.display = "none";
     }
   }
-  //proposalData.body;
-  //proposalData.choices;
-  //proposalData.votes;
-  //proposalData.scores;
-  //proposalData.scores_by_strategy;
-  //proposalData.scores_total;
-
 }
 
 async function getLastDiscourseComments(proposalData) {
@@ -127,16 +96,17 @@ async function getLastDiscourseComments(proposalData) {
 }
 
 async function postsInTopic(id) {
+  var url = `https://15.188.214.102:3000/api/discourse/${id}`;
   var result = await fetch
-      (baseUrl + `t/${id}/posts.json`,
-          {
-              method: 'GET',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'Api-Key': api_key,
-              }
-          }
-      );
+    (url,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Api-Key': api_key,
+        }
+      }
+    );
 
   var data = await result.json();
   const posts = data.post_stream.posts;
