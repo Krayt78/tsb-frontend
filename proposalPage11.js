@@ -15,6 +15,7 @@ const votesLeftToQuorum = document.getElementById("quorum-nb");
 const votesToQuorum = document.getElementById("sip-quorum");
 
 const proposalDetails = document.getElementById("filter-all-nb");
+const proposalContent = document.getElementById("proposal-content");
 
 async function fetchProposalData(proposalId) {
   const url = `https://15.188.214.102:3000/api/proposals/${proposalId}`;
@@ -38,6 +39,7 @@ function setValuesFromProposalData(proposalData) {
   endDate.innerText = new Date(proposalData.end * 1000);
   snapshot.innerText = proposalData.snapshot;
 
+  proposalContent.innerHTML = proposalData.body;
   voteNb.innerText = proposalData.votes;
 
   if (proposalData.votes > quorum) {
@@ -103,7 +105,6 @@ async function postsInTopic(id) {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Api-Key': api_key,
         }
       }
     );
