@@ -1,5 +1,3 @@
-const { default: marked } = require("marked");
-
 const quorum = 500;
 const numberOfChoicesLimit = 5;
 
