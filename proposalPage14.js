@@ -39,7 +39,9 @@ function setValuesFromProposalData(proposalData) {
   snapshot.innerText = proposalData.snapshot;
 
   const mdParser = new marked.Marked(); // import marked module first
+  console.log(mdParser);
   const html = mdParser.parse(proposalData.body); //TODO: Warning: 🚨 Marked does not sanitize the output HTML. Please use a sanitize library, like DOMPurify (recommended), sanitize-html or insane on the output HTML! 
+  console.log(html);
   proposalContent.innerHTML = html;
 
   voteNb.innerText = proposalData.votes;
@@ -83,7 +85,8 @@ function setValuesFromProposalData(proposalData) {
 
 async function getLastDiscourseComments(proposalData) {
   const discourseUrl = proposalData.discussion;
-  const discourseTopicId = discourseUrl.split("/")[6];
+  console.log(discourseUrl);
+  const discourseTopicId = discourseUrl.split("/")[5];
   console.log(discourseTopicId);
 
   const posts = await postsInTopic(discourseTopicId);
