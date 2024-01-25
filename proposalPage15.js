@@ -39,9 +39,7 @@ function setValuesFromProposalData(proposalData) {
   snapshot.innerText = proposalData.snapshot;
 
   const mdParser = new marked.Marked(); // import marked module first
-  console.log(mdParser);
   const html = mdParser.parse(proposalData.body); //TODO: Warning: 🚨 Marked does not sanitize the output HTML. Please use a sanitize library, like DOMPurify (recommended), sanitize-html or insane on the output HTML! 
-  console.log(html);
   proposalContent.innerHTML = html;
 
   voteNb.innerText = proposalData.votes;
@@ -68,12 +66,20 @@ function setValuesFromProposalData(proposalData) {
 
       answerName.innerText = proposalData.choices[i];
       console.log(proposalData.choices[i]);
-      let score = proposalData.scores_by_strategy[i] / proposalData.scores_total * 100;
-      score = score.toFixed(2);
-      answerNb.innerText = score;
 
-      const bar = document.getElementById("bar" + (i + 1));
-      bar.style.width = score + "%";
+      if (proposalData.scores_by_strategy[i] > 0) {
+
+        let score = proposalData.scores_by_strategy[i] / proposalData.scores_total * 100;
+        score = score.toFixed(2);
+        answerNb.innerText = score;
+
+        const bar = document.getElementById("bar" + (i + 1));
+        bar.style.width = score + "%";
+      }
+      else {
+        answerNb.innerText = "0";
+        bar.style.width = "0%";
+      }
     }
 
     for (let i = numberOfChoices; i < numberOfChoicesLimit; i++) {
@@ -115,7 +121,8 @@ async function postsInTopic(id) {
     );
 
   var data = await result.json();
-  const posts = data.post_stream.posts;
+  const posts = data;
+  console.log(posts);
 
   //remove first post (its the topic)
   posts.shift();
