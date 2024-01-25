@@ -63,6 +63,7 @@ function setValuesFromProposalData(proposalData) {
     for (let i = 0; i < numberOfChoices; i++) {
       const answerName = document.getElementById("answer" + (i + 1) + "-name");
       const answerNb = document.getElementById("answer" + (i + 1) + "-nb");
+      const bar = document.getElementById("bar" + (i + 1));
 
       answerName.innerText = proposalData.choices[i];
       console.log(proposalData.choices[i]);
@@ -72,8 +73,6 @@ function setValuesFromProposalData(proposalData) {
         let score = proposalData.scores_by_strategy[i] / proposalData.scores_total * 100;
         score = score.toFixed(2);
         answerNb.innerText = score;
-
-        const bar = document.getElementById("bar" + (i + 1));
         bar.style.width = score + "%";
       }
       else {
