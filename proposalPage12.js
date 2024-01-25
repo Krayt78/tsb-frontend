@@ -1,6 +1,7 @@
+const { default: marked } = require("marked");
+
 const quorum = 500;
 const numberOfChoicesLimit = 5;
-const baseUrl = `https://forum.tsbdao.com/`;
 
 const title = document.getElementById("sip-title");
 const category = document.getElementById("sip-category");
@@ -39,7 +40,10 @@ function setValuesFromProposalData(proposalData) {
   endDate.innerText = new Date(proposalData.end * 1000);
   snapshot.innerText = proposalData.snapshot;
 
-  proposalContent.innerHTML = proposalData.body;
+  const mdParser = new marked.Marked(); // import marked module first
+  const html = mdParser.parse(proposalData.body); //TODO: Warning: 🚨 Marked does not sanitize the output HTML. Please use a sanitize library, like DOMPurify (recommended), sanitize-html or insane on the output HTML! 
+  proposalContent.innerHTML = html;
+
   voteNb.innerText = proposalData.votes;
 
   if (proposalData.votes > quorum) {
