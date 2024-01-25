@@ -26,7 +26,7 @@ async function fetchProposalData(proposalId) {
   const response = await fetch(url, options);
   const json = await response.json();
   console.log(json);
-  return json.data.proposal;
+  return json;
 }
 
 function setValuesFromProposalData(proposalData) {
