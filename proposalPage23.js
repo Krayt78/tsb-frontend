@@ -1,3 +1,4 @@
+const { convert } = require('html-to-text');
 const quorum = 500;
 const numberOfChoicesLimit = 15;
 const numberOfCommentsLimit = 3;
@@ -120,7 +121,7 @@ async function getLastDiscourseComments(proposalData) {
 
     commentAuthorName.innerText = postsData[i].username;
     commentDate.innerText = getTimeSincePost(postsData[i].created_at);
-    const text = htmlToText(postsData[i].cooked, {
+    const text = convert(postsData[i].cooked, {
       wordwrap: 130
     });
     commentContent.innerText = text;
