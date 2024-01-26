@@ -120,7 +120,14 @@ async function getLastDiscourseComments(proposalData) {
 
     commentAuthorName.innerText = postsData[i].username;
     commentDate.innerText = getTimeSincePost(postsData[i].created_at);
-    commentContent.innerText = convertCookedToText(postsData[i].cooked);
+    let text = convertCookedToText(postsData[i].cooked);
+    //limit the text to 200 characters
+    text = text.substring(0, 200);
+    //add ... at the end if the text is too long
+    if (text.length == 200) {
+      text += "...";
+    }
+    commentContent.innerText = text;
   }
 
   for (let i = numberOfComments; i < numberOfCommentsLimit; i++) {
