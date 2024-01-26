@@ -152,6 +152,7 @@ function hideInitialComponent() {
 
 async function main() {
     proposalsData = await fetchProposalsData();
+    console.log(proposalsData);
     for (let i = 0; i < proposalsData.length; i++) {
         var duplicatedComponent = component.cloneNode(true);
         if (duplicatedComponent) {
@@ -194,12 +195,15 @@ async function main() {
 
                         break;
                     case "proposal-link":
-                        //open it on the same page
-                        //child.href = "https://thesandbox-dao.webflow.io/proposal/?id=" + proposalsData[i].id;
                         child.href = "https://thesandbox-dao.webflow.io/proposal/?id=" + proposalsData[i].id;
                         child.target = "_self";
                         break;
                     case "proposal-discuss":
+                        if(proposalsData[i].discussion == null){
+                            child.style.display = "none";
+                            break;
+                        }
+                        
                         child.href = proposalsData[i].discussion;
                         child.target = "_blank";
                         break;
