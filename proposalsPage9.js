@@ -194,10 +194,14 @@ async function main() {
 
                         break;
                     case "proposal-link":
+                        //open it on the same page
+                        //child.href = "https://thesandbox-dao.webflow.io/proposal/?id=" + proposalsData[i].id;
                         child.href = "https://thesandbox-dao.webflow.io/proposal/?id=" + proposalsData[i].id;
+                        child.target = "_self";
                         break;
                     case "proposal-discuss":
-                        child.href = "https://testnet.snapshot.org/#/geraldinehenry.eth/proposal/" + proposalsData[i].id;
+                        child.href = proposalsData[i].discussion;
+                        child.target = "_blank";
                         break;
                     case "proposal-margin":
                         if (isProposalEndingSoon(proposalsData[i])) {
