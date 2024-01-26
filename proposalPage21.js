@@ -120,7 +120,10 @@ async function getLastDiscourseComments(proposalData) {
 
     commentAuthorName.innerText = postsData[i].username;
     commentDate.innerText = getTimeSincePost(postsData[i].created_at);
-    commentContent.html = postsData[i].cooked;
+    const text = htmlToText(postsData[i].cooked, {
+      wordwrap: 130
+    });
+    commentContent.innerText = text;
   }
 
   for (let i = numberOfComments; i < numberOfCommentsLimit; i++) {
@@ -135,6 +138,8 @@ function getTimeSincePost(created_at) {
   const timeSincePost = now - postDate;
   //convert to days
   const timeSincePostInDays = timeSincePost / (1000 * 3600 * 24);
+  //remove decimals
+  timeSincePostInDays = Math.floor(timeSincePostInDays);
   return timeSincePostInDays;
 }
 
