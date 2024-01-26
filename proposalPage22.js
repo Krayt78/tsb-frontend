@@ -137,7 +137,7 @@ function getTimeSincePost(created_at) {
   const now = new Date();
   const timeSincePost = now - postDate;
   //convert to days
-  const timeSincePostInDays = timeSincePost / (1000 * 3600 * 24);
+  let timeSincePostInDays = timeSincePost / (1000 * 3600 * 24);
   //remove decimals
   timeSincePostInDays = Math.floor(timeSincePostInDays);
   return timeSincePostInDays;
