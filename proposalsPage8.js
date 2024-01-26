@@ -72,40 +72,15 @@ function handleFilterButtons() {
     });
 }
 
-async function testQueryGeraldineProposals() {
-    const url = 'https://testnet.hub.snapshot.org/graphql';
-    const query = `query {
-      proposals(first: 20, skip: 0, where: {space_in: ["geraldinehenry.eth"]}, orderBy: "created", orderDirection: desc) {
-        id
-        title
-        body
-        choices
-        start
-        end
-        snapshot
-        state
-        scores
-        scores_by_strategy
-        scores_total
-        scores_updated
-        votes
-        author
-        space {
-          id
-          name
-        }
-      }
-    }`;
+async function fetchProposalsData() {
+    const url = 'https://api.tsbdao.com/proposals/';
     const options = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query })
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
     };
 
     const response = await fetch(url, options);
-    const json = await response.json();
-    console.log(json);
-    return json.data.proposals;
+    return await response.json();
 }
 
 function getTimer(endTime) {
@@ -176,7 +151,7 @@ function hideInitialComponent() {
 }
 
 async function main() {
-    proposalsData = await testQueryGeraldineProposals();
+    proposalsData = await fetchProposalsData();
     for (let i = 0; i < proposalsData.length; i++) {
         var duplicatedComponent = component.cloneNode(true);
         if (duplicatedComponent) {
