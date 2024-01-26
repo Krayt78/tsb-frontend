@@ -1,4 +1,3 @@
-const { convert } = require('html-to-text');
 const quorum = 500;
 const numberOfChoicesLimit = 15;
 const numberOfCommentsLimit = 3;
@@ -121,10 +120,7 @@ async function getLastDiscourseComments(proposalData) {
 
     commentAuthorName.innerText = postsData[i].username;
     commentDate.innerText = getTimeSincePost(postsData[i].created_at);
-    const text = convert(postsData[i].cooked, {
-      wordwrap: 130
-    });
-    commentContent.innerText = text;
+    commentContent.innerText = convertHTMLToText(postsData[i].cooked);
   }
 
   for (let i = numberOfComments; i < numberOfCommentsLimit; i++) {
@@ -133,12 +129,20 @@ async function getLastDiscourseComments(proposalData) {
   }
 }
 
+function convertCookedToText(cooked) {
+  const html = cooked;
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  const text = div.textContent || div.innerText || "";
+  return text;
+}
+
 function getTimeSincePost(created_at) {
   const postDate = new Date(created_at);
   const now = new Date();
   const timeSincePost = now - postDate;
   //convert to days
-  let timeSincePostInDays = timeSincePost / (1000 * 3600 * 24);
+  const timeSincePostInDays = timeSincePost / (1000 * 3600 * 24);
   //remove decimals
   timeSincePostInDays = Math.floor(timeSincePostInDays);
   return timeSincePostInDays;
