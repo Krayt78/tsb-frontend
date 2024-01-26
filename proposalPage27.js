@@ -170,12 +170,6 @@ async function postsInTopic(id) {
   var data = await result.json();
   const posts = data;
   console.log(posts);
-
-  //remove first post (its the topic)
-  posts.shift();
-  console.log(posts);
-  //only keep the last 3 posts
-  posts.splice(3, posts.length - 3);
   return posts;
 }
 
