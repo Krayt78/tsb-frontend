@@ -1,5 +1,6 @@
 const quorum = 500;
 const numberOfChoicesLimit = 15;
+const numberOfCommentsLimit = 3;
 
 const title = document.getElementById("sip-title");
 const category = document.getElementById("sip-category");
@@ -105,6 +106,36 @@ async function getLastDiscourseComments(proposalData) {
   });
 
   console.log(postsData);
+
+
+  let numberOfComments = numberOfCommentsLimit;
+  if(postsData.length < numberOfCommentsLimit) {
+    numberOfComments = postsData.length;
+  }
+
+  for (let i = 0; i < numberOfComments; i++) {
+    const commentAuthorName = document.getElementById("comment-name" + (i + 1));
+    const commentDate = document.getElementById("comment-days" + (i + 1));
+    const commentContent = document.getElementById("comment-text" + (i + 1));
+
+    commentAuthorName.innerText = postsData[i].username;
+    commentDate.innerText = getTimeSincePost(postsData[i].created_at);
+    commentContent.innerText = postsData[i].cooked;
+  }
+
+  for (let i = numberOfComments; i < numberOfCommentsLimit; i++) {
+    const comment = document.getElementById("comment" + (i + 1));
+    comment.style.display = "none";
+  }
+}
+
+async function getTimeSincePost(created_at) {
+  const postDate = new Date(created_at);
+  const now = new Date();
+  const timeSincePost = now - postDate;
+  //convert to days
+  const timeSincePostInDays = timeSincePost / (1000 * 3600 * 24);
+  return timeSincePostInDays;
 }
 
 async function postsInTopic(id) {
