@@ -17,7 +17,7 @@ const proposalDetails = document.getElementById("filter-all-nb");
 const proposalContent = document.getElementById("proposal-content");
 
 async function fetchProposalData(proposalId) {
-  const url = `https://15.188.214.102:3000/api/proposals/${proposalId}`;
+  const url = `https://api.tsbdao.com/proposals/${proposalId}`;
   const options = {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
@@ -108,7 +108,7 @@ async function getLastDiscourseComments(proposalData) {
 }
 
 async function postsInTopic(id) {
-  var url = `https://15.188.214.102:3000/api/discourse/${id}`;
+  var url = `https://api.tsbdao.com/discourse/${id}`;
   var result = await fetch
     (url,
       {
