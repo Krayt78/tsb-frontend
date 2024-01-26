@@ -1,5 +1,5 @@
 const quorum = 500;
-const numberOfChoicesLimit = 5;
+const numberOfChoicesLimit = 15;
 
 const title = document.getElementById("sip-title");
 const category = document.getElementById("sip-category");
