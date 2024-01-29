@@ -1,3 +1,23 @@
+const { ethers } = require("ethers");
+
+async function checkIfWalletConnected() {
+  const provider = new ethers.BrowserProvider(window.ethereum)
+  const signer = await provider.getSigner();
+  const walletAddress = await signer.getAddress();
+  const walletBalance = await signer.provider.getBalance(walletAddress);
+  console.log("WalletAddress:" + walletAddress);
+  console.log("WalletBalance:" + walletBalance.toString());
+  const walletNetwork = await signer.provider.getNetwork();
+  console.log("WalletNetwork:" + walletNetwork.name);
+
+  if (walletAddress == null) {
+    return false;
+  }
+  else {
+    return true;
+  }
+}
+
 const quorum = 500;
 const numberOfChoicesLimit = 15;
 const numberOfCommentsLimit = 3;
@@ -99,7 +119,10 @@ function setButtons(proposalData) {
   const url = proposalData.discussion;
   discussProposalBtn.setAttribute("href", url);
 
-  //voteBtn.setAttribute("href", url2);
+  voteBtn.addEventListener("click", async function () {
+    const isConnected = await checkIfWalletConnected();
+    console.log(isConnected);
+  });
 }
 
 async function getLastDiscourseComments(proposalData) {
