@@ -1,7 +1,7 @@
 async function voteMainBody() {
     const hub = 'https://testnet.hub.snapshot.org'; // or https://hub.snapshot.org for mainnet
     const client = new snapshot.Client712(hub);
-    const web3 = new Web3Provider(window.ethereum);
+    const web3 = new ethers.BrowserProvider(window.ethereum);
     const [account] = await web3.listAccounts();
 
     const voteNb = document.getElementById("sip-vote-nb");
