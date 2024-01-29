@@ -1,6 +1,8 @@
+//check if snapshot is imported correctly
+console.log(snapshot);
 async function voteMainBody() {
     const hub = 'https://testnet.hub.snapshot.org'; // or https://hub.snapshot.org for mainnet
-    const client = new snapshot.Client712(hub);
+    const client = new snapshot.Client(hub);
     const web3 = new ethers.BrowserProvider(window.ethereum);
     const [account] = await web3.listAccounts();
 
