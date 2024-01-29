@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@snapshot-labs/snapshot.js": "^0.10.1",
     "ethers": "^6.9.0",
     "marked": "^11.1.1"
   }
