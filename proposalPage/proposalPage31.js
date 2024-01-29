@@ -28,7 +28,7 @@ const sipStatus = document.getElementById("sip-status");
 
 const author = document.getElementById("sip-author");
 const endDate = document.getElementById("sip-date");
-const snapshot = document.getElementById("sip-snapshot");
+const sipSnapshot = document.getElementById("sip-snapshot");
 
 const voteNb = document.getElementById("sip-vote-nb");
 const votesLeftToQuorum = document.getElementById("quorum-nb");
@@ -61,7 +61,7 @@ function setValuesFromProposalData(proposalData) {
 
   author.innerText = "Arasakio";//proposalData.author;
   endDate.innerText = new Date(proposalData.end * 1000);
-  snapshot.innerText = proposalData.snapshot;
+  sipSnapshot.innerText = proposalData.sipSnapshot;
 
   const mdParser = new marked.Marked(); // import marked module first
   const html = mdParser.parse(proposalData.body); //TODO: Warning: 🚨 Marked does not sanitize the output HTML. Please use a sanitize library, like DOMPurify (recommended), sanitize-html or insane on the output HTML! 
