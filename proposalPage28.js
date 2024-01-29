@@ -13,9 +13,13 @@ const snapshot = document.getElementById("sip-snapshot");
 const voteNb = document.getElementById("sip-vote-nb");
 const votesLeftToQuorum = document.getElementById("quorum-nb");
 const votesToQuorum = document.getElementById("sip-quorum");
+const quorumReached = document.getElementById("sip-quorum-reached");
 
 const proposalDetails = document.getElementById("filter-all-nb");
 const proposalContent = document.getElementById("proposal-content");
+
+const discussProposalBtn = document.getElementById("proposal-discourse");
+const voteBtn = document.getElementById("proposal-link");
 
 async function fetchProposalData(proposalId) {
   const url = `https://api.tsbdao.com/proposals/${proposalId}`;
@@ -48,10 +52,12 @@ function setValuesFromProposalData(proposalData) {
   if (proposalData.votes > quorum) {
     votesLeftToQuorum.style.visibility = "hidden";
     votesToQuorum.style.visibility = "hidden";
+    quorumReached.style.visibility = "visible";
   }
   else {
     votesLeftToQuorum.innerText = quorum - proposalData.votes;
     votesToQuorum.style.visibility = "block";
+    quorumReached.style.visibility = "hidden";
   }
 
   const numberOfChoices = proposalData.choices.length;
@@ -89,6 +95,13 @@ function setValuesFromProposalData(proposalData) {
   }
 }
 
+function setButtons(proposalData) {
+  const url = proposalData.discussion;
+  discussProposalBtn.setAttribute("href", url);
+
+  //voteBtn.setAttribute("href", url2);
+}
+
 async function getLastDiscourseComments(proposalData) {
   const discourseUrl = proposalData.discussion;
   console.log(discourseUrl);
@@ -109,30 +122,38 @@ async function getLastDiscourseComments(proposalData) {
 
 
   let numberOfComments = numberOfCommentsLimit;
-  if(postsData.length < numberOfCommentsLimit) {
+  if (postsData.length < numberOfCommentsLimit) {
     numberOfComments = postsData.length;
   }
 
-  for (let i = 0; i < numberOfComments; i++) {
-    const commentAuthorName = document.getElementById("comment-name" + (i + 1));
-    const commentDate = document.getElementById("comment-days" + (i + 1));
-    const commentContent = document.getElementById("comment-text" + (i + 1));
-
-    commentAuthorName.innerText = postsData[i].username;
-    commentDate.innerText = getTimeSincePost(postsData[i].created_at);
-    let text = convertCookedToText(postsData[i].cooked);
-    //limit the text to 200 characters
-    text = text.substring(0, 200);
-    //add ... at the end if the text is too long
-    if (text.length == 200) {
-      text += "...";
+  if (numberOfComments == 0) {
+    for (let i = 0; i < numberOfCommentsLimit; i++) {
+      const comment = document.getElementById("comment" + (i + 1));
+      comment.style.display = "none";
     }
-    commentContent.innerText = text;
   }
+  else {
+    for (let i = 0; i < numberOfComments; i++) {
+      const commentAuthorName = document.getElementById("comment-name" + (i + 1));
+      const commentDate = document.getElementById("comment-days" + (i + 1));
+      const commentContent = document.getElementById("comment-text" + (i + 1));
 
-  for (let i = numberOfComments; i < numberOfCommentsLimit; i++) {
-    const comment = document.getElementById("comment" + (i + 1));
-    comment.style.display = "none";
+      commentAuthorName.innerText = postsData[i].username;
+      commentDate.innerText = getTimeSincePost(postsData[i].created_at);
+      let text = convertCookedToText(postsData[i].cooked);
+      //limit the text to 200 characters
+      text = text.substring(0, 200);
+      //add ... at the end if the text is too long
+      if (text.length == 200) {
+        text += "...";
+      }
+      commentContent.innerText = text;
+    }
+
+    for (let i = numberOfComments; i < numberOfCommentsLimit; i++) {
+      const comment = document.getElementById("comment" + (i + 1));
+      comment.style.display = "none";
+    }
   }
 }
 
@@ -181,6 +202,7 @@ async function main() {
   console.log(proposalId);
   const proposalData = await fetchProposalData(proposalId);
   setValuesFromProposalData(proposalData);
+  setButtons(proposalData);
   await getLastDiscourseComments(proposalData);
 }
 
