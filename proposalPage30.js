@@ -1,4 +1,4 @@
-const { ethers } = require("ethers");
+//const { ethers } = require("ethers");
 
 async function checkIfWalletConnected() {
   const provider = new ethers.BrowserProvider(window.ethereum)
