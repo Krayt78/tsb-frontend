@@ -1,6 +1,3 @@
-import snapshot from '@snapshot-labs/snapshot.js';
-import { Web3Provider } from '@ethersproject/providers';
-
 async function voteMainBody() {
     const hub = 'https://testnet.hub.snapshot.org'; // or https://hub.snapshot.org for mainnet
     const client = new snapshot.Client712(hub);
