@@ -30,7 +30,7 @@ async function voteMainBody() {
                 space: proposalSpace,
                 proposal: proposalId,
                 type: proposalType,
-                choice: proposalChoices[0],
+                choice: 0,
                 reason: 'Choice 0 make lot of sense'
             });
 
