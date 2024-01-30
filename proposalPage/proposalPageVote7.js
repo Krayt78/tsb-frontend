@@ -1,3 +1,5 @@
+const Web3Provider = window.Web3Provider;
+
 async function voteMainBody() {
     const hub = 'https://testnet.hub.snapshot.org'; // or https://hub.snapshot.org for mainnet
     const client = new snapshot.Client712(hub);
@@ -20,4 +22,3 @@ async function voteMainBody() {
 }
 
 voteMainBody();
-
