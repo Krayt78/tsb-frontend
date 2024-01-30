@@ -1,4 +1,3 @@
-const voteNb = document.getElementById("sip-vote-nb");
 const modalValidation = document.getElementById("modal-validation");
 
 async function voteMainBody() {
