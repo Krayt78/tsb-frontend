@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 
 // Get the button element with id
 const connectButton = document.getElementById("connectButton");
-
+const loginModal = document.getElementById("modal-login");
 
 const polygonChainId = 137;
 const ethereumChainId = 1;
@@ -28,13 +28,12 @@ async function getWalletERC721Balance(walletAddress, tokenAddress, signer) {
     return tokenBalance;
 }
 
-const loginModal = document.getElementById("modal-login");
 // Add event listener to the connectButton
 connectButton.addEventListener("click", async () => {
     // Do something when the button is clicked
     // Add your code here
     console.log("Connect button clicked");
-    loginModal.style.visibility = "visible";
+    loginModal.style.display = "block";
     // Get the provider and signer from the browser window
     /*const provider = new ethers.BrowserProvider(window.ethereum)
     const signer = await provider.getSigner();

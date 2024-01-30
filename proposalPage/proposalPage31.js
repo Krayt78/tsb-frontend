@@ -119,10 +119,10 @@ function setButtons(proposalData) {
   const url = proposalData.discussion;
   discussProposalBtn.setAttribute("href", url);
 
-  voteBtn.addEventListener("click", async function () {
+  /*voteBtn.addEventListener("click", async function () {
     const isConnected = await checkIfWalletConnected();
     console.log(isConnected);
-  });
+  });*/
 }
 
 async function getLastDiscourseComments(proposalData) {

@@ -1,15 +1,15 @@
+const voteNb = document.getElementById("sip-vote-nb");
+const modalValidation = document.getElementById("modal-validation");
+
 async function voteMainBody() {
     const hub = 'https://testnet.hub.snapshot.org'; // or https://hub.snapshot.org for mainnet
     const client = new snapshot.Client712(hub);
     const web3 = new ethers.providers.Web3Provider(window.ethereum);
     const [account] = await web3.listAccounts();
 
-    const voteNb = document.getElementById("sip-vote-nb");
-    const modalValidation = document.getElementById("modal-validation");
-
     voteBtn.addEventListener("click", async function () {
         console.log("Vote button clicked");
-        modalValidation.style.visibility = "visible";
+        modalValidation.style.display = "block";
     });
 }
 
