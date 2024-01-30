@@ -8,7 +8,7 @@ async function voteMainBody() {
 
     voteBtn.addEventListener("click", async function () {
         console.log("Vote button clicked");
-        modalValidation.style.display = "block";
+        modalValidation.style.display = "flex";
     });
 }
 
