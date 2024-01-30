@@ -31,7 +31,8 @@ async function voteMainBody() {
                 proposal: proposalId,
                 type: proposalType,
                 choice: 1,
-                reason: 'Choice 0 make lot of sense'
+                reason: 'Choice 0 make lot of sense',
+                app: 'my-app'
             });
 
             console.log(receipt);
