@@ -13,13 +13,24 @@ async function voteMainBody() {
     });
 
     voteConfirmBtn.addEventListener("click", async function () {
+        if(!proposalData){
+            console.log("No proposal data");
+            return;
+        }
+
+        console.log(proposalData);
+
+        const proposalSpace = proposalData.space;
+        const proposalId = proposalData.id;
+        const proposalType = proposalData.type;
+        const proposalChoices = proposalData.choices;
+
         const receipt = await client.vote(web3, account, {
-            space: 'yam.eth',
-            proposal: '0x21ea31e896ec5b5a49a3653e51e787ee834aaf953263144ab936ed756f36609f',
-            type: 'single-choice',
-            choice: 1,
-            reason: 'Choice 1 make lot of sense',
-            app: 'my-app'
+            space: proposalSpace,
+            proposal: proposalId,
+            type: proposalType,
+            choice: 0,
+            reason: 'Choice 0 make lot of sense'
         });
     });
 }

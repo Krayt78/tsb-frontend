@@ -1,21 +1,4 @@
-async function checkIfWalletConnected() {
-  const provider = new ethers.BrowserProvider(window.ethereum)
-  const signer = await provider.getSigner();
-  const walletAddress = await signer.getAddress();
-  const walletBalance = await signer.provider.getBalance(walletAddress);
-  console.log("WalletAddress:" + walletAddress);
-  console.log("WalletBalance:" + walletBalance.toString());
-  const walletNetwork = await signer.provider.getNetwork();
-  console.log("WalletNetwork:" + walletNetwork.name);
-
-  if (walletAddress == null) {
-    return false;
-  }
-  else {
-    return true;
-  }
-}
-
+let proposalData = null;
 const quorum = 500;
 const numberOfChoicesLimit = 15;
 const numberOfCommentsLimit = 3;
@@ -215,13 +198,15 @@ async function postsInTopic(id) {
   return posts;
 }
 
+
+
 async function main() {
   //get proposal id from url
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const proposalId = urlParams.get('id');
   console.log(proposalId);
-  const proposalData = await fetchProposalData(proposalId);
+  proposalData = await fetchProposalData(proposalId);
   setValuesFromProposalData(proposalData);
   setButtons(proposalData);
   await getLastDiscourseComments(proposalData);
