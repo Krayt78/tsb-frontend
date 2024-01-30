@@ -25,13 +25,17 @@ async function voteMainBody() {
         const proposalType = proposalData.type;
         const proposalChoices = proposalData.choices;
 
+        const choice = {
+            "1": 1,
+        }
+
         try {
             const receipt = await client.vote(web3, account, {
                 space: proposalSpace,
                 proposal: proposalId,
                 type: proposalType,
-                choice: 1,
-                reason: 'Choice 0 make lot of sense',
+                choice: choice,
+                reason: 'Choice 1 make lot of sense',
                 app: 'my-app'
             });
 
