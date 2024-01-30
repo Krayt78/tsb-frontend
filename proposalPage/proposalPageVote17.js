@@ -13,7 +13,7 @@ async function voteMainBody() {
     });
 
     voteConfirmBtn.addEventListener("click", async function () {
-        if(!proposalData){
+        if (!proposalData) {
             console.log("No proposal data");
             return;
         }
@@ -25,13 +25,21 @@ async function voteMainBody() {
         const proposalType = proposalData.type;
         const proposalChoices = proposalData.choices;
 
-        const receipt = await client.vote(web3, account, {
-            space: proposalSpace,
-            proposal: proposalId,
-            type: proposalType,
-            choice: 0,
-            reason: 'Choice 0 make lot of sense'
-        });
+        try {
+            const receipt = await client.vote(web3, account, {
+                space: proposalSpace,
+                proposal: proposalId,
+                type: proposalType,
+                choice: proposalChoices[0],
+                reason: 'Choice 0 make lot of sense'
+            });
+
+            console.log(receipt);
+        }
+        catch (error) {
+            console.log(error);
+        }
+
     });
 }
 
