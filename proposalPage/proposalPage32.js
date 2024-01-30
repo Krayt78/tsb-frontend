@@ -1,5 +1,3 @@
-//const { ethers } = require("ethers");
-
 async function checkIfWalletConnected() {
   const provider = new ethers.BrowserProvider(window.ethereum)
   const signer = await provider.getSigner();
