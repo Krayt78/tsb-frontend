@@ -45,7 +45,7 @@ function closeLoginModal() {
 }
 
 function hideLoginButton() {
-    connectButton.style.display = "none";
+    loginButton.style.display = "none";
 }
 
 function showVoteButton() {
