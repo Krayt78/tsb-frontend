@@ -34,7 +34,7 @@ connectButton.addEventListener("click", async () => {
     // Do something when the button is clicked
     // Add your code here
     console.log("Connect button clicked");
-    loginModal.style.display = "block";
+    loginModal.style.visibility = "visible";
     // Get the provider and signer from the browser window
     /*const provider = new ethers.BrowserProvider(window.ethereum)
     const signer = await provider.getSigner();
