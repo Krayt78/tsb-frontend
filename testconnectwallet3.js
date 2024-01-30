@@ -16,6 +16,9 @@ async function checkIfLoggedIn(){
         hideLoginButton();
         showVoteButton();
     }
+    else{
+        hideVoteButton();
+    }
 }
 
 // Add event listener to the connectButton
@@ -50,6 +53,10 @@ function hideLoginButton() {
 
 function showVoteButton() {
     voteBtnNavbar.style.display = "flex";
+}
+
+function hideVoteButton() {
+    voteBtnNavbar.style.display = "none";
 }
 
 checkIfLoggedIn();
