@@ -20,7 +20,7 @@ async function voteMainBody() {
 
         console.log(proposalData);
 
-        const proposalSpace = proposalData.space;
+        const proposalSpace = proposalData.space.id;
         const proposalId = proposalData.id;
         const proposalType = proposalData.type;
         const proposalChoices = proposalData.choices;
