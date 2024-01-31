@@ -41,8 +41,9 @@ function setValuesFromProposalData(proposalData) {
   //category.innerHTML = proposalData.space.name;
 
   console.log(proposalData.state);
-  console.log(sipStatus.textContent);
-  sipStatus.textContent = proposalData.state;
+  console.log(sipStatus.innerText);
+  sipStatus.innerText = proposalData.state;
+  console.log(sipStatus.innerText);
 
   author.innerText = proposalData.author;
   endDate.innerText = new Date(proposalData.end * 1000);
