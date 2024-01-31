@@ -5,15 +5,24 @@ let metamaskBtn;
 
 loginButton = document.getElementById("loginButton");
 loginModal = document.getElementById("modal-login");
-
-console.log(loginButton);
-console.log(loginModal);
-
 voteBtnNavbar = document.getElementById("vote-btn-navbar");
 metamaskBtn = document.getElementById("metamask-button");
 
-console.log(voteBtnNavbar);
-console.log(metamaskBtn);
+function closeLoginModal() {
+    loginModal.style.display = "none";
+}
+
+function hideLoginButton() {
+    loginButton.style.display = "none";
+}
+
+function showVoteButton() {
+    voteBtnNavbar.style.display = "flex";
+}
+
+function hideVoteButton() {
+    voteBtnNavbar.style.display = "none";
+}
 
 // Add event listener to the connectButton
 loginButton.addEventListener("click", async () => {
@@ -58,6 +67,7 @@ const isMetaMaskConnected = async () => {
 
 async function checkIfLoggedIn() {
     const isConnected = await isMetaMaskConnected();
+    console.log(isConnected);
     if (isConnected) {
         hideLoginButton();
         showVoteButton();
@@ -67,20 +77,6 @@ async function checkIfLoggedIn() {
     }
 }
 
-function closeLoginModal() {
-    loginModal.style.display = "none";
-}
 
-function hideLoginButton() {
-    loginButton.style.display = "none";
-}
-
-function showVoteButton() {
-    voteBtnNavbar.style.display = "flex";
-}
-
-function hideVoteButton() {
-    voteBtnNavbar.style.display = "none";
-}
 
 checkIfLoggedIn();
