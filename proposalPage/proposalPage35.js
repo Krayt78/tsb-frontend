@@ -44,9 +44,8 @@ function setValuesFromProposalData(proposalData) {
   author.innerText = proposalData.author;
   endDate.innerText = new Date(proposalData.end * 1000);
   
-  const snapshotUrl = snapshotUrl + proposalData.id;
   sipSnapshot.innerText = proposalData.id;
-  sipSnapshot.setAttribute("href", snapshotUrl);
+  sipSnapshot.setAttribute("href", snapshotUrl + proposalData.id);
 
   const mdParser = new marked.Marked(); // import marked module first
   const html = mdParser.parse(proposalData.body); //TODO: Warning: 🚨 Marked does not sanitize the output HTML. Please use a sanitize library, like DOMPurify (recommended), sanitize-html or insane on the output HTML! 
