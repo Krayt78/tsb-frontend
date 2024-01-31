@@ -50,8 +50,6 @@ metamaskBtn.addEventListener("click", async () => {
     showVoteButton();
 });
 
-checkIfLoggedIn();
-
 const isMetaMaskConnected = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const accounts = await provider.listAccounts();
@@ -84,3 +82,5 @@ function showVoteButton() {
 function hideVoteButton() {
     voteBtnNavbar.style.display = "none";
 }
+
+checkIfLoggedIn();
