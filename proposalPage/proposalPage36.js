@@ -39,12 +39,18 @@ async function fetchProposalData(proposalId) {
 function setValuesFromProposalData(proposalData) {
   title.innerText = proposalData.title;
   //category.innerHTML = proposalData.space.name;
+
+  console.log(proposalData.state);
+  console.log(sipStatus);
   sipStatus.innerText = proposalData.state;
 
   author.innerText = proposalData.author;
   endDate.innerText = new Date(proposalData.end * 1000);
   
-  sipSnapshot.innerText = proposalData.id;
+  const proposalId = proposalData.id;
+  proposalId = proposalId.substring(0, 7);
+  proposalId += "...";
+  sipSnapshot.innerText = proposalId;
   sipSnapshot.setAttribute("href", snapshotUrl + proposalData.id);
 
   const mdParser = new marked.Marked(); // import marked module first
