@@ -1,6 +1,7 @@
 const modalValidation = document.getElementById("modal-validation");
 const voteConfirmBtn = document.getElementById("vote-confirmation");
 const logInToVoteBtn = document.getElementById("login-vote");
+const voteBtn = document.getElementById("vote-btn");
 
 function hideLoginButton() {
     logInToVoteBtn.style.display = "none";

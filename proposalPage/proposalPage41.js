@@ -22,7 +22,6 @@ const proposalDetails = document.getElementById("filter-all-nb");
 const proposalContent = document.getElementById("proposal-content");
 
 const discussProposalBtn = document.getElementById("proposal-discourse");
-const voteBtn = document.getElementById("proposal-link");
 
 async function fetchProposalData(proposalId) {
   const url = `https://api.tsbdao.com/proposals/${proposalId}`;
@@ -107,11 +106,6 @@ function setValuesFromProposalData(proposalData) {
 function setButtons(proposalData) {
   const url = proposalData.discussion;
   discussProposalBtn.setAttribute("href", url);
-
-  /*voteBtn.addEventListener("click", async function () {
-    const isConnected = await checkIfWalletConnected();
-    console.log(isConnected);
-  });*/
 }
 
 async function getLastDiscourseComments(proposalData) {
