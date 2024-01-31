@@ -25,7 +25,13 @@ async function voteMainBody() {
         const proposalType = proposalData.type;
         const proposalChoices = proposalData.choices;
 
-        const choice = {
+        let choice = {};
+        
+        for (let i = 0; i < proposalChoices.length; i++) {
+            choice[i] = i;
+        }
+
+        choice = {
             "1": 1,
         }
 

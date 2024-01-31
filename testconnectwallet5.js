@@ -1,6 +1,8 @@
 const loginButton = document.getElementById("loginButton");
 const loginModal = document.getElementById("modal-login");
 
+console.log(loginButton);
+
 const voteBtnNavbar = document.getElementById("vote-btn-navbar");
 const metamaskBtn = document.getElementById("metamask-button");
 
