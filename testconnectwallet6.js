@@ -6,6 +6,8 @@ console.log(loginButton);
 const voteBtnNavbar = document.getElementById("vote-btn-navbar");
 const metamaskBtn = document.getElementById("metamask-button");
 
+console.log(metamaskBtn);
+
 const isMetaMaskConnected = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const accounts = await provider.listAccounts();
