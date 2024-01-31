@@ -1,12 +1,17 @@
+let loginButton;
+let loginModal;
+let voteBtnNavbar;
+let metamaskBtn;
+
 document.addEventListener("DOMContentLoaded", function () {
-    const loginButton = document.getElementById("loginButton");
-    const loginModal = document.getElementById("modal-login");
+    loginButton = document.getElementById("loginButton");
+    loginModal = document.getElementById("modal-login");
 
     console.log(loginButton);
     console.log(loginModal);
 
-    const voteBtnNavbar = document.getElementById("vote-btn-navbar");
-    const metamaskBtn = document.getElementById("metamask-button");
+    voteBtnNavbar = document.getElementById("vote-btn-navbar");
+    metamaskBtn = document.getElementById("metamask-button");
 
     console.log(voteBtnNavbar);
     console.log(metamaskBtn);
@@ -49,8 +54,6 @@ document.addEventListener("DOMContentLoaded", function () {
     checkIfLoggedIn();
 });
 
-
-
 const isMetaMaskConnected = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const accounts = await provider.listAccounts();
@@ -68,8 +71,6 @@ async function checkIfLoggedIn() {
     }
 }
 
-
-
 function closeLoginModal() {
     loginModal.style.display = "none";
 }
@@ -85,5 +86,9 @@ function showVoteButton() {
 function hideVoteButton() {
     voteBtnNavbar.style.display = "none";
 }
+
+
+
+
 
 
