@@ -24,8 +24,8 @@ loginButton.addEventListener("click", async () => {
     console.log("Login button clicked");
     loginModal.style.display = "flex";
 
-    console.log(loginButton.style.display);
-    console.log(voteBtnNavbar.style.display);
+    console.log(loginButton.style);
+    console.log(voteBtnNavbar.style);
 });
 
 metamaskBtn.addEventListener("click", async () => {
