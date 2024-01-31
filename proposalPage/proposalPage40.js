@@ -7,6 +7,7 @@ const snapshotUrl = "https://testnet.snapshot.org/#/geraldinehenry.eth/proposal/
 const title = document.getElementById("sip-title");
 const category = document.getElementById("sip-category");
 const sipStatus = document.getElementById("sip-status");
+const sipStatusDetails = document.getElementById("sip-status-details");
 
 const author = document.getElementById("sip-author");
 const endDate = document.getElementById("sip-date");
@@ -38,12 +39,9 @@ async function fetchProposalData(proposalId) {
 
 function setValuesFromProposalData(proposalData) {
   title.innerText = proposalData.title;
-  //category.innerHTML = proposalData.space.name;
 
-  console.log(proposalData.state);
-  console.log(sipStatus.innerText);
   sipStatus.innerText = proposalData.state;
-  console.log(sipStatus.innerText);
+  sipStatusDetails.innerText = proposalData.state;
 
   author.innerText = proposalData.author;
   endDate.innerText = new Date(proposalData.end * 1000);
