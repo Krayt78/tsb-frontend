@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log(voteBtnNavbar);
     console.log(metamaskBtn);
-    
+
     // Add event listener to the connectButton
     loginButton.addEventListener("click", async () => {
         console.log("Login button clicked");
@@ -37,11 +37,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const signer = provider.getSigner();
 
             // Fetch the account balance
-            const address = '0x7C76C63DB86bfB5437f7426F4C37b15098Bb81da'; // Replace with your desired address
-            const balance = await provider.getBalance(address);
-            const formattedBalance = ethers.utils.formatEther(balance);
-
-            console.log(`Account balance: ${formattedBalance} ETH`);
+            const address = await signer.getAddress();
+            console.log('Address:', address);
         } catch (error) {
             console.error('Error occurred while fetching the account balance:', error);
         }
@@ -86,9 +83,3 @@ function showVoteButton() {
 function hideVoteButton() {
     voteBtnNavbar.style.display = "none";
 }
-
-
-
-
-
-
