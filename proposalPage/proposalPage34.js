@@ -2,6 +2,7 @@ let proposalData = null;
 const quorum = 500;
 const numberOfChoicesLimit = 15;
 const numberOfCommentsLimit = 3;
+const snapshotUrl = "https://testnet.snapshot.org/#/geraldinehenry.eth/proposal/";
 
 const title = document.getElementById("sip-title");
 const category = document.getElementById("sip-category");
@@ -40,9 +41,12 @@ function setValuesFromProposalData(proposalData) {
   //category.innerHTML = proposalData.space.name;
   sipStatus.innerText = proposalData.state;
 
-  author.innerText = "Arasakio";//proposalData.author;
+  author.innerText = proposalData.author;
   endDate.innerText = new Date(proposalData.end * 1000);
-  sipSnapshot.innerText = proposalData.sipSnapshot;
+  
+  const snapshotUrl = snapshotUrl + proposalData.id;
+  sipSnapshot.innerText = proposalData.id;
+  sipSnapshot.setAttribute("href", snapshotUrl);
 
   const mdParser = new marked.Marked(); // import marked module first
   const html = mdParser.parse(proposalData.body); //TODO: Warning: 🚨 Marked does not sanitize the output HTML. Please use a sanitize library, like DOMPurify (recommended), sanitize-html or insane on the output HTML! 
