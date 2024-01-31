@@ -25,7 +25,9 @@ async function voteMainBody() {
     const web3 = new ethers.providers.Web3Provider(window.ethereum);
     const [account] = await web3.listAccounts();
 
-    if(isMetaMaskConnected()) //its in testconnectwallet11.js
+    const isConnected = await isMetaMaskConnected();
+    console.log(isConnected);
+    if(isConnected) //its in testconnectwallet11.js
     {
         hideLoginButton();
         showVoteButton();
