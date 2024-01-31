@@ -26,12 +26,15 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Metamask button clicked");
         try {
             // Check if MetaMask is installed and connected
-            if (!window.ethereum || !window.ethereum.isConnected()) {
-                throw new Error('Please install MetaMask and connect to an Ethereum network');
+            if (!window.ethereum) {
+                throw new Error('Please install MetaMask');
             }
 
             // Create a new ethers provider with MetaMask's provider
             const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+            // Prompt user for account connections
+            await provider.send("eth_requestAccounts", []);
 
             // Get the signer object for the connected account
             const signer = provider.getSigner();
