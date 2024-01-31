@@ -28,6 +28,13 @@ loginButton.addEventListener("click", async () => {
     console.log(voteBtnNavbar.style);
 });
 
+voteBtnNavbar.addEventListener("click", async () => {
+    console.log("voteBtnNavbar clicked");
+
+    console.log(loginButton.style);
+    console.log(voteBtnNavbar.style);
+});
+
 metamaskBtn.addEventListener("click", async () => {
     console.log("Metamask button clicked");
     try {
