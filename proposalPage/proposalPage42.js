@@ -114,7 +114,19 @@ async function getLastDiscourseComments(proposalData) {
   const discourseTopicId = discourseUrl.split("/")[5];
   console.log(discourseTopicId);
 
-  const posts = await postsInTopic(discourseTopicId);
+  let posts;
+  try{
+    posts = await postsInTopic(discourseTopicId);
+  }
+  catch(error){
+    console.log(error);
+    for (let i = 0; i < numberOfCommentsLimit; i++) {
+      const comment = document.getElementById("comment" + (i + 1));
+      comment.style.display = "none";
+    }
+    return;
+  }
+  
   //only keep the username, the create_at and the cooked (the content)
   const postsData = posts.map(post => {
     return {

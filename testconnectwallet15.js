@@ -1,12 +1,7 @@
-let loginButton;
-let loginModal;
-let voteBtnNavbar;
-let metamaskBtn;
-
-loginButton = document.getElementById("loginButton");
-loginModal = document.getElementById("modal-login");
-voteBtnNavbar = document.getElementById("vote-btn-navbar");
-metamaskBtn = document.getElementById("metamask-button");
+const loginButton = document.getElementById("loginButton");
+const loginModal = document.getElementById("modal-login");
+const voteBtnNavbar = document.getElementById("vote-btn-navbar");
+const metamaskBtn = document.getElementById("metamask-button");
 
 function closeLoginModal() {
     loginModal.style.display = "none";
@@ -28,6 +23,9 @@ function hideVoteButton() {
 loginButton.addEventListener("click", async () => {
     console.log("Login button clicked");
     loginModal.style.display = "flex";
+
+    console.log(loginButton.style.display);
+    console.log(voteBtnNavbar.style.display);
 });
 
 metamaskBtn.addEventListener("click", async () => {
