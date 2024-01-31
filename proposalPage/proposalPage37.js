@@ -41,13 +41,13 @@ function setValuesFromProposalData(proposalData) {
   //category.innerHTML = proposalData.space.name;
 
   console.log(proposalData.state);
-  console.log(sipStatus);
+  console.log(sipStatus.innerText);
   sipStatus.innerText = proposalData.state;
 
   author.innerText = proposalData.author;
   endDate.innerText = new Date(proposalData.end * 1000);
   
-  const proposalId = proposalData.id;
+  let proposalId = proposalData.id;
   proposalId = proposalId.substring(0, 7);
   proposalId += "...";
   sipSnapshot.innerText = proposalId;
