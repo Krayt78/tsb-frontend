@@ -67,21 +67,28 @@ async function voteMainBody() {
         const proposalChoices = proposalData.choices;
 
         let choices = getAllChoices();
-        console.log(choices);
+        const totalVotes = Object.values(choices).reduce((a, b) => a + b, 0);
+        console.log(totalVotes);
 
-        let choicesObject = {};
-        for (let i = 1; i <= proposalChoices.length; i++) {
-            choicesObject[i] = choices[i];
+        const modalChoice = document.getElementById("modal-choice");
+        let choiceString = "";
+        for (let i = 1; i <= proposalData.choices.length; i++) {
+            const percentage = Math.round((choices[i] / totalVotes) * 100);
+            choiceString += percentage + "% for " + proposalChoices[i - 1] + ", ";
         }
 
-        console.log(choicesObject);
+        if(choiceString.length > 30){
+            choiceString = choiceString.substring(0, 30) + "...";
+        }
+        
+        modalChoice.innerText = choiceString;
 
         try {
             const receipt = await client.vote(web3, account, {
                 space: proposalSpace,
                 proposal: proposalId,
                 type: proposalType,
-                choice: choicesObject,
+                choice: choices,
                 reason: 'Choice 1 make lot of sense',
                 app: 'my-app'
             });
