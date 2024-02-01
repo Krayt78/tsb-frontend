@@ -3,19 +3,19 @@ const voteConfirmBtn = document.getElementById("vote-confirmation");
 const logInToVoteBtn = document.getElementById("login-vote");
 const voteBtn = document.getElementById("vote-btn");
 
-function hideLoginButton() {
+function hideLogInToVoteBtn() {
     logInToVoteBtn.style.display = "none";
 }
 
-function showLoginButton() {
+function showLogInToVoteBtn() {
     logInToVoteBtn.style.display = "flex";
 }
 
-function hideVoteButton() {
+function hideVoteBtn() {
     voteBtn.style.display = "none";
 }
 
-function showVoteButton() {
+function showVoteBtn() {
     voteBtn.style.display = "flex";
 }
 
@@ -29,12 +29,12 @@ async function voteMainBody() {
     console.log(isConnected);
     if(isConnected) //its in testconnectwallet11.js
     {
-        hideLoginButton();
-        showVoteButton();
+        hideLogInToVoteBtn();
+        showVoteBtn();
     }
     else{
-        showLoginButton();
-        hideVoteButton();
+        showLogInToVoteBtn();
+        hideVoteBtn();
     }
 
     voteBtn.addEventListener("click", async function () {
