@@ -83,14 +83,14 @@ async function voteMainBody() {
         snapshotModalId.innerText = proposalData.snapshot;
 
         if (totalVotes === 0) {
-            voteConfirmBtn.style.display = "none";
+            voteConfirmBtn.style.visibility = hidden;
 
             const modalChoice = document.getElementById("modal-choice");
             modalChoice.innerText = "No choices made";
             return;
         }
         else {
-            voteConfirmBtn.style.display = "flex";
+            voteConfirmBtn.style.visibility = visible;
             
             const modalChoice = document.getElementById("modal-choice");
             let choiceString = "";
