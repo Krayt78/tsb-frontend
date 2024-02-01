@@ -51,21 +51,8 @@ async function voteMainBody() {
     voteBtn.addEventListener("click", async function () {
         console.log("Vote button clicked");
         modalValidation.style.display = "flex";
-    });
 
-    voteConfirmBtn.addEventListener("click", async function () {
-        if (!proposalData) {
-            console.log("No proposal data");
-            return;
-        }
-
-        console.log(proposalData);
-
-        const proposalSpace = proposalData.space.id;
-        const proposalId = proposalData.id;
-        const proposalType = proposalData.type;
         const proposalChoices = proposalData.choices;
-
         let choices = getAllChoices();
         const totalVotes = Object.values(choices).reduce((a, b) => a + b, 0);
         console.log(totalVotes);
@@ -80,8 +67,22 @@ async function voteMainBody() {
         if(choiceString.length > 30){
             choiceString = choiceString.substring(0, 30) + "...";
         }
-        
+
         modalChoice.innerText = choiceString;
+    });
+
+    voteConfirmBtn.addEventListener("click", async function () {
+        if (!proposalData) {
+            console.log("No proposal data");
+            return;
+        }
+
+        console.log(proposalData);
+        const proposalSpace = proposalData.space.id;
+        const proposalId = proposalData.id;
+        const proposalType = proposalData.type;
+
+        let choices = getAllChoices();
 
         try {
             const receipt = await client.vote(web3, account, {
