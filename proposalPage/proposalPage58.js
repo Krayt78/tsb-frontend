@@ -321,10 +321,9 @@ async function main() {
   console.log(proposalId);
   proposalData = await fetchProposalData(proposalId);
 
-  if (!proposalData || proposalData.state === "closed") {
+  if (proposalData.state === "closed") {
     const VotePanel = document.getElementById("VotePanel");
     VotePanel.style.display = "none";
-    return;
   }
 
   setValuesFromProposalData(proposalData);
