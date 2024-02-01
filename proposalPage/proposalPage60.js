@@ -321,7 +321,7 @@ async function fetchCategoryFromTopic(topicId) {
   const response = await fetch(url, options);
   const json = await response.json();
   console.log(json);
-  return json;
+  return json.category;
 }
 
 async function main() {
@@ -345,6 +345,9 @@ async function main() {
   console.log(discussionIdNumber);
 
   const category = await fetchCategoryFromTopic(discussionIdNumber);
+  const sipCategory = document.getElementById("sip-category");
+  sipCategory.innerText = category;
+
 
   setButtons(proposalData);
   if (proposalData.discussion) {
