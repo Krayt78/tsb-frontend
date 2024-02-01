@@ -79,23 +79,32 @@ async function voteMainBody() {
         const totalVotes = Object.values(choices).reduce((a, b) => a + b, 0);
         console.log(totalVotes);
 
-        const modalChoice = document.getElementById("modal-choice");
-        let choiceString = "";
-        for (let i = 1; i <= proposalData.choices.length; i++) {
-            const percentage = Math.round((choices[i] / totalVotes) * 100);
-            choiceString += percentage + "% for " + proposalChoices[i - 1] + ", ";
-        }
-
-        if (choiceString.length > 30) {
-            choiceString = choiceString.substring(0, 30) + "...";
-        }
-
-        modalChoice.innerText = choiceString;
-
         const snapshotModalId = document.getElementById("snapshot-id");
         snapshotModalId.innerText = proposalData.snapshot;
 
+        if (totalVotes === 0) {
+            voteConfirmBtn.style.display = "none";
 
+            const modalChoice = document.getElementById("modal-choice");
+            modalChoice.innerText = "No choices made";
+            return;
+        }
+        else {
+            voteConfirmBtn.style.display = "flex";
+            
+            const modalChoice = document.getElementById("modal-choice");
+            let choiceString = "";
+            for (let i = 1; i <= proposalData.choices.length; i++) {
+                const percentage = Math.round((choices[i] / totalVotes) * 100);
+                choiceString += percentage + "% for " + proposalChoices[i - 1] + ", ";
+            }
+
+            if (choiceString.length > 30) {
+                choiceString = choiceString.substring(0, 30) + "...";
+            }
+
+            modalChoice.innerText = choiceString;
+        }
 
         modalValidation.style.display = "flex";
     });

@@ -311,8 +311,6 @@ async function postsInTopic(id) {
   }
 }
 
-
-
 async function main() {
   //get proposal id from url
   const queryString = window.location.search;
