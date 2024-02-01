@@ -2,7 +2,7 @@ let proposalData = null;
 const quorum = 500;
 const numberOfChoicesLimit = 15;
 const numberOfCommentsLimit = 3;
-const snapshotUrl = "https://testnet.snapshot.org/#/geraldinehenry.eth/proposal/";
+const snapshotUrl = "https://testnet.snapshot.org/#/geraldinehenry.eth/";
 
 const title = document.getElementById("sip-title");
 const category = document.getElementById("sip-category");
@@ -42,14 +42,22 @@ function setValuesFromProposalData(proposalData) {
   sipStatus.innerText = proposalData.state;
   sipStatusDetails.innerText = proposalData.state;
 
-  author.innerText = proposalData.author;
+  const authorAddress = proposalData.author;
+  if (authorAddress.length > 37) {
+    authorAddress = authorAddress.substring(0, 37);
+    authorAddress += "...";
+  }
+
+  author.innerText = authorAddress;
+  author.setAttribute("href", snapshotUrl + "profile/"+proposalData.author);
+
   endDate.innerText = new Date(proposalData.end * 1000);
   
   let proposalId = proposalData.id;
   proposalId = proposalId.substring(0, 7);
   proposalId += "...";
   sipSnapshot.innerText = proposalId;
-  sipSnapshot.setAttribute("href", snapshotUrl + proposalData.id);
+  sipSnapshot.setAttribute("href", snapshotUrl + "proposal/"+ proposalData.id);
 
   const mdParser = new marked.Marked(); // import marked module first
   const html = mdParser.parse(proposalData.body); //TODO: Warning: 🚨 Marked does not sanitize the output HTML. Please use a sanitize library, like DOMPurify (recommended), sanitize-html or insane on the output HTML! 

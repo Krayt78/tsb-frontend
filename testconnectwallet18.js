@@ -82,6 +82,5 @@ async function checkIfLoggedIn() {
     }
 }
 
-
-
+console.log("testconnectwallet18.js loaded");
 checkIfLoggedIn();
