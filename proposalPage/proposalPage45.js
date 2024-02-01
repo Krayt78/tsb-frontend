@@ -42,7 +42,7 @@ function setValuesFromProposalData(proposalData) {
   sipStatus.innerText = proposalData.state;
   sipStatusDetails.innerText = proposalData.state;
 
-  const authorAddress = proposalData.author;
+  let authorAddress = proposalData.author;
   if (authorAddress.length > 37) {
     authorAddress = authorAddress.substring(0, 37);
     authorAddress += "...";
