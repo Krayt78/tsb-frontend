@@ -292,19 +292,19 @@ async function postsInTopic(id) {
   var url = `https://api.tsbdao.com/discourse/${id}`;
   try {
     var result = await fetch
-    (url,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
+      (url,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
         }
-      }
-    );
+      );
 
-  var data = await result.json();
-  const posts = data;
-  console.log(posts);
-  return posts;
+    var data = await result.json();
+    const posts = data;
+    console.log(posts);
+    return posts;
   } catch (error) {
     console.log(error);
     throw error;
@@ -320,12 +320,19 @@ async function main() {
   const proposalId = urlParams.get('id');
   console.log(proposalId);
   proposalData = await fetchProposalData(proposalId);
+
+  if (!proposalData || proposalData.state === "closed") {
+    const VotePanel = document.getElementById("VotePanel");
+    VotePanel.style.display = "none";
+    return;
+  }
+
   setValuesFromProposalData(proposalData);
   setButtons(proposalData);
-  if(proposalData.discussion){
+  if (proposalData.discussion) {
     await getLastDiscourseComments(proposalData);
   }
-  else{
+  else {
     for (let i = 0; i < numberOfCommentsLimit; i++) {
       const comment = document.getElementById("comment" + (i + 1));
       comment.style.display = "none";

@@ -36,12 +36,6 @@ async function voteMainBody() {
     const web3 = new ethers.providers.Web3Provider(window.ethereum);
     const [account] = await web3.listAccounts();
 
-    if(!proposalData || proposalData.state === "closed"){
-        const VotePanel = document.getElementById("VotePanel");
-        VotePanel.style.display = "none";
-        return;
-    }
-
     const isConnected = await isMetaMaskConnected(); //its in testconnectwallet11.js
     console.log(isConnected);
     if(isConnected) 
