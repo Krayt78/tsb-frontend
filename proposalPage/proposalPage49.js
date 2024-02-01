@@ -24,24 +24,6 @@ const proposalContent = document.getElementById("proposal-content");
 const discussProposalBtn = document.getElementById("proposal-discourse");
 const sipNoComment = document.getElementById("sip-no-comment");
 
-let choicesSelected = {
-  1: 0,
-  2: 0,
-  3: 0,
-  4: 0,
-  5: 0,
-  6: 0,
-  7: 0,
-  8: 0,
-  9: 0,
-  10: 0,
-  11: 0,
-  12: 0,
-  13: 0,
-  14: 0,
-  15: 0
-};
-
 async function fetchProposalData(proposalId) {
   const url = `https://api.tsbdao.com/proposals/${proposalId}`;
   const options = {
@@ -116,8 +98,17 @@ function handleChoiceButtons(numberOfChoices) {
     const choiceName = document.getElementById("choice-name" + (i + 1));
     choiceName.innerText = proposalData.choices[i];
 
-    const choiceButton = document.getElementById("choice-btn" + (i + 1));
-    choiceButton.addEventListener("click", onChoiceButtonClicked(i));
+    const btnMinus = document.getElementById("btn-minus" + (i + 1));
+    btnMinus.addEventListener("click", onPlusMinusButtonClicked(i+1, 1));
+
+    const btnPlus = document.getElementById("btn-plus" + (i + 1));
+    btnPlus.addEventListener("click", onPlusMinusButtonClicked(i+1, -1));
+
+    const coutner = document.getElementById("counter" + (i + 1));
+    coutner.innerText = 0;
+
+    const percent = document.getElementById("percent" + (i + 1));
+    percent.innerText = 0;
   }
 
   for (let i = numberOfChoices; i < numberOfChoicesLimit; i++) {
@@ -154,19 +145,40 @@ function handleChoiceResults(numberOfChoices) {
   }
 }
 
-function onChoiceButtonClicked(choiceId) {
-  console.log("Choice button clicked");
-  let choice = choiceId + 1;
-  console.log(choice);
+function onPlusMinusButtonClicked(choiceId, amount) {
+  const coutner = document.getElementById("counter" + choiceId);
+  const percent = document.getElementById("percent" + choiceId);
 
-  if (choicesSelected[choice] == 1) {
-    choicesSelected[choice] = 0;
-    console.log(choicesSelected);
+  const newAmount = parseInt(coutner.innerText) + amount;
+  if (newAmount < 0) {
     return;
   }
 
-  choicesSelected[choice] = 1;
-  console.log(choicesSelected);
+  coutner.innerText = newAmount;
+  setTotalVoteChoices();
+}
+
+function setTotalVoteChoices() {
+  const numberOfChoices = proposalData.choices.length;
+  for (let i = 0; i < numberOfChoices; i++) {
+    const counter = document.getElementById("counter" + (i + 1));
+    const amount = parseInt(counter.innerText);
+    const percent = document.getElementById("percent" + (i + 1));
+    const total = getTotalVoteChoices();
+    let percentValue = amount / total * 100;
+    percentValue = percentValue.toFixed(2);
+    percent.innerText = percentValue;
+  }
+}
+
+function getTotalVoteChoices() {
+  let total = 0;
+  const numberOfChoices = proposalData.choices.length;
+  for (let i = 0; i < numberOfChoices; i++) {
+    const counter = document.getElementById("counter" + (i + 1));
+    total += parseInt(counter.innerText);
+  }
+  return total;
 }
 
 function setButtons(proposalData) {
