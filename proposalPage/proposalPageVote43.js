@@ -82,6 +82,9 @@ async function voteMainBody() {
         const snapshotModalId = document.getElementById("snapshot-id");
         snapshotModalId.innerText = proposalData.snapshot;
 
+        const modalSipName = document.getElementById("modal-sip-name");
+        modalSipName.innerText = proposalData.title;
+
         if (totalVotes === 0) {
             voteConfirmBtn.style.display = "none";
 
