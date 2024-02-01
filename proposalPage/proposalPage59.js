@@ -311,6 +311,19 @@ async function postsInTopic(id) {
   }
 }
 
+async function fetchCategoryFromTopic(topicId) {
+  const url = `https://api.tsbdao.com/discourse/category/${topicId}`;
+  const options = {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
+  };
+
+  const response = await fetch(url, options);
+  const json = await response.json();
+  console.log(json);
+  return json;
+}
+
 async function main() {
   //get proposal id from url
   const queryString = window.location.search;
@@ -325,6 +338,14 @@ async function main() {
   }
 
   setValuesFromProposalData(proposalData);
+
+  const discussionId = proposalData.discussion;
+  //only keep the numbers after the last /
+  const discussionIdNumber = discussionId.split("/").pop();
+  console.log(discussionIdNumber);
+
+  const category = await fetchCategoryFromTopic(discussionIdNumber);
+
   setButtons(proposalData);
   if (proposalData.discussion) {
     await getLastDiscourseComments(proposalData);
