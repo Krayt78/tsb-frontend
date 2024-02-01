@@ -317,7 +317,15 @@ async function main() {
   proposalData = await fetchProposalData(proposalId);
   setValuesFromProposalData(proposalData);
   setButtons(proposalData);
-  await getLastDiscourseComments(proposalData);
+  if(proposalData.discussion){
+    await getLastDiscourseComments(proposalData);
+  }
+  else{
+    for (let i = 0; i < numberOfCommentsLimit; i++) {
+      const comment = document.getElementById("comment" + (i + 1));
+      comment.style.display = "none";
+    }
+  }
 }
 
 main();
