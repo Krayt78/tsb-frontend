@@ -37,8 +37,8 @@ async function voteMainBody() {
     const [account] = await web3.listAccounts();
 
     if(!proposalData || proposalData.state === "closed"){
-        hideVoteBtn();
-        hideLogInToVoteBtn();
+        const VotePanel = document.getElementById("VotePanel");
+        VotePanel.style.display = "none";
         return;
     }
 

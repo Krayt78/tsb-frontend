@@ -102,14 +102,14 @@ function handleChoiceButtons(numberOfChoices) {
     const btnMinus = document.getElementById("btn-minus" + (i + 1));
     btnMinus.addEventListener("click", async function () {
       console.log("btnMinus clicked");
-      onPlusMinusButtonClicked(i+1, -1);
+      onPlusMinusButtonClicked(i + 1, -1);
     });
     console.log(btnMinus);
 
     const btnPlus = document.getElementById("btn-plus" + (i + 1));
     btnPlus.addEventListener("click", async function () {
       console.log("btnPlus clicked");
-      onPlusMinusButtonClicked(i+1, 1);
+      onPlusMinusButtonClicked(i + 1, 1);
     });
     console.log(btnPlus);
 
@@ -168,14 +168,20 @@ function onPlusMinusButtonClicked(choiceId, amount) {
 
 function setTotalVoteChoices() {
   const numberOfChoices = proposalData.choices.length;
+  const total = getTotalVoteChoices();
+
   for (let i = 0; i < numberOfChoices; i++) {
     const counter = document.getElementById("counter" + (i + 1));
     const amount = parseInt(counter.innerText);
     const percent = document.getElementById("percent" + (i + 1));
-    const total = getTotalVoteChoices();
-    let percentValue = amount / total * 100;
-    percentValue = percentValue.toFixed(2);
-    percent.innerText = percentValue;
+    if (total == 0) {
+      percent.innerText = 0;
+    }
+    else {
+      let percentValue = amount / total * 100;
+      percentValue = percentValue.toFixed(2);
+      percent.innerText = percentValue;
+    }
   }
 }
 
