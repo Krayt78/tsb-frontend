@@ -1,4 +1,4 @@
-const version = "0.0.2";
+const version = "0.0.3";
 var component = document.getElementById("proposal");
 component.style.display = "none";
 var proposalList = document.getElementById("proposals-list");
@@ -72,40 +72,15 @@ function handleFilterButtons() {
     });
 }
 
-async function testQueryGeraldineProposals() {
-    const url = 'https://testnet.hub.snapshot.org/graphql';
-    const query = `query {
-      proposals(first: 20, skip: 0, where: {space_in: ["geraldinehenry.eth"]}, orderBy: "created", orderDirection: desc) {
-        id
-        title
-        body
-        choices
-        start
-        end
-        snapshot
-        state
-        scores
-        scores_by_strategy
-        scores_total
-        scores_updated
-        votes
-        author
-        space {
-          id
-          name
-        }
-      }
-    }`;
+async function fetchProposalsData() {
+    const url = 'https://api.tsbdao.com/proposals/';
     const options = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query })
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
     };
 
     const response = await fetch(url, options);
-    const json = await response.json();
-    console.log(json);
-    return json.data.proposals;
+    return await response.json();
 }
 
 function getTimer(endTime) {
@@ -158,13 +133,16 @@ function setColourDependingOnTimeLeft(component, proposalData) {
 
 function setFilterAmounts() {
     const all = proposalsData.length;
-    const ending = proposalsData.filter(proposal => proposal.end - new Date().getTime() < week).length;
+    const ending = proposalsData.filter(proposal => (proposal.end *1000)- new Date().getTime() < day).length;
     const active = proposalsData.filter(proposal => proposal.state == "active").length;
     const closed = proposalsData.filter(proposal => proposal.state == "closed").length;
 
+    const endingSoonNb = ending - closed;
+    const activeNb = active - endingSoonNb;
+
     filterAllNb.innerText = all;
-    filterEndingNb.innerText = ending - closed;
-    filterActiveNb.innerText = active;
+    filterEndingNb.innerText = endingSoonNb;
+    filterActiveNb.innerText = activeNb;
     filterClosedNb.innerText = closed;
 }
 
@@ -173,7 +151,8 @@ function hideInitialComponent() {
 }
 
 async function main() {
-    proposalsData = await testQueryGeraldineProposals();
+    proposalsData = await fetchProposalsData();
+    console.log(proposalsData);
     for (let i = 0; i < proposalsData.length; i++) {
         var duplicatedComponent = component.cloneNode(true);
         if (duplicatedComponent) {
@@ -181,7 +160,6 @@ async function main() {
 
             var children = duplicatedComponent.querySelectorAll('[id]');
             children.forEach(function (child) {
-                console.log(child.id);
                 switch (child.id) {
                     case "proposal-titre":
                         child.innerText = proposalsData[i].title;
@@ -218,24 +196,30 @@ async function main() {
                         break;
                     case "proposal-link":
                         child.href = "https://thesandbox-dao.webflow.io/proposal/?id=" + proposalsData[i].id;
+                        child.target = "_self";
                         break;
                     case "proposal-discuss":
-                        child.href = "https://testnet.snapshot.org/#/geraldinehenry.eth/proposal/" + proposalsData[i].id;
+                        if(proposalsData[i].discussion == null){
+                            child.style.display = "none";
+                            break;
+                        }
+                        
+                        child.href = proposalsData[i].discussion;
+                        child.target = "_blank";
                         break;
                     case "proposal-margin":
                         if (isProposalEndingSoon(proposalsData[i])) {
-                            component.style.color = yellow;
-                            component.style.borderColor = yellow;
+                            child.style.backgroundColor = yellow;
                             return;
                         }
                         else if (proposalsData[i].state == "closed") {
-                            component.style.color = grey;
-                            component.style.borderColor = grey;
+                            child.style.backgroundColor = grey;
                             return;
                         }
+                        else {
+                            child.style.backgroundColor = green;
+                        }
 
-                        component.style.color = grey;
-                        component.style.borderColor = grey;
                         break;
                     case "proposal-timer":
                         if (proposalsData[i].state == "closed") {
