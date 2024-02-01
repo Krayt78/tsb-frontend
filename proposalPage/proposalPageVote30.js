@@ -21,7 +21,7 @@ function showVoteBtn() {
 }
 
 function getAllChoices() {
-    let choices;
+    let choices = {};
     for (let i = 1; i <= proposalData.choices.length; i++) {
         let choiceElement = document.getElementById("counter" + (i));
         const choice = parseInt(choiceElement.innerText);
