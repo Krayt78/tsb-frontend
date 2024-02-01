@@ -135,9 +135,9 @@ function handleChoiceResults(numberOfChoices) {
     answerName.innerText = proposalData.choices[i];
     console.log(proposalData.choices[i]);
 
-    if (proposalData.scores_by_strategy[i] > 0) {
+    if (proposalData.scores[i] > 0) {
 
-      let score = proposalData.scores_by_strategy[i] / proposalData.scores_total * 100;
+      let score = proposalData.scores[i] / proposalData.scores_total * 100;
       score = score.toFixed(2);
       answerNb.innerText = score;
       bar.style.width = score + "%";

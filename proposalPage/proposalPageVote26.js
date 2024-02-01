@@ -77,6 +77,8 @@ async function voteMainBody() {
             });
 
             console.log(receipt);
+            modalValidation.style.display = "none";
+            //need to getch again to update the visuals
         }
         catch (error) {
             console.log(error);
