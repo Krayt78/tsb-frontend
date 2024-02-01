@@ -38,6 +38,7 @@ async function fetchProposalData(proposalId) {
 }
 
 function setValuesFromProposalData(proposalData) {
+  window.parent.document.title = proposalData.title;
   title.innerText = proposalData.title;
 
   sipStatus.innerText = proposalData.state;

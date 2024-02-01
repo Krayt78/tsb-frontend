@@ -36,9 +36,15 @@ async function voteMainBody() {
     const web3 = new ethers.providers.Web3Provider(window.ethereum);
     const [account] = await web3.listAccounts();
 
-    const isConnected = await isMetaMaskConnected();
+    if(!proposalData || proposalData.state === "closed"){
+        hideVoteBtn();
+        hideLogInToVoteBtn();
+        return;
+    }
+
+    const isConnected = await isMetaMaskConnected(); //its in testconnectwallet11.js
     console.log(isConnected);
-    if(isConnected) //its in testconnectwallet11.js
+    if(isConnected) 
     {
         hideLogInToVoteBtn();
         showVoteBtn();
@@ -114,12 +120,3 @@ async function voteMainBody() {
 }
 
 voteMainBody();
-
-/*const receipt = await client.vote(web3, account, {
-            space: 'yam.eth',
-            proposal: '0x21ea31e896ec5b5a49a3653e51e787ee834aaf953263144ab936ed756f36609f',
-            type: 'single-choice',
-            choice: 1,
-            reason: 'Choice 1 make lot of sense',
-            app: 'my-app'
-        });*/
