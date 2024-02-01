@@ -100,9 +100,11 @@ function handleChoiceButtons(numberOfChoices) {
 
     const btnMinus = document.getElementById("btn-minus" + (i + 1));
     btnMinus.addEventListener("click", onPlusMinusButtonClicked(i+1, 1));
+    console.log(btnMinus);
 
     const btnPlus = document.getElementById("btn-plus" + (i + 1));
     btnPlus.addEventListener("click", onPlusMinusButtonClicked(i+1, -1));
+    console.log(btnPlus);
 
     const coutner = document.getElementById("counter" + (i + 1));
     coutner.innerText = 0;
@@ -146,9 +148,8 @@ function handleChoiceResults(numberOfChoices) {
 }
 
 function onPlusMinusButtonClicked(choiceId, amount) {
+  console.log("onPlusMinusButtonClicked");
   const coutner = document.getElementById("counter" + choiceId);
-  const percent = document.getElementById("percent" + choiceId);
-
   const newAmount = parseInt(coutner.innerText) + amount;
   if (newAmount < 0) {
     return;
