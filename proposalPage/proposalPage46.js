@@ -22,6 +22,7 @@ const proposalDetails = document.getElementById("filter-all-nb");
 const proposalContent = document.getElementById("proposal-content");
 
 const discussProposalBtn = document.getElementById("proposal-discourse");
+const sipNoComment = document.getElementById("sip-no-comment");
 
 async function fetchProposalData(proposalId) {
   const url = `https://api.tsbdao.com/proposals/${proposalId}`;
@@ -159,6 +160,8 @@ async function getLastDiscourseComments(proposalData) {
     }
   }
   else {
+
+    sipNoComment.style.display = "none";
     for (let i = 0; i < numberOfComments; i++) {
       const commentAuthorName = document.getElementById("comment-name" + (i + 1));
       const commentDate = document.getElementById("comment-days" + (i + 1));

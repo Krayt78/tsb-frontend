@@ -5,34 +5,36 @@ const metamaskBtn = document.getElementById("metamask-button");
 
 function closeLoginModal() {
     loginModal.style.display = "none";
+    console.log("Login modal closed");
+    console.log(loginModal.style.display);
 }
 
 function hideLoginButton() {
     loginButton.style.display = "none";
+    console.log("Login button hidden");
+    console.log(loginButton.style.display);
 }
 
 function showVoteButton() {
     voteBtnNavbar.style.display = "flex";
+    console.log("Vote button shown");
+    console.log(voteBtnNavbar.style.display);
 }
 
 function hideVoteButton() {
     voteBtnNavbar.style.display = "none";
+    console.log("Vote button hidden");
+    console.log(voteBtnNavbar.style.display);
 }
 
 // Add event listener to the connectButton
 loginButton.addEventListener("click", async () => {
     console.log("Login button clicked");
     loginModal.style.display = "flex";
-
-    console.log(loginButton.style);
-    console.log(voteBtnNavbar.style);
 });
 
 voteBtnNavbar.addEventListener("click", async () => {
     console.log("voteBtnNavbar clicked");
-
-    console.log(loginButton.style);
-    console.log(voteBtnNavbar.style);
 });
 
 metamaskBtn.addEventListener("click", async () => {
@@ -55,13 +57,13 @@ metamaskBtn.addEventListener("click", async () => {
         // Fetch the account balance
         const address = await signer.getAddress();
         console.log('Address:', address);
+
+        closeLoginModal();
+        hideLoginButton();
+        showVoteButton();
     } catch (error) {
         console.error('Error occurred while fetching the account balance:', error);
     }
-
-    closeLoginModal();
-    hideLoginButton();
-    showVoteButton();
 });
 
 const isMetaMaskConnected = async () => {
