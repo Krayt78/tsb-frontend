@@ -102,7 +102,7 @@ function handleChoiceButtons(numberOfChoices) {
     const btnMinus = document.getElementById("btn-minus" + (i + 1));
     btnMinus.addEventListener("click", async function () {
       console.log("btnMinus clicked");
-      onPlusMinusButtonClicked(i+1, 1);
+      onPlusMinusButtonClicked(i+1, -1);
     });
     console.log(btnMinus);
 
