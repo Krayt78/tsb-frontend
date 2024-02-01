@@ -50,7 +50,7 @@ async function voteMainBody() {
 
     voteBtn.addEventListener("click", async function () {
         console.log("Vote button clicked");
-        modalValidation.style.display = "flex";
+        
 
         const proposalChoices = proposalData.choices;
         let choices = getAllChoices();
@@ -69,6 +69,14 @@ async function voteMainBody() {
         }
 
         modalChoice.innerText = choiceString;
+
+        const snapshotModalId = document.getElementById("snapshot-id");
+        snapshotModalId.innerText = proposalData.snapshot;
+
+        const votingPowerModal = document.getElementById("modal-voting-power");
+        votingPowerModal.innerText = "TODO in backend";
+
+        modalValidation.style.display = "flex";
     });
 
     voteConfirmBtn.addEventListener("click", async function () {
