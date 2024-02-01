@@ -133,7 +133,7 @@ function setColourDependingOnTimeLeft(component, proposalData) {
 
 function setFilterAmounts() {
     const all = proposalsData.length;
-    const ending = proposalsData.filter(proposal => (proposal.end *1000)- new Date().getTime() < day).length;
+    const ending = proposalsData.filter(proposal => (proposal.end * 1000) - new Date().getTime() < day).length;
     const active = proposalsData.filter(proposal => proposal.state == "active").length;
     const closed = proposalsData.filter(proposal => proposal.state == "closed").length;
 
@@ -150,6 +150,21 @@ function hideInitialComponent() {
     component.style.display = "none";
 }
 
+async function fetchCategoryFromTopic(topicId) {
+    const url = `https://api.tsbdao.com/discourse/category/${topicId}`;
+    const options = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    };
+
+    const response = await fetch(url, options);
+    const json = await response.json();
+    console.log(json);
+    return json.category;
+}
+
+
+
 async function main() {
     proposalsData = await fetchProposalsData();
     console.log(proposalsData);
@@ -159,7 +174,7 @@ async function main() {
             duplicatedComponent.id = duplicatedComponent.id + i;
 
             var children = duplicatedComponent.querySelectorAll('[id]');
-            children.forEach(function (child) {
+            children.forEach(async function (child) {
                 switch (child.id) {
                     case "proposal-titre":
                         child.innerText = proposalsData[i].title;
@@ -199,11 +214,11 @@ async function main() {
                         child.target = "_self";
                         break;
                     case "proposal-discuss":
-                        if(proposalsData[i].discussion == null){
+                        if (proposalsData[i].discussion == null) {
                             child.style.display = "none";
                             break;
                         }
-                        
+
                         child.href = proposalsData[i].discussion;
                         child.target = "_blank";
                         break;
@@ -248,6 +263,13 @@ async function main() {
                         else {
                             child.style.display = "none";
                         }
+                        break;
+                    case "proposal-category":
+                        const discussionId = proposalsData[i].discussion;
+                        //only keep the numbers after the last /
+                        const discussionIdNumber = discussionId.split("/").pop();
+                        const category = await fetchCategoryFromTopic(discussionIdNumber);
+                        child.innerText = category;
                         break;
                 }
 
