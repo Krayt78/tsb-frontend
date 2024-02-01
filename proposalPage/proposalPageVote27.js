@@ -20,6 +20,16 @@ function showVoteBtn() {
     voteBtn.style.display = "flex";
 }
 
+function getAllChoices() {
+    let choices;
+    for (let i = 1; i <= proposalData.choices.length; i++) {
+        let choiceElement = document.getElementById("choice" + (i + 1));
+        const choice = parseInt(choiceElement.innerText);
+        choices[i] = choice;
+    }
+    return choices;
+}
+
 async function voteMainBody() {
     const hub = 'https://testnet.hub.snapshot.org'; // or https://hub.snapshot.org for mainnet
     const client = new snapshot.Client712(hub);
@@ -56,22 +66,22 @@ async function voteMainBody() {
         const proposalType = proposalData.type;
         const proposalChoices = proposalData.choices;
 
-        let choice = {};
-        
-        for (let i = 0; i < proposalChoices.length; i++) {
-            choice[i] = i;
+        let choices = getAllChoices();
+        console.log(choices);
+
+        let choicesObject = {};
+        for (let i = 1; i <= proposalChoices.length; i++) {
+            choicesObject[i] = choices[i];
         }
 
-        choice = {
-            "1": 1,
-        }
+        console.log(choicesObject);
 
         try {
             const receipt = await client.vote(web3, account, {
                 space: proposalSpace,
                 proposal: proposalId,
                 type: proposalType,
-                choice: choice,
+                choice: choicesObject,
                 reason: 'Choice 1 make lot of sense',
                 app: 'my-app'
             });
