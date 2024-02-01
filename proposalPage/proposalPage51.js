@@ -99,11 +99,17 @@ function handleChoiceButtons(numberOfChoices) {
     choiceName.innerText = proposalData.choices[i];
 
     const btnMinus = document.getElementById("btn-minus" + (i + 1));
-    btnMinus.addEventListener("click", onPlusMinusButtonClicked(i+1, 1));
+    btnMinus.addEventListener("click", async function () {
+      console.log("btnMinus clicked");
+      onPlusMinusButtonClicked(i+1, 1);
+    });
     console.log(btnMinus);
 
     const btnPlus = document.getElementById("btn-plus" + (i + 1));
-    btnPlus.addEventListener("click", onPlusMinusButtonClicked(i+1, -1));
+    btnPlus.addEventListener("click", async function () {
+      console.log("btnPlus clicked");
+      onPlusMinusButtonClicked(i+1, 1);
+    });
     console.log(btnPlus);
 
     const coutner = document.getElementById("counter" + (i + 1));
