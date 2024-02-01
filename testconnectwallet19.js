@@ -86,9 +86,3 @@ async function checkIfLoggedIn() {
 
 console.log("testconnectwallet18.js loaded");
 checkIfLoggedIn();
-
-
-<script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/lib/marked.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@snapshot-labs/snapshot.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/krayt78/tsb-frontend@dev/proposalPage/proposalPage46.js"> </script>
-<script src="https://cdn.jsdelivr.net/gh/krayt78/tsb-frontend@dev/proposalPage/proposalPageVote24.js"> </script>
