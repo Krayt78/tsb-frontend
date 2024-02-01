@@ -324,6 +324,12 @@ async function fetchCategoryFromTopic(topicId) {
   return json.category;
 }
 
+async function refreshDataAfterVote() {
+  const proposalId = proposalData.id;
+  proposalData = await fetchProposalData(proposalId);
+  setValuesFromProposalData(proposalData);
+}
+
 async function main() {
   //get proposal id from url
   const queryString = window.location.search;
