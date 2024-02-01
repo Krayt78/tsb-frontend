@@ -30,6 +30,30 @@ function getAllChoices() {
     return choices;
 }
 
+async function getVotingPower(address, proposalId) {
+    const url = `https://api.tsbdao.com/proposals/vp`;
+    const body = {
+        address: address,
+        proposalId: proposalId
+    };
+    const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+    };
+
+    const response = await fetch(url, options);
+    const json = await response.json();
+    console.log(json);
+    return json;
+}
+
+async function setVotingPower(address, proposalId) {
+    const vp = await getVotingPower(address, proposalId);
+    const votingPowerModal = document.getElementById("modal-voting-power");
+    votingPowerModal.innerText = vp;
+}
+
 async function voteMainBody() {
     const hub = 'https://testnet.hub.snapshot.org'; // or https://hub.snapshot.org for mainnet
     const client = new snapshot.Client712(hub);
@@ -38,20 +62,18 @@ async function voteMainBody() {
 
     const isConnected = await isMetaMaskConnected(); //its in testconnectwallet11.js
     console.log(isConnected);
-    if(isConnected) 
-    {
+    if (isConnected) {
         hideLogInToVoteBtn();
         showVoteBtn();
     }
-    else{
+    else {
         showLogInToVoteBtn();
         hideVoteBtn();
     }
 
     voteBtn.addEventListener("click", async function () {
         console.log("Vote button clicked");
-        
-
+        await setVotingPower(account, proposalData.id);
         const proposalChoices = proposalData.choices;
         let choices = getAllChoices();
         const totalVotes = Object.values(choices).reduce((a, b) => a + b, 0);
@@ -64,7 +86,7 @@ async function voteMainBody() {
             choiceString += percentage + "% for " + proposalChoices[i - 1] + ", ";
         }
 
-        if(choiceString.length > 30){
+        if (choiceString.length > 30) {
             choiceString = choiceString.substring(0, 30) + "...";
         }
 
@@ -73,8 +95,7 @@ async function voteMainBody() {
         const snapshotModalId = document.getElementById("snapshot-id");
         snapshotModalId.innerText = proposalData.snapshot;
 
-        const votingPowerModal = document.getElementById("modal-voting-power");
-        votingPowerModal.innerText = "TODO in backend";
+
 
         modalValidation.style.display = "flex";
     });
