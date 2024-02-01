@@ -290,7 +290,8 @@ function getTimeSincePost(created_at) {
 
 async function postsInTopic(id) {
   var url = `https://api.tsbdao.com/discourse/${id}`;
-  var result = await fetch
+  try {
+    var result = await fetch
     (url,
       {
         method: 'GET',
@@ -304,6 +305,10 @@ async function postsInTopic(id) {
   const posts = data;
   console.log(posts);
   return posts;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 }
 
 
