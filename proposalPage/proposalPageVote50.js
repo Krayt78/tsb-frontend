@@ -114,7 +114,7 @@ async function voteMainBody() {
         await setVotingPower(userId.innerText, proposalData.id);
 
         const votingPowerModal = document.getElementById("modal-voting-power");
-        votingPowerModal.innerText = vp;
+        const vp = parseInt(votingPowerModal.innerText);
 
         if(vp === 0 || totalVotes === 0){
             voteConfirmBtn.style.display = "none";
