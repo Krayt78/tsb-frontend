@@ -136,6 +136,10 @@ async function voteMainBody() {
 
             console.log(receipt);
             modalValidation.style.display = "none";
+            
+            const modalConfirmation = document.getElementById("modal-confirmation");
+            modalConfirmation.style.display = "flex";
+
             //need to getch again to update the visuals
             await refreshDataAfterVote();
         }
