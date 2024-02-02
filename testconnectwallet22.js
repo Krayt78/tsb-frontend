@@ -3,6 +3,8 @@ const loginModal = document.getElementById("modal-login");
 const voteBtnNavbar = document.getElementById("vote-btn-navbar");
 const metamaskBtn = document.getElementById("metamask-button");
 
+const logInToVoteBtn2 = document.getElementById("login-vote");
+
 function closeLoginModal() {
     loginModal.style.display = "none";
     console.log("Login modal closed");
@@ -37,13 +39,18 @@ voteBtnNavbar.addEventListener("click", async () => {
     console.log("voteBtnNavbar clicked");
 });
 
+logInToVoteBtn2.addEventListener("click", async () => {
+    console.log("logInToVoteBtn2 clicked");
+    loginModal.style.display = "flex";
+});
+
 
 function onWalletConnected() {
     closeLoginModal();
     hideLoginButton();
     showVoteButton();
 
-    const logInToVoteBtn2 = document.getElementById("login-vote");
+    //const logInToVoteBtn2 = document.getElementById("login-vote");
     const voteBtn2 = document.getElementById("vote-btn");
 
     logInToVoteBtn2.style.display = "none";
