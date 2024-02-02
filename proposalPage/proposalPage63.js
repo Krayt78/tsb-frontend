@@ -54,14 +54,14 @@ function setValuesFromProposalData(proposalData) {
   author.setAttribute("href", snapshotUrl + "profile/" + proposalData.author);
 
   let convertedEndDate = new Date(proposalData.end * 1000);
-  //convert to local time
-  convertedEndDate = convertedEndDate.toLocaleString();
-  // remove day of the week
-  convertedEndDate = convertedEndDate.substring(0, convertedEndDate.length - 9);
-  //remove seconds
-  convertedEndDate = convertedEndDate.substring(0, convertedEndDate.length - 3);
-  
-  endDate.innerText = convertedEndDate;
+
+  // Extracting date components
+  let options = { month: 'short', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZoneName: 'short' };
+  let result = convertedEndDate.toLocaleString('en-US', options);
+
+  console.log(result); // Output: Feb 04 2024 12:15
+
+  endDate.innerText = result;
 
   let proposalId = proposalData.id;
   proposalId = proposalId.substring(0, 7);
