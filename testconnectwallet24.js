@@ -39,26 +39,14 @@ voteBtnNavbar.addEventListener("click", async () => {
     console.log("voteBtnNavbar clicked");
 });
 
-
-
 // Everything but IE
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
     // loaded
     logInToVoteBtn2.addEventListener("click", async () => {
         console.log("logInToVoteBtn2 clicked");
         loginModal.style.display = "flex";
     });
-}, false); 
-
-// IE
-window.attachEvent("onload", function() {
-    // loaded
-    logInToVoteBtn2.addEventListener("click", async () => {
-        console.log("logInToVoteBtn2 clicked");
-        loginModal.style.display = "flex";
-    });
-});
-
+}, false);
 
 function onWalletConnected() {
     closeLoginModal();
