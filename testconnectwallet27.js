@@ -15,10 +15,21 @@ function hideLoginButton() {
     console.log(loginButton.style.display);
 }
 
-function showUserId() {
+async function showUserId() {
     idBlock.style.display = "flex";
     console.log("Vote button shown");
-    console.log(idBlock.style.display);
+
+    // Create a new ethers provider with MetaMask's provider
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+    // Get the signer object for the connected account
+    const signer = provider.getSigner();
+
+    // Fetch the account balance
+    const address = await signer.getAddress();
+
+    const userId = document.getElementById("user-id");
+    userId.innerText = address;
 }
 
 function hideVoteButton() {
@@ -41,21 +52,21 @@ idBlock.addEventListener("click", async () => {
 window.addEventListener("load", function () {
     // loaded
     const logInToVoteBtn2 = document.getElementById("login-vote");
+    if(!logInToVoteBtn2) {
+        return;
+    }
+    
     logInToVoteBtn2.addEventListener("click", async () => {
         console.log("logInToVoteBtn2 clicked");
         loginModal.style.display = "flex";
     });
 }, false);
 
-function onWalletConnected(address) {
+async function onWalletConnected() {
     closeLoginModal();
     hideLoginButton();
-    showUserId();
+    await showUserId();
 
-
-    const userId = document.getElementById("user-id");
-    userId.innerText = address;
-    //const logInToVoteBtn2 = document.getElementById("login-vote");
     const voteBtn2 = document.getElementById("vote-btn");
     const logInToVoteBtn2 = document.getElementById("login-vote");
     logInToVoteBtn2.style.display = "none";
@@ -83,7 +94,7 @@ metamaskBtn.addEventListener("click", async () => {
         const address = await signer.getAddress();
         console.log('Address:', address);
 
-        onWalletConnected(address);
+        await onWalletConnected();
     } catch (error) {
         console.error('Error occurred while fetching the account balance:', error);
     }
@@ -106,6 +117,7 @@ async function checkIfLoggedIn() {
     if (isConnected) {
         hideLoginButton();
         showUserId();
+
     }
     else {
         hideVoteButton();
