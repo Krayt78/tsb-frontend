@@ -268,7 +268,7 @@ async function main() {
                         const discussionId = proposalsData[i].discussion;
                         //only keep the numbers after the last /
                         const discussionIdNumber = discussionId.split("/").pop();
-                        if(isNaN(discussionIdNumber)) break;
+                        if(isNaN(discussionIdNumber) || !discussionIdNumber || discussionIdNumber == "") break;
                         const category = await fetchCategoryFromTopic(discussionIdNumber);
                         child.innerText = category;
                         break;
