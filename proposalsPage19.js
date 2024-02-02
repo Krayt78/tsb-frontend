@@ -163,21 +163,26 @@ async function fetchCategoryFromTopic(topicId) {
     return json.category;
 }
 
-function fadeOut(element) {
-    var el = document.getElementById(element);
-    setInterval(function () {
-        var opacity = el.style.opacity;
-        if (opacity > 0) {
-            opacity -= 0.1;
-            el.style.opacity = opacity;
+function fadeOutEffect(element) {
+    var fadeTarget = document.getElementById(element);
+    var fadeEffect = setInterval(function () {
+        if (!fadeTarget.style.opacity) {
+            fadeTarget.style.opacity = 1;
         }
-    }, 50);
+        if (fadeTarget.style.opacity > 0) {
+            fadeTarget.style.opacity -= 0.1;
+            console.log(fadeTarget.style.opacity);
+        } else {
+            console.log("clearing interval");
+            clearInterval(fadeEffect);
+        }
+    }, 200);
 }
 
 function hideSpashScreenWithAnimation() {
     console.log("hiding splash screen");
     //change the opacity of the splash screen to 0 over 1 second
-    fadeOut("splash-screen");
+    fadeOutEffect("splash-screen");
 }
 
 async function main() {
