@@ -53,7 +53,15 @@ function setValuesFromProposalData(proposalData) {
   author.innerText = authorAddress;
   author.setAttribute("href", snapshotUrl + "profile/" + proposalData.author);
 
-  endDate.innerText = new Date(proposalData.end * 1000);
+  let convertedEndDate = new Date(proposalData.end * 1000);
+  //convert to local time
+  convertedEndDate = convertedEndDate.toLocaleString();
+  // remove day of the week
+  convertedEndDate = convertedEndDate.substring(0, convertedEndDate.length - 9);
+  //remove seconds
+  convertedEndDate = convertedEndDate.substring(0, convertedEndDate.length - 3);
+  
+  endDate.innerText = convertedEndDate;
 
   let proposalId = proposalData.id;
   proposalId = proposalId.substring(0, 7);
