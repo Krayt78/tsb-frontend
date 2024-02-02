@@ -163,12 +163,22 @@ async function fetchCategoryFromTopic(topicId) {
     return json.category;
 }
 
-function hideSpashScreenWithAnimation() {
-    const splashScreen = document.getElementById("splash-screen");
+function fadeOut(element) {
+    var el = document.getElementById(element);
+    setInterval(function () {
+        var opacity = el.style.opacity;
+        if (opacity > 0) {
+            opacity -= 0.1;
+            el.style.opacity = opacity;
+        }
+    }, 50);
+}
 
+function hideSpashScreenWithAnimation() {
+    console.log("hiding splash screen");
+    const splashScreen = document.getElementById("splash-screen");
     //change the opacity of the splash screen to 0 over 1 second
-    splashScreen.style.transition = "opacity 1s";
-    splashScreen.style.display = "none";
+    fadeOut(splashScreen);
 }
 
 async function main() {
@@ -274,7 +284,7 @@ async function main() {
                         const discussionId = proposalsData[i].discussion;
                         //only keep the numbers after the last /
                         const discussionIdNumber = discussionId.split("/").pop();
-                        if(isNaN(discussionIdNumber) || !discussionIdNumber || discussionIdNumber == ""){
+                        if (isNaN(discussionIdNumber) || !discussionIdNumber || discussionIdNumber == "") {
                             child.style.display = "none";
                             break;
                         }
