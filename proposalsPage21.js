@@ -171,9 +171,8 @@ function fadeOutEffect(element) {
         }
         if (fadeTarget.style.opacity > 0) {
             fadeTarget.style.opacity -= 0.1;
-            console.log(fadeTarget.style.opacity);
         } else {
-            console.log("clearing interval");
+            fadeTarget.style.display = "none";
             clearInterval(fadeEffect);
         }
     }, 100);
