@@ -338,6 +338,27 @@ async function refreshDataAfterVote() {
   setValuesFromProposalData(proposalData);
 }
 
+function fadeOutEffect(element) {
+  var fadeTarget = document.getElementById(element);
+  var fadeEffect = setInterval(function () {
+      if (!fadeTarget.style.opacity) {
+          fadeTarget.style.opacity = 1;
+      }
+      if (fadeTarget.style.opacity > 0) {
+          fadeTarget.style.opacity -= 0.1;
+      } else {
+          fadeTarget.style.display = "none";
+          clearInterval(fadeEffect);
+      }
+  }, 100);
+}
+
+function hideSpashScreenWithAnimation() {
+  console.log("hiding splash screen");
+  //change the opacity of the splash screen to 0 over 1 second
+  fadeOutEffect("splash-screen");
+}
+
 async function main() {
   //get proposal id from url
   const queryString = window.location.search;
@@ -373,6 +394,8 @@ async function main() {
       comment.style.display = "none";
     }
   }
+
+  hideSpashScreenWithAnimation();
 }
 
 main();
