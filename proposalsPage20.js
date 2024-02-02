@@ -176,7 +176,7 @@ function fadeOutEffect(element) {
             console.log("clearing interval");
             clearInterval(fadeEffect);
         }
-    }, 200);
+    }, 100);
 }
 
 function hideSpashScreenWithAnimation() {
