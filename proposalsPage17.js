@@ -176,9 +176,8 @@ function fadeOut(element) {
 
 function hideSpashScreenWithAnimation() {
     console.log("hiding splash screen");
-    const splashScreen = document.getElementById("splash-screen");
     //change the opacity of the splash screen to 0 over 1 second
-    fadeOut(splashScreen);
+    fadeOut("splash-screen");
 }
 
 async function main() {
