@@ -53,6 +53,11 @@ async function setVotingPower(address, proposalId) {
     const vp = await getVotingPower(address, proposalId);
     const votingPowerModal = document.getElementById("modal-voting-power");
     votingPowerModal.innerText = vp;
+
+    if(vp === 0){
+        console.log("No voting power");
+        voteConfirmBtn.style.display = "none";
+    }
 }
 
 async function voteMainBody() {
