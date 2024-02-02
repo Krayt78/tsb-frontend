@@ -1,6 +1,6 @@
 const loginButton = document.getElementById("loginButton");
 const loginModal = document.getElementById("modal-login");
-const voteBtnNavbar = document.getElementById("vote-btn-navbar");
+const idBlock = document.getElementById("id-block");
 const metamaskBtn = document.getElementById("metamask-button");
 
 function closeLoginModal() {
@@ -15,16 +15,16 @@ function hideLoginButton() {
     console.log(loginButton.style.display);
 }
 
-function showVoteButton() {
-    voteBtnNavbar.style.display = "flex";
+function showUserId() {
+    idBlock.style.display = "flex";
     console.log("Vote button shown");
-    console.log(voteBtnNavbar.style.display);
+    console.log(idBlock.style.display);
 }
 
 function hideVoteButton() {
-    voteBtnNavbar.style.display = "none";
+    idBlock.style.display = "none";
     console.log("Vote button hidden");
-    console.log(voteBtnNavbar.style.display);
+    console.log(idBlock.style.display);
 }
 
 // Add event listener to the connectButton
@@ -33,8 +33,8 @@ loginButton.addEventListener("click", async () => {
     loginModal.style.display = "flex";
 });
 
-voteBtnNavbar.addEventListener("click", async () => {
-    console.log("voteBtnNavbar clicked");
+idBlock.addEventListener("click", async () => {
+    console.log("idBlock clicked");
 });
 
 // Everything but IE
@@ -47,11 +47,14 @@ window.addEventListener("load", function () {
     });
 }, false);
 
-function onWalletConnected() {
+function onWalletConnected(address) {
     closeLoginModal();
     hideLoginButton();
-    showVoteButton();
+    showUserId();
 
+
+    const userId = document.getElementById("user-id");
+    userId.innerText = address;
     //const logInToVoteBtn2 = document.getElementById("login-vote");
     const voteBtn2 = document.getElementById("vote-btn");
     const logInToVoteBtn2 = document.getElementById("login-vote");
@@ -80,7 +83,7 @@ metamaskBtn.addEventListener("click", async () => {
         const address = await signer.getAddress();
         console.log('Address:', address);
 
-        onWalletConnected();
+        onWalletConnected(address);
     } catch (error) {
         console.error('Error occurred while fetching the account balance:', error);
     }
@@ -102,7 +105,7 @@ async function checkIfLoggedIn() {
     console.log(isConnected);
     if (isConnected) {
         hideLoginButton();
-        showVoteButton();
+        showUserId();
     }
     else {
         hideVoteButton();
