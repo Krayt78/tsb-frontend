@@ -80,6 +80,7 @@ async function voteMainBody() {
     voteBtn.addEventListener("click", async function () {
         console.log("Vote button clicked");
         const userId = document.getElementById("user-id");
+        voteConfirmBtn.style.display = "none"; //to prevent flicker, its off at the start
         
         const proposalChoices = proposalData.choices;
         let choices = getAllChoices();
