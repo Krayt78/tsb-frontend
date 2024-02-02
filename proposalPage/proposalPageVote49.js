@@ -53,10 +53,8 @@ async function setVotingPower(address, proposalId) {
     const vp = await getVotingPower(address, proposalId);
     const votingPowerModal = document.getElementById("modal-voting-power");
     votingPowerModal.innerText = vp;
-
     if(vp === 0){
-        console.log("No voting power");
-        voteConfirmBtn.style.display = "none";
+        console.log("Voting power is 0");
     }
 }
 
@@ -94,14 +92,10 @@ async function voteMainBody() {
         modalSipName.innerText = proposalData.title;
 
         if (totalVotes === 0) {
-            voteConfirmBtn.style.display = "none";
-
             const modalChoice = document.getElementById("modal-choice");
             modalChoice.innerText = "No choices made";
         }
         else {
-            voteConfirmBtn.style.display = "flex";
-            
             const modalChoice = document.getElementById("modal-choice");
             let choiceString = "";
             for (let i = 1; i <= proposalData.choices.length; i++) {
@@ -118,6 +112,16 @@ async function voteMainBody() {
 
         modalValidation.style.display = "flex";
         await setVotingPower(userId.innerText, proposalData.id);
+
+        const votingPowerModal = document.getElementById("modal-voting-power");
+        votingPowerModal.innerText = vp;
+
+        if(vp === 0 || totalVotes === 0){
+            voteConfirmBtn.style.display = "none";
+        }
+        else{
+            voteConfirmBtn.style.display = "flex";
+        }
     });
 
     voteConfirmBtn.addEventListener("click", async function () {
