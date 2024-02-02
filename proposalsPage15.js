@@ -163,7 +163,13 @@ async function fetchCategoryFromTopic(topicId) {
     return json.category;
 }
 
+function hideSpashScreenWithAnimation() {
+    const splashScreen = document.getElementById("splash-screen");
 
+    //change the opacity of the splash screen to 0 over 1 second
+    splashScreen.style.transition = "opacity 1s";
+    splashScreen.style.display = "none";
+}
 
 async function main() {
     proposalsData = await fetchProposalsData();
@@ -292,6 +298,10 @@ async function main() {
     for (let i = 0; i < proposals.length; i++) {
         proposals[i].style.display = "block";
     }
+
+    hideSpashScreenWithAnimation();
 }
+
+
 
 main();
