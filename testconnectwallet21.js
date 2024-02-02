@@ -37,6 +37,19 @@ voteBtnNavbar.addEventListener("click", async () => {
     console.log("voteBtnNavbar clicked");
 });
 
+
+function onWalletConnected() {
+    closeLoginModal();
+    hideLoginButton();
+    showVoteButton();
+
+    const logInToVoteBtn2 = document.getElementById("login-vote");
+    const voteBtn2 = document.getElementById("vote-btn");
+
+    logInToVoteBtn2.style.display = "none";
+    voteBtn2.style.display = "flex";
+}
+
 metamaskBtn.addEventListener("click", async () => {
     console.log("Metamask button clicked");
     try {
@@ -58,9 +71,7 @@ metamaskBtn.addEventListener("click", async () => {
         const address = await signer.getAddress();
         console.log('Address:', address);
 
-        closeLoginModal();
-        hideLoginButton();
-        showVoteButton();
+        onWalletConnected();
     } catch (error) {
         console.error('Error occurred while fetching the account balance:', error);
     }
