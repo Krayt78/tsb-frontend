@@ -80,7 +80,7 @@ async function voteMainBody() {
     voteBtn.addEventListener("click", async function () {
         console.log("Vote button clicked");
         const userId = document.getElementById("user-id");
-        await setVotingPower(userId.innerText, proposalData.id);
+        
         const proposalChoices = proposalData.choices;
         let choices = getAllChoices();
         const totalVotes = Object.values(choices).reduce((a, b) => a + b, 0);
@@ -116,6 +116,7 @@ async function voteMainBody() {
         }
 
         modalValidation.style.display = "flex";
+        await setVotingPower(userId.innerText, proposalData.id);
     });
 
     voteConfirmBtn.addEventListener("click", async function () {
