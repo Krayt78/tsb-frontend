@@ -74,7 +74,8 @@ async function voteMainBody() {
 
     voteBtn.addEventListener("click", async function () {
         console.log("Vote button clicked");
-        await setVotingPower(account, proposalData.id);
+        const userId = document.getElementById("user-id");
+        await setVotingPower(userId.innerText, proposalData.id);
         const proposalChoices = proposalData.choices;
         let choices = getAllChoices();
         const totalVotes = Object.values(choices).reduce((a, b) => a + b, 0);
