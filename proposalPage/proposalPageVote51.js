@@ -77,7 +77,6 @@ async function voteMainBody() {
 
     voteBtn.addEventListener("click", async function () {
         console.log("Vote button clicked");
-        const userId = document.getElementById("user-id");
         voteConfirmBtn.style.display = "none"; //to prevent flicker, its off at the start
         
         const proposalChoices = proposalData.choices;
@@ -111,7 +110,7 @@ async function voteMainBody() {
         }
 
         modalValidation.style.display = "flex";
-        await setVotingPower(userId.innerText, proposalData.id);
+        await setVotingPower(userAddress, proposalData.id);
 
         const votingPowerModal = document.getElementById("modal-voting-power");
         const vp = parseInt(votingPowerModal.innerText);

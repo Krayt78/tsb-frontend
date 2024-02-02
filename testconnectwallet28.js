@@ -3,6 +3,8 @@ const loginModal = document.getElementById("modal-login");
 const idBlock = document.getElementById("id-block");
 const metamaskBtn = document.getElementById("metamask-button");
 
+let userAddress = "";
+
 function closeLoginModal() {
     loginModal.style.display = "none";
     console.log("Login modal closed");
@@ -29,7 +31,9 @@ async function showUserId() {
     const address = await signer.getAddress();
 
     const userId = document.getElementById("user-id");
-    userId.innerText = address;
+    const truncatedAddress = address.substring(0, 6) + "..." + address.substring(address.length - 4, address.length);
+    userAddress = address;
+    userId.innerText = truncatedAddress;
 }
 
 function hideVoteButton() {
