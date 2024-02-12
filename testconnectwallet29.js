@@ -45,7 +45,13 @@ function hideVoteButton() {
 // Add event listener to the connectButton
 loginButton.addEventListener("click", async () => {
     console.log("Login button clicked");
-    loginModal.style.display = "flex";
+    if (isMetaMaskConnected()) {
+        loginModal.style.display = "flex";
+    }
+    else {
+        const noMetamaskModal = document.getElementById("modal-no-metamask");
+        noMetamaskModal.style.display = "flex";
+    }
 });
 
 idBlock.addEventListener("click", async () => {
@@ -56,10 +62,10 @@ idBlock.addEventListener("click", async () => {
 window.addEventListener("load", function () {
     // loaded
     const logInToVoteBtn2 = document.getElementById("login-vote");
-    if(!logInToVoteBtn2) {
+    if (!logInToVoteBtn2) {
         return;
     }
-    
+
     logInToVoteBtn2.addEventListener("click", async () => {
         console.log("logInToVoteBtn2 clicked");
         loginModal.style.display = "flex";
@@ -107,6 +113,7 @@ metamaskBtn.addEventListener("click", async () => {
 const isMetaMaskConnected = async () => {
     // Check if MetaMask is installed and connected
     if (!window.ethereum) {
+
         return false;
     }
 
