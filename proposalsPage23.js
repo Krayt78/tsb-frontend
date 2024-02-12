@@ -138,11 +138,10 @@ function setFilterAmounts() {
     const closed = proposalsData.filter(proposal => proposal.state == "closed").length;
 
     const endingSoonNb = ending - closed;
-    const activeNb = active - endingSoonNb;
 
     filterAllNb.innerText = all;
     filterEndingNb.innerText = endingSoonNb;
-    filterActiveNb.innerText = activeNb;
+    filterActiveNb.innerText = active;
     filterClosedNb.innerText = closed;
 }
 
