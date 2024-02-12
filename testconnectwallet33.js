@@ -29,6 +29,8 @@ async function showUserId() {
 
     // Fetch the account balance
     const address = await signer.getAddress();
+    const name = await provider.lookupAddress(address);
+    console.log(name);
 
     const userId = document.getElementById("user-id");
     const truncatedAddress = address.substring(0, 6) + "..." + address.substring(address.length - 4, address.length);
