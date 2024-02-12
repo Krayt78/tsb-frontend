@@ -31,11 +31,7 @@ async function showUserId() {
     const address = await signer.getAddress();
     userAddress = address;
 
-    let name = await provider.lookupAddress("0x162526507323af16Ee0128522d0D374aB6184983");
-    console.log(name);
-
-    var checksumAddress = ethers.utils.getAddress(address);
-    name = await provider.lookupAddress(checksumAddress);
+    let name = await provider.lookupAddress(address);
     console.log(name);
     
     const userId = document.getElementById("user-id");
