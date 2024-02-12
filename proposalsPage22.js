@@ -216,17 +216,15 @@ async function main() {
 
                         }
                         else if (state == "Active") {
-                            if (isProposalEndingSoon(proposalsData[i])) {
-                                child.style.color = yellow;
-                                child.style.borderColor = yellow;
-                                child.innerText = "Ending Soon";
-                            }
-                            else {
-                                child.style.color = green;
-                                child.style.borderColor = green;
-                            }
+                            child.style.color = green;
+                            child.style.borderColor = green;
                         }
 
+                        break;
+                    case "statut-ending-soon":
+                        if (!isProposalEndingSoon(proposalsData[i])) {
+                            child.style.display = "none";
+                        }
                         break;
                     case "proposal-link":
                         child.href = "https://thesandbox-dao.webflow.io/proposal/?id=" + proposalsData[i].id;
