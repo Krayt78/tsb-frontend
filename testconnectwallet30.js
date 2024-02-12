@@ -45,7 +45,7 @@ function hideVoteButton() {
 // Add event listener to the connectButton
 loginButton.addEventListener("click", async () => {
     console.log("Login button clicked");
-    if (isMetaMaskConnected()) {
+    if (await isMetaMaskConnected()) {
         loginModal.style.display = "flex";
     }
     else {
