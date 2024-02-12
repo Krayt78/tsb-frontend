@@ -45,10 +45,12 @@ function hideVoteButton() {
 // Add event listener to the connectButton
 loginButton.addEventListener("click", async () => {
     console.log("Login button clicked");
-    if (await isMetaMaskConnected()) {
+    if (window.ethereum) {
+        console.log("metamask installed")
         loginModal.style.display = "flex";
     }
     else {
+        console.log("metamask not installed")
         const noMetamaskModal = document.getElementById("modal-no-metamask");
         noMetamaskModal.style.display = "flex";
     }
