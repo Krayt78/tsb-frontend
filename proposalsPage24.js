@@ -186,6 +186,12 @@ function hideSpashScreenWithAnimation() {
 async function main() {
     proposalsData = await fetchProposalsData();
     console.log(proposalsData);
+
+    let host = "";
+    if (window.location) {
+        host = window.location.host;
+    }
+
     for (let i = 0; i < proposalsData.length; i++) {
         var duplicatedComponent = component.cloneNode(true);
         if (duplicatedComponent) {
@@ -226,7 +232,7 @@ async function main() {
                         }
                         break;
                     case "proposal-link":
-                        child.href = "https://thesandbox-dao.webflow.io/proposal/?id=" + proposalsData[i].id;
+                        child.href = "https://"+host+"/proposal/?id=" + proposalsData[i].id;
                         child.target = "_self";
                         break;
                     case "proposal-discuss":
