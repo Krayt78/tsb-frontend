@@ -29,13 +29,25 @@ async function showUserId() {
 
     // Fetch the account balance
     const address = await signer.getAddress();
-    const name = await provider.lookupAddress(address);
+    userAddress = address;
+
+    let name = await provider.lookupAddress("0x162526507323af16Ee0128522d0D374aB6184983");
     console.log(name);
 
+    var checksumAddress = ethers.utils.getAddress(address);
+    name = await provider.lookupAddress(checksumAddress);
+    console.log(name);
+    
     const userId = document.getElementById("user-id");
-    const truncatedAddress = address.substring(0, 6) + "..." + address.substring(address.length - 4, address.length);
-    userAddress = address;
-    userId.innerText = truncatedAddress;
+
+    if (name) {
+        userId.innerText = name;
+    }
+    else {
+        console.log("No ENS name found");
+        const truncatedAddress = address.substring(0, 6) + "..." + address.substring(address.length - 4, address.length);
+        userId.innerText = truncatedAddress;
+    }
 }
 
 function hideVoteButton() {
