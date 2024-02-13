@@ -1,4 +1,4 @@
-import { createWeb3Modal, defaultConfig } from '@web3modal/ethers5'
+import { createWeb3Modal, defaultConfig } from '../node_modules/@web3modal/ethers5'
 
 // 1. Get projectId
 const projectId = '70692dcde0f21c835821dfe78f00d32a'
