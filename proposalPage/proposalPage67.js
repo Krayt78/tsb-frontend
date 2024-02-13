@@ -249,9 +249,12 @@ async function getLastDiscourseComments(proposalData) {
       const comment = document.getElementById("comment" + (i + 1));
       comment.style.display = "none";
     }
+
+    const discourseLink = document.getElementById("proposal-discourse");
+    //change the href to the topic
+    discourseLink.setAttribute("href", proposalData.discussion);
   }
   else {
-
     sipNoComment.style.display = "none";
     for (let i = 0; i < numberOfComments; i++) {
       const commentAuthorName = document.getElementById("comment-name" + (i + 1));
