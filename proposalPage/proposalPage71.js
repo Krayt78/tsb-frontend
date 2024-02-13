@@ -250,7 +250,7 @@ async function getLastDiscourseComments(proposalData) {
       comment.style.display = "none";
     }
 
-    const discourseLink = document.getElementById("proposal-discourse");
+    const discourseLink = document.getElementById("proposal-discourse2");
     //change the href to the topic
     discourseLink.setAttribute("href", proposalData.discussion);
   }
