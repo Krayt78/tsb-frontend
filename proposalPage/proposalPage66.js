@@ -288,21 +288,24 @@ function convertCookedToText(cooked) {
 function getTimeSincePost(created_at) {
   const postDate = new Date(created_at);
   const now = new Date();
-  const timeSincePost = now - postDate;
+  let timeSincePost = now - postDate;
   //if more than a day display the number of days
   if (timeSincePost > 1000 * 3600 * 24) {
     timeSincePost = timeSincePost / (1000 * 3600 * 24);
     timeSincePost = Math.floor(timeSincePost);
+    timeSincePost += " days";
   }
   //if more than an hour display the number of hours
   else if(timeSincePost > 1000 * 3600){
     timeSincePost = timeSincePost / (1000 * 3600);
     timeSincePost = Math.floor(timeSincePost);
+    timeSincePost += " hours";
   }
   //if more than a minute display the number of minutes
   else if(timeSincePost > 1000 * 60){
     timeSincePost = timeSincePost / (1000 * 60);
     timeSincePost = Math.floor(timeSincePost);
+    timeSincePost += " minutes";
   }
   return timeSincePost;
 }
