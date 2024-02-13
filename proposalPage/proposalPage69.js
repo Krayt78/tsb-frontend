@@ -345,6 +345,11 @@ async function fetchCategoryFromTopic(topicId) {
 
   try{
     const response = await fetch(url, options);
+    //if the response is not ok throw an error
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
     const json = await response.json();
     console.log(json);
     return json.category;
