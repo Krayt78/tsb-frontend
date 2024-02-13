@@ -343,10 +343,15 @@ async function fetchCategoryFromTopic(topicId) {
     headers: { 'Content-Type': 'application/json' }
   };
 
-  const response = await fetch(url, options);
-  const json = await response.json();
-  console.log(json);
-  return json.category;
+  try{
+    const response = await fetch(url, options);
+    const json = await response.json();
+    console.log(json);
+    return json.category;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 }
 
 async function refreshDataAfterVote() {
@@ -396,11 +401,15 @@ async function main() {
   const discussionIdNumber = discussionId.split("/").pop();
   console.log(discussionIdNumber);
 
-  const category = await fetchCategoryFromTopic(discussionIdNumber);
-  const sipCategory = document.getElementById("sip-category");
-  sipCategory.innerText = category;
-
-
+  try{
+    const category = await fetchCategoryFromTopic(discussionIdNumber);
+    const sipCategory = document.getElementById("sip-category");
+    sipCategory.innerText = category;
+  }
+  catch(error){
+    console.log(error);
+  }
+  
   setButtons(proposalData);
   if (proposalData.discussion) {
     await getLastDiscourseComments(proposalData);
