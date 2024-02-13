@@ -113,6 +113,7 @@ async function onWalletConnected() {
     closeLoginModal();
     hideLoginButton();
     await showUserId();
+    listenToAccountChange();
 
     const voteBtn2 = document.getElementById("vote-btn");
     const logInToVoteBtn2 = document.getElementById("login-vote");
