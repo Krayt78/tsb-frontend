@@ -289,11 +289,22 @@ function getTimeSincePost(created_at) {
   const postDate = new Date(created_at);
   const now = new Date();
   const timeSincePost = now - postDate;
-  //convert to days
-  let timeSincePostInDays = timeSincePost / (1000 * 3600 * 24);
-  //remove decimals
-  timeSincePostInDays = Math.floor(timeSincePostInDays);
-  return timeSincePostInDays;
+  //if more than a day display the number of days
+  if (timeSincePost > 1000 * 3600 * 24) {
+    timeSincePost = timeSincePost / (1000 * 3600 * 24);
+    timeSincePost = Math.floor(timeSincePost);
+  }
+  //if more than an hour display the number of hours
+  else if(timeSincePost > 1000 * 3600){
+    timeSincePost = timeSincePost / (1000 * 3600);
+    timeSincePost = Math.floor(timeSincePost);
+  }
+  //if more than a minute display the number of minutes
+  else if(timeSincePost > 1000 * 60){
+    timeSincePost = timeSincePost / (1000 * 60);
+    timeSincePost = Math.floor(timeSincePost);
+  }
+  return timeSincePost;
 }
 
 async function postsInTopic(id) {
@@ -341,15 +352,15 @@ async function refreshDataAfterVote() {
 function fadeOutEffect(element) {
   var fadeTarget = document.getElementById(element);
   var fadeEffect = setInterval(function () {
-      if (!fadeTarget.style.opacity) {
-          fadeTarget.style.opacity = 1;
-      }
-      if (fadeTarget.style.opacity > 0) {
-          fadeTarget.style.opacity -= 0.1;
-      } else {
-          fadeTarget.style.display = "none";
-          clearInterval(fadeEffect);
-      }
+    if (!fadeTarget.style.opacity) {
+      fadeTarget.style.opacity = 1;
+    }
+    if (fadeTarget.style.opacity > 0) {
+      fadeTarget.style.opacity -= 0.1;
+    } else {
+      fadeTarget.style.display = "none";
+      clearInterval(fadeEffect);
+    }
   }, 100);
 }
 
