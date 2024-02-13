@@ -142,7 +142,7 @@ async function voteMainBody() {
                 proposal: proposalId,
                 type: proposalType,
                 choice: choices,
-                reason: 'Choice 1 make lot of sense',
+                reason: '',
                 app: 'my-app'
             });
 
