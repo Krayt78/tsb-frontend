@@ -59,7 +59,10 @@ function showLoginButton() {
 }
 
 async function listenToAccountChange() {
-    window.ethereum.on("accountsChanged", async (accounts) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const { provider: ethereum } = provider;
+
+    ethereum.on("accountsChanged", async (accounts) => {
         console.log("Account changed");
         console.log(accounts);
         if (accounts.length > 0) {
@@ -70,6 +73,8 @@ async function listenToAccountChange() {
             showLoginButton();
         }
     });
+
+    console.log("Listening to account changes");
 }
 
 // Add event listener to the connectButton
