@@ -160,7 +160,7 @@ async function checkIfLoggedIn() {
     if (isConnected) {
         hideLoginButton();
         showUserId();
-
+        listenToAccountChange();
     }
     else {
         hideVoteButton();
