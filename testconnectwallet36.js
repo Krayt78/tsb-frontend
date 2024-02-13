@@ -52,6 +52,26 @@ function hideVoteButton() {
     console.log(idBlock.style.display);
 }
 
+function showLoginButton() {
+    loginButton.style.display = "flex";
+    console.log("Login button shown");
+    console.log(loginButton.style.display);
+}
+
+async function listenToAccountChange() {
+    window.ethereum.on("accountsChanged", async (accounts) => {
+        console.log("Account changed");
+        console.log(accounts);
+        if (accounts.length > 0) {
+            await onWalletConnected();
+        }
+        else {
+            hideVoteButton();
+            showLoginButton();
+        }
+    });
+}
+
 // Add event listener to the connectButton
 loginButton.addEventListener("click", async () => {
     console.log("Login button clicked");
