@@ -244,15 +244,15 @@ async function getLastDiscourseComments(proposalData) {
     numberOfComments = postsData.length;
   }
 
+  const discourseLink = document.getElementById("discourse-link");
+    //change the href to the topic
+  discourseLink.setAttribute("href", proposalData.discussion);
+
   if (numberOfComments == 0) {
     for (let i = 0; i < numberOfCommentsLimit; i++) {
       const comment = document.getElementById("comment" + (i + 1));
       comment.style.display = "none";
     }
-
-    const discourseLink = document.getElementById("proposal-discourse2");
-    //change the href to the topic
-    discourseLink.setAttribute("href", proposalData.discussion);
   }
   else {
     sipNoComment.style.display = "none";
