@@ -326,6 +326,10 @@ async function postsInTopic(id) {
         }
       );
 
+    if (!result.ok) {
+      throw new Error(result.statusText);
+    }
+
     var data = await result.json();
     const posts = data;
     console.log(posts);
