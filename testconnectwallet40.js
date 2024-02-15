@@ -4,6 +4,7 @@ const idBlock = document.getElementById("id-block");
 const metamaskBtn = document.getElementById("metamask-button");
 
 let userAddress = "";
+let userEns = "";
 
 function closeLoginModal() {
     loginModal.style.display = "none";
@@ -32,6 +33,7 @@ async function showUserId() {
     userAddress = address;
 
     let name = await provider.lookupAddress(address);
+    userEns = name;
     console.log(name);
     
     const userId = document.getElementById("user-id");

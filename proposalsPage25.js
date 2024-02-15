@@ -200,6 +200,9 @@ async function main() {
             var children = duplicatedComponent.querySelectorAll('[id]');
             children.forEach(async function (child) {
                 switch (child.id) {
+                    case "proposal-auteur":
+                        child.innerText = proposalsData[i].author; //todo : rajouter un ens check
+                        break;
                     case "proposal-titre":
                         child.innerText = proposalsData[i].title;
                         break;

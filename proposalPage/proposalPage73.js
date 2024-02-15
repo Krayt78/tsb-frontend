@@ -37,17 +37,38 @@ async function fetchProposalData(proposalId) {
   return json;
 }
 
-function setValuesFromProposalData(proposalData) {
+async function setValuesFromProposalData(proposalData) {
   window.parent.document.title = proposalData.title;
   title.innerText = proposalData.title;
+
+  if (proposalData.state === "active") {
+    sipStatus.style.backgroundColor = "#1ab022";
+  }
+  else if (proposalData.state === "closed") {
+    sipStatus.style.backgroundColor = "#5f5f5f";
+  }
+
+  //set the fisrt letter of the state to uppercase
+  proposalData.state = proposalData.state.charAt(0).toUpperCase() + proposalData.state.slice(1);
 
   sipStatus.innerText = proposalData.state;
   sipStatusDetails.innerText = proposalData.state;
 
   let authorAddress = proposalData.author;
-  if (authorAddress.length > 37) {
-    authorAddress = authorAddress.substring(0, 37);
-    authorAddress += "...";
+
+  // Create a new ethers provider with MetaMask's provider
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  let name = await provider.lookupAddress(address);
+
+  if (name) {
+    authorAddress = name;
+  }
+  else  {
+    console.log("No ENS name found");
+    if (authorAddress.length > 37) {
+      authorAddress = authorAddress.substring(0, 37);
+      authorAddress += "...";
+    }
   }
 
   author.innerText = authorAddress;
@@ -245,7 +266,7 @@ async function getLastDiscourseComments(proposalData) {
   }
 
   const discourseLink = document.getElementById("discourse-link");
-    //change the href to the topic
+  //change the href to the topic
   discourseLink.setAttribute("href", proposalData.discussion);
 
   if (numberOfComments == 0) {
@@ -299,13 +320,13 @@ function getTimeSincePost(created_at) {
     timeSincePost += " days";
   }
   //if more than an hour display the number of hours
-  else if(timeSincePost > 1000 * 3600){
+  else if (timeSincePost > 1000 * 3600) {
     timeSincePost = timeSincePost / (1000 * 3600);
     timeSincePost = Math.floor(timeSincePost);
     timeSincePost += " hours";
   }
   //if more than a minute display the number of minutes
-  else if(timeSincePost > 1000 * 60){
+  else if (timeSincePost > 1000 * 60) {
     timeSincePost = timeSincePost / (1000 * 60);
     timeSincePost = Math.floor(timeSincePost);
     timeSincePost += " minutes";
@@ -347,7 +368,7 @@ async function fetchCategoryFromTopic(topicId) {
     headers: { 'Content-Type': 'application/json' }
   };
 
-  try{
+  try {
     const response = await fetch(url, options);
     //if the response is not ok throw an error
     if (!response.ok) {
@@ -366,7 +387,7 @@ async function fetchCategoryFromTopic(topicId) {
 async function refreshDataAfterVote() {
   const proposalId = proposalData.id;
   proposalData = await fetchProposalData(proposalId);
-  setValuesFromProposalData(proposalData);
+  await setValuesFromProposalData(proposalData);
 }
 
 function fadeOutEffect(element) {
@@ -403,22 +424,22 @@ async function main() {
     VotePanel.style.display = "none";
   }
 
-  setValuesFromProposalData(proposalData);
+  await setValuesFromProposalData(proposalData);
 
   const discussionId = proposalData.discussion;
   //only keep the numbers after the last /
   const discussionIdNumber = discussionId.split("/").pop();
   console.log(discussionIdNumber);
 
-  try{
+  try {
     const category = await fetchCategoryFromTopic(discussionIdNumber);
     const sipCategory = document.getElementById("sip-category");
     sipCategory.innerText = category;
   }
-  catch(error){
+  catch (error) {
     console.log(error);
   }
-  
+
   setButtons(proposalData);
   if (proposalData.discussion) {
     await getLastDiscourseComments(proposalData);
