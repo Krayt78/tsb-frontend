@@ -229,7 +229,7 @@ async function main() {
                 switch (child.id) {
                     case "hasVoted":
                         if (proposalsUserVotedOn.includes(proposalsData[i].id)) {
-                            child.style.display = "block";
+                            child.style.display = "flex";
                         }
                         else {
                             child.style.display = "none";
