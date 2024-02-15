@@ -61,11 +61,11 @@ async function setValuesFromProposalData(proposalData) {
   let authorAddress = proposalData.author;
 
   const ens = await getEns(authorAddress);
-  
+
   if (ens) {
     authorAddress = ens;
   }
-  else  {
+  else {
     console.log("No ENS name found");
     if (authorAddress.length > 37) {
       authorAddress = authorAddress.substring(0, 37);
@@ -421,7 +421,7 @@ function hideSpashScreenWithAnimation() {
   fadeOutEffect("splash-screen");
 }
 
-async function fetchUserHasVoted(){
+async function fetchUserHasVoted() {
   const url = "https://api.tsbdao.com/proposals/hasVoted";
   const options = {
     method: 'POST',
@@ -435,21 +435,27 @@ async function fetchUserHasVoted(){
   return json;
 }
 
-async function handleHasVoted() {
-  //show the already voted message
+async function handleHasVoted(hasVoted) {
   const alreadyVoted = document.getElementById("already-voted");
-  alreadyVoted.style.display = "flex";
-
-  //show the modify vote button
   const modifyVote = document.getElementById("modify-vote");
-  modifyVote.style.display = "flex";
-  modifyVote.addEventListener("click", function () {
-    console.log("modify vote clicked");
-  });
-
-  //hide the vote button
   const voteBtn = document.getElementById("vote-btn");
-  voteBtn.style.display = "none";
+
+  if (hasVoted) {
+    //show the already voted message
+    alreadyVoted.style.display = "flex";
+    //show the modify vote button
+    modifyVote.style.display = "flex";
+    modifyVote.addEventListener("click", function () {
+      console.log("modify vote clicked");
+    });
+    //hide the vote button
+    voteBtn.style.display = "none";
+  }
+  else{
+    alreadyVoted.style.display = "none";
+    modifyVote.style.display = "none";
+    voteBtn.style.display = "flex";
+  }
 }
 
 async function main() {
@@ -462,10 +468,7 @@ async function main() {
 
   if (userAddress && userAddress != "") {
     hasVoted = await fetchUserHasVoted();
-
-    if (hasVoted) {
-      handleHasVoted();
-    }
+    handleHasVoted(hasVoted);
   }
 
   if (proposalData.state === "closed") {
