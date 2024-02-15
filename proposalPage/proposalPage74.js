@@ -58,7 +58,7 @@ async function setValuesFromProposalData(proposalData) {
 
   // Create a new ethers provider with MetaMask's provider
   const provider = new ethers.providers.Web3Provider(window.ethereum);
-  let name = await provider.lookupAddress(address);
+  let name = await provider.lookupAddress(authorAddress);
 
   if (name) {
     authorAddress = name;
