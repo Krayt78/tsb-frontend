@@ -24,6 +24,8 @@ const proposalContent = document.getElementById("proposal-content");
 const discussProposalBtn = document.getElementById("proposal-discourse");
 const sipNoComment = document.getElementById("sip-no-comment");
 
+let hasVoted = false;
+
 async function fetchProposalData(proposalId) {
   const url = `https://api.tsbdao.com/proposals/${proposalId}`;
   const options = {
@@ -388,6 +390,14 @@ async function refreshDataAfterVote() {
   const proposalId = proposalData.id;
   proposalData = await fetchProposalData(proposalId);
   await setValuesFromProposalData(proposalData);
+
+  if (userAddress && userAddress != "" && !hasVoted) {
+    hasVoted = await fetchUserHasVoted();
+
+    if (hasVoted) {
+      handleHasVoted();
+    }
+  }
 }
 
 function fadeOutEffect(element) {
@@ -411,6 +421,37 @@ function hideSpashScreenWithAnimation() {
   fadeOutEffect("splash-screen");
 }
 
+async function fetchUserHasVoted(){
+  const url = "https://api.tsbdao.com/proposals/hasVoted";
+  const options = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ address: userAddress, proposalId: proposalData.id })
+  };
+
+  const response = await fetch(url, options);
+  const json = await response.json();
+  console.log(json);
+  return json;
+}
+
+async function handleHasVoted() {
+  //show the already voted message
+  const alreadyVoted = document.getElementById("already-voted");
+  alreadyVoted.style.display = "flex";
+
+  //show the modify vote button
+  const modifyVote = document.getElementById("modify-vote");
+  modifyVote.style.display = "flex";
+  modifyVote.addEventListener("click", function () {
+    console.log("modify vote clicked");
+  });
+
+  //hide the vote button
+  const voteBtn = document.getElementById("vote-btn");
+  voteBtn.style.display = "none";
+}
+
 async function main() {
   //get proposal id from url
   const queryString = window.location.search;
@@ -418,6 +459,14 @@ async function main() {
   const proposalId = urlParams.get('id');
   console.log(proposalId);
   proposalData = await fetchProposalData(proposalId);
+
+  if (userAddress && userAddress != "") {
+    hasVoted = await fetchUserHasVoted();
+
+    if (hasVoted) {
+      handleHasVoted();
+    }
+  }
 
   if (proposalData.state === "closed") {
     const VotePanel = document.getElementById("VotePanel");
