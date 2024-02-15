@@ -4,6 +4,7 @@ component.style.display = "none";
 var proposalList = document.getElementById("proposals-list");
 let proposalsData = [];
 let proposals = [];
+let proposalsUserVotedOn = [];
 
 const quorum = 500;
 const hour = 3600000;
@@ -183,9 +184,33 @@ function hideSpashScreenWithAnimation() {
     fadeOutEffect("splash-screen");
 }
 
+async function fetchProposalsUserVotedOn() {
+    try {
+        const url = 'https://api.tsbdao.com/proposals/voted/';
+        const body = {
+            address: userAddress
+        };
+        const options = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        };
+
+        const response = await fetch(url, options);
+        return await response.json();
+    }
+    catch (err) {
+        console.log(err);
+        return [];
+    }
+}
+
 async function main() {
     proposalsData = await fetchProposalsData();
-    console.log(proposalsData);
+
+    if (userAddress && userAddress != "") {
+        proposalsUserVotedOn = await fetchProposalsUserVotedOn();
+    }
 
     let host = "";
     if (window.location) {
@@ -202,12 +227,20 @@ async function main() {
             var children = duplicatedComponent.querySelectorAll('[id]');
             children.forEach(async function (child) {
                 switch (child.id) {
+                    case "hasVoted":
+                        if (proposalsUserVotedOn.includes(proposalsData[i].id)) {
+                            child.style.display = "block";
+                        }
+                        else {
+                            child.style.display = "none";
+                        }
+                        break;
                     case "proposal-auteur":
-                        if(addressToEnsDict[proposalsData[i].author]){
+                        if (addressToEnsDict[proposalsData[i].author]) {
                             child.innerText = addressToEnsDict[proposalsData[i].author];
                             break;
                         }
-                        
+
                         const ens = await getEns(proposalsData[i].author);
                         if (ens) {
                             child.innerText = ens;
@@ -249,7 +282,7 @@ async function main() {
                         }
                         break;
                     case "proposal-link":
-                        child.href = "https://"+host+"/proposal/?id=" + proposalsData[i].id;
+                        child.href = "https://" + host + "/proposal/?id=" + proposalsData[i].id;
                         child.target = "_self";
                         break;
                     case "proposal-discuss":
