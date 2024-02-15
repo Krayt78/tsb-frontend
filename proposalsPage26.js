@@ -192,6 +192,8 @@ async function main() {
         host = window.location.host;
     }
 
+    let addressToEnsDict = {};
+
     for (let i = 0; i < proposalsData.length; i++) {
         var duplicatedComponent = component.cloneNode(true);
         if (duplicatedComponent) {
@@ -201,7 +203,19 @@ async function main() {
             children.forEach(async function (child) {
                 switch (child.id) {
                     case "proposal-auteur":
-                        child.innerText = proposalsData[i].author; //todo : rajouter un ens check
+                        if(addressToEnsDict[proposalsData[i].author]){
+                            child.innerText = addressToEnsDict[proposalsData[i].author];
+                            break;
+                        }
+                        
+                        const ens = await getEns(proposalsData[i].author);
+                        if (ens) {
+                            child.innerText = ens;
+                            addressToEnsDict[proposalsData[i].author] = ens;
+                        }
+                        else {
+                            child.innerText = proposalsData[i].author;
+                        }
                         break;
                     case "proposal-titre":
                         child.innerText = proposalsData[i].title;
