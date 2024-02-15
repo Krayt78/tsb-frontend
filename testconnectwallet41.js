@@ -32,14 +32,14 @@ async function showUserId() {
     const address = await signer.getAddress();
     userAddress = address;
 
-    let name = await provider.lookupAddress(address);
-    userEns = name;
-    console.log(name);
+    const ens = await getEns(address);
+    userEns = ens;
+    console.log(ens);
     
     const userId = document.getElementById("user-id");
 
-    if (name) {
-        userId.innerText = name;
+    if (ens) {
+        userId.innerText = ens;
     }
     else {
         console.log("No ENS name found");

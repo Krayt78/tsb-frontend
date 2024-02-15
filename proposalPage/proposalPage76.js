@@ -42,10 +42,12 @@ async function setValuesFromProposalData(proposalData) {
   title.innerText = proposalData.title;
 
   if (proposalData.state === "active") {
-    sipStatus.style.backgroundColor = "#1ab022";
+    sipStatus.style.color = "#1ab022";
+    sipStatus.style.borderColor = "#1ab022";
   }
   else if (proposalData.state === "closed") {
-    sipStatus.style.backgroundColor = "#5f5f5f";
+    sipStatus.style.color = "#5f5f5f";
+    sipStatus.style.borderColor = "#5f5f5f";
   }
 
   //set the fisrt letter of the state to uppercase
@@ -56,12 +58,10 @@ async function setValuesFromProposalData(proposalData) {
 
   let authorAddress = proposalData.author;
 
-  // Create a new ethers provider with MetaMask's provider
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  let name = await provider.lookupAddress(authorAddress);
-
-  if (name) {
-    authorAddress = name;
+  const ens = await getEns(authorAddress);
+  
+  if (ens) {
+    authorAddress = ens;
   }
   else  {
     console.log("No ENS name found");
