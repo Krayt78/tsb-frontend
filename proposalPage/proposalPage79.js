@@ -96,15 +96,15 @@ async function setValuesFromProposalData(proposalData) {
   const html = mdParser.parse(proposalData.body); //TODO: Warning: 🚨 Marked does not sanitize the output HTML. Please use a sanitize library, like DOMPurify (recommended), sanitize-html or insane on the output HTML! 
   proposalContent.innerHTML = html;
 
-  voteNb.innerText = proposalData.votes;
+  voteNb.innerText = proposalData.nbVotes;
 
-  if (proposalData.votes > quorum) {
+  if (proposalData.nbVotes > quorum) {
     votesLeftToQuorum.style.visibility = "hidden";
     votesToQuorum.style.visibility = "hidden";
     quorumReached.style.visibility = "visible";
   }
   else {
-    votesLeftToQuorum.innerText = quorum - proposalData.votes;
+    votesLeftToQuorum.innerText = quorum - proposalData.nbVotes;
     votesToQuorum.style.visibility = "block";
     quorumReached.style.visibility = "hidden";
   }

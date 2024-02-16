@@ -321,15 +321,15 @@ async function main() {
                         setColourDependingOnTimeLeft(child, proposalsData[i]);
                         break;
                     case "proposal-quorum":
-                        if (proposalsData[i].votes >= quorum) {
+                        if (proposalsData[i].nbVotes >= quorum) {
                             child.style.display = "none";
                         }
                         else {
-                            child.innerText = quorum - proposalsData[i].votes + " votes to quorum";
+                            child.innerText = quorum - proposalsData[i].nbVotes + " votes to quorum";
                         }
                         break;
                     case "proposal-quorum-reached":
-                        if (proposalsData[i].votes >= quorum) {
+                        if (proposalsData[i].nbVotes >= quorum) {
                             child.innerText = "Quorum reached";
                         }
                         else {
