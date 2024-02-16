@@ -76,7 +76,7 @@ function handleFilterButtons() {
 async function fetchProposalsData() {
     const url = 'https://api.tsbdao.com/proposals/';
     const options = {
-        method: 'GET',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' }
     };
 
