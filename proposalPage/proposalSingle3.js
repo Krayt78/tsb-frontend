@@ -30,6 +30,8 @@ const voteConfirmBtn = document.getElementById("vote-confirmation");
 const logInToVoteBtn = document.getElementById("login-vote");
 const voteBtn = document.getElementById("vote-btn");
 
+const discourseLink = document.getElementById("discourse-link");
+
 let hasVoted = false;
 
 async function fetchProposalData(proposalId) {
@@ -520,8 +522,7 @@ async function handleDiscourse(proposalData) {
 
     const url = proposalData.discussion;
     discussProposalBtn.setAttribute("href", url);
-    const discourseLink = document.getElementById("discourse-link");
-    discourseLink.setAttribute("href", discourseUrl);
+    discourseLink.setAttribute("href", url);
 
     if (proposalData.comments.length > 0) {
 
