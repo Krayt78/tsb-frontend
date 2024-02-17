@@ -15,3 +15,22 @@ async function getEns(address){
     const ens = await provider.lookupAddress(address);
     return ens;
 }
+
+const isMetamaskInstalled = () => {
+    //Check if MetaMask is installed
+    if (window.ethereum) {
+        return true;
+    }
+    return false;
+}
+
+const isMetaMaskConnected = async () => {
+    // Check if MetaMask is installed and connected
+    if (!window.ethereum) {
+        return false;
+    }
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const accounts = await provider.listAccounts();
+    return accounts.length > 0;
+}

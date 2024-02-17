@@ -150,18 +150,6 @@ metamaskBtn.addEventListener("click", async () => {
     }
 });
 
-const isMetaMaskConnected = async () => {
-    // Check if MetaMask is installed and connected
-    if (!window.ethereum) {
-
-        return false;
-    }
-
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-    const accounts = await provider.listAccounts();
-    return accounts.length > 0;
-}
-
 async function checkIfLoggedIn() {
     const isConnected = await isMetaMaskConnected();
     console.log(isConnected);
