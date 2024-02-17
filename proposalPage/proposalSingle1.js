@@ -235,9 +235,10 @@ function getTotalVoteChoices() {
 
 async function getLastDiscourseComments(proposalData) {
     const discourseUrl = proposalData.discussion;
-    console.log(discourseUrl);
+
+    const discourseLink = document.getElementById("discourse-link");
+    discourseLink.setAttribute("href", discourseUrl);
     const discourseTopicId = discourseUrl.split("/")[5];
-    console.log(discourseTopicId);
 
     let posts;
     try {
@@ -268,10 +269,6 @@ async function getLastDiscourseComments(proposalData) {
     if (postsData.length < numberOfCommentsLimit) {
         numberOfComments = postsData.length;
     }
-
-    const discourseLink = document.getElementById("discourse-link");
-    //change the href to the topic
-    discourseLink.setAttribute("href", proposalData.discussion);
 
     if (numberOfComments == 0) {
         for (let i = 0; i < numberOfCommentsLimit; i++) {
