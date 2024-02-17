@@ -232,76 +232,6 @@ function getTotalVoteChoices() {
     return total;
 }
 
-
-async function getLastDiscourseComments(proposalData) {
-    const discourseUrl = proposalData.discussion;
-
-    const discourseLink = document.getElementById("discourse-link");
-    discourseLink.setAttribute("href", discourseUrl);
-    const discourseTopicId = discourseUrl.split("/")[5];
-
-    let posts;
-    try {
-        posts = await postsInTopic(discourseTopicId);
-    }
-    catch (error) {
-        console.log(error);
-        for (let i = 0; i < numberOfCommentsLimit; i++) {
-            const comment = document.getElementById("comment" + (i + 1));
-            comment.style.display = "none";
-        }
-        return;
-    }
-
-    //only keep the username, the create_at and the cooked (the content)
-    const postsData = posts.map(post => {
-        return {
-            username: post.username,
-            created_at: post.created_at,
-            cooked: post.cooked
-        }
-    });
-
-    console.log(postsData);
-
-
-    let numberOfComments = numberOfCommentsLimit;
-    if (postsData.length < numberOfCommentsLimit) {
-        numberOfComments = postsData.length;
-    }
-
-    if (numberOfComments == 0) {
-        for (let i = 0; i < numberOfCommentsLimit; i++) {
-            const comment = document.getElementById("comment" + (i + 1));
-            comment.style.display = "none";
-        }
-    }
-    else {
-        sipNoComment.style.display = "none";
-        for (let i = 0; i < numberOfComments; i++) {
-            const commentAuthorName = document.getElementById("comment-name" + (i + 1));
-            const commentDate = document.getElementById("comment-days" + (i + 1));
-            const commentContent = document.getElementById("comment-text" + (i + 1));
-
-            commentAuthorName.innerText = postsData[i].username;
-            commentDate.innerText = getTimeSincePost(postsData[i].created_at);
-            let text = convertCookedToText(postsData[i].cooked);
-            //limit the text to 200 characters
-            text = text.substring(0, 200);
-            //add ... at the end if the text is too long
-            if (text.length == 200) {
-                text += "...";
-            }
-            commentContent.innerText = text;
-        }
-
-        for (let i = numberOfComments; i < numberOfCommentsLimit; i++) {
-            const comment = document.getElementById("comment" + (i + 1));
-            comment.style.display = "none";
-        }
-    }
-}
-
 function convertCookedToText(cooked) {
     const html = cooked;
     const div = document.createElement("div");
@@ -333,56 +263,6 @@ function getTimeSincePost(created_at) {
         timeSincePost += " minutes";
     }
     return timeSincePost;
-}
-
-async function postsInTopic(id) {
-    var url = `https://api.tsbdao.com/discourse/${id}`;
-    try {
-        var result = await fetch
-            (url,
-                {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                }
-            );
-
-        if (!result.ok) {
-            throw new Error(result.statusText);
-        }
-
-        var data = await result.json();
-        const posts = data;
-        console.log(posts);
-        return posts;
-    } catch (error) {
-        console.log(error);
-        throw error;
-    }
-}
-
-async function fetchCategoryFromTopic(topicId) {
-    const url = `https://api.tsbdao.com/discourse/category/${topicId}`;
-    const options = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
-    };
-
-    try {
-        const response = await fetch(url, options);
-        //if the response is not ok throw an error
-        if (!response.ok) {
-            throw new Error(response.statusText);
-        }
-
-        const json = await response.json();
-        console.log(json);
-        return json.category;
-    } catch (error) {
-        console.log(error);
-        throw error;
-    }
 }
 
 async function refreshDataAfterVote() {
@@ -511,7 +391,7 @@ async function setVotingPower(vp) {
 }
 
 async function voteMainBody() {
-    if(!isMetamaskInstalled()){ //utils.js
+    if (!isMetamaskInstalled()) { //utils.js
         console.log("Metamask is not installed");
         hideLogInToVoteBtn();
         hideVoteBtn();
@@ -630,25 +510,69 @@ function isUserLoggedIn() {
 }
 
 async function handleDiscourse(proposalData) {
-    const discussionId = proposalData.discussion;
+    const discussionId = proposalData.discussionId;
     //only keep the numbers after the last /
     const discussionIdNumber = discussionId.split("/").pop();
     console.log(discussionIdNumber);
 
-    try {
-        const category = await fetchCategoryFromTopic(discussionIdNumber);
-        const sipCategory = document.getElementById("sip-category");
-        sipCategory.innerText = category;
-    }
-    catch (error) {
-        console.log(error);
-    }
+    const sipCategory = document.getElementById("sip-category");
+    sipCategory.innerText = proposalData.category;
 
     const url = proposalData.discussion;
     discussProposalBtn.setAttribute("href", url);
+    const discourseLink = document.getElementById("discourse-link");
+    discourseLink.setAttribute("href", discourseUrl);
 
-    if (proposalData.discussion) {
-        await getLastDiscourseComments(proposalData);
+    if (proposalData.comments.length > 0) {
+
+        let posts = proposalData.comments;
+
+        //only keep the username, the create_at and the cooked (the content)
+        const postsData = posts.map(post => {
+            return {
+                username: post.username,
+                created_at: post.created_at,
+                cooked: post.cooked
+            }
+        });
+
+        console.log(postsData);
+
+        let numberOfComments = numberOfCommentsLimit;
+        if (postsData.length < numberOfCommentsLimit) {
+            numberOfComments = postsData.length;
+        }
+
+        if (numberOfComments == 0) {
+            for (let i = 0; i < numberOfCommentsLimit; i++) {
+                const comment = document.getElementById("comment" + (i + 1));
+                comment.style.display = "none";
+            }
+        }
+        else {
+            sipNoComment.style.display = "none";
+            for (let i = 0; i < numberOfComments; i++) {
+                const commentAuthorName = document.getElementById("comment-name" + (i + 1));
+                const commentDate = document.getElementById("comment-days" + (i + 1));
+                const commentContent = document.getElementById("comment-text" + (i + 1));
+
+                commentAuthorName.innerText = postsData[i].username;
+                commentDate.innerText = getTimeSincePost(postsData[i].created_at);
+                let text = convertCookedToText(postsData[i].cooked);
+                //limit the text to 200 characters
+                text = text.substring(0, 200);
+                //add ... at the end if the text is too long
+                if (text.length == 200) {
+                    text += "...";
+                }
+                commentContent.innerText = text;
+            }
+
+            for (let i = numberOfComments; i < numberOfCommentsLimit; i++) {
+                const comment = document.getElementById("comment" + (i + 1));
+                comment.style.display = "none";
+            }
+        }
     }
     else {
         for (let i = 0; i < numberOfCommentsLimit; i++) {
