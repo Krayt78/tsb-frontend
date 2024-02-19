@@ -319,7 +319,6 @@ async function fetchUserHasVoted() {
 async function handleHasVoted(hasVoted) {
     const alreadyVoted = document.getElementById("already-voted");
     const modifyVote = document.getElementById("modify-vote");
-    const voteBtn = document.getElementById("vote-btn");
 
     if (hasVoted) {
         //show the already voted message
@@ -329,13 +328,13 @@ async function handleHasVoted(hasVoted) {
         modifyVote.addEventListener("click", function () {
             console.log("modify vote clicked");
         });
+
         //hide the vote button
-        voteBtn.style.display = "none";
+        hideVoteBtn();
     }
     else {
         alreadyVoted.style.display = "none";
         modifyVote.style.display = "none";
-        voteBtn.style.display = "flex";
     }
 }
 
@@ -597,10 +596,10 @@ async function main() {
 
     //handle what happens if user is already logged in
     if (isUserLoggedIn()) {
-        hasVoted = await fetchUserHasVoted();
+        hasVoted = await fetchUserHasVoted(); 
     }
 
-    handleHasVoted(hasVoted);
+    handleHasVoted(hasVoted); //here i change the buttons
 
     //if the proposal is closed hide the vote panel
     if (proposalData.state === "closed") {
@@ -610,7 +609,7 @@ async function main() {
 
     handleDiscourse(proposalData);
     hideSpashScreenWithAnimation();
-    voteMainBody();
+    oteMainBody(); //here i change the buttons
 }
 
 main();
