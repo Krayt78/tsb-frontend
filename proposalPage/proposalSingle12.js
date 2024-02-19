@@ -51,11 +51,11 @@ async function setValuesFromProposalData(proposalData) {
     window.parent.document.title = proposalData.title;
     title.innerText = proposalData.title;
 
-    if (proposalData.state === "active") {
+    if (proposalData.state === "Active" || proposalData.state === "active") {
         sipStatus.style.color = "#1ab022";
         sipStatus.style.borderColor = "#1ab022";
     }
-    else if (proposalData.state === "closed") {
+    else if (proposalData.state === "Closed" || proposalData.state === "closed") {
         sipStatus.style.color = "#5f5f5f";
         sipStatus.style.borderColor = "#5f5f5f";
     }
@@ -375,7 +375,7 @@ async function handleHasVoted(hasVoted) {
         alreadyVoted.style.display = "flex";
         //show the modify vote button
 
-        if (proposalData.state === "closed") {
+        if (proposalData.state === "Closed") {
             modifyVote.style.display = "none";
         }
         else {
@@ -452,12 +452,6 @@ async function setVotingPower(vp) {
 async function voteMainBody() {
     if (!isMetamaskInstalled()) { //utils.js
         console.log("Metamask is not installed");
-        hideLogInToVoteBtn();
-        hideVoteBtn();
-        return;
-    }
-
-    if(proposalData.state === "closed"){
         hideLogInToVoteBtn();
         hideVoteBtn();
         return;
@@ -613,14 +607,16 @@ async function main() {
 
     //set the values from the proposal data
     await setValuesFromProposalData(proposalData);
+    handleDiscourse(proposalData);
 
     //if the proposal is closed hide the vote panel
-    if (proposalData.state === "closed") {
+    if (proposalData.state === "Closed" || proposalData.state === "closed") {
         const VotePanel = document.getElementById("VotePanel");
         VotePanel.style.display = "none";
+        console.log("Proposal is closed");
+        return;
     }
 
-    handleDiscourse(proposalData);
     hideSpashScreenWithAnimation();
     await voteMainBody(); //here i change the buttons
 
