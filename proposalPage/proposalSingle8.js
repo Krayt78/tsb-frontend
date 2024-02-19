@@ -316,6 +316,56 @@ async function fetchUserHasVoted() {
     return json;
 }
 
+async function OnVotingModalOpen() {
+    console.log("OnVotingModalOpen");
+    voteConfirmBtn.style.display = "none"; //to prevent flicker, its off at the start
+
+    const proposalChoices = proposalData.choices;
+    let choices = getAllChoices();
+    const totalVotes = Object.values(choices).reduce((a, b) => a + b, 0);
+    console.log(totalVotes);
+
+    const snapshotModalId = document.getElementById("snapshot-id");
+    snapshotModalId.innerText = proposalData.snapshot;
+
+    const modalSipName = document.getElementById("modal-sip-name");
+    modalSipName.innerText = proposalData.title;
+
+    if (totalVotes === 0) {
+        const modalChoice = document.getElementById("modal-choice");
+        modalChoice.innerText = "No choices made";
+    }
+    else {
+        const modalChoice = document.getElementById("modal-choice");
+        let choiceString = "";
+        for (let i = 1; i <= proposalData.choices.length; i++) {
+            const percentage = Math.round((choices[i] / totalVotes) * 100);
+            choiceString += percentage + "% for " + proposalChoices[i - 1] + ", ";
+        }
+
+        if (choiceString.length > 30) {
+            choiceString = choiceString.substring(0, 30) + "...";
+        }
+
+        modalChoice.innerText = choiceString;
+    }
+
+    modalValidation.style.display = "flex";
+
+    const vp = await getVotingPower(userAddress, proposalData.id);
+    await setVotingPower(vp);
+
+    const votingPowerModal = document.getElementById("modal-voting-power");
+    const vpModalInnerText = parseInt(votingPowerModal.innerText);
+
+    if (vpModalInnerText === 0 || vpModalInnerText === 0) {
+        voteConfirmBtn.style.display = "none";
+    }
+    else {
+        voteConfirmBtn.style.display = "flex";
+    }
+}
+
 async function handleHasVoted(hasVoted) {
     const alreadyVoted = document.getElementById("already-voted");
     const modifyVote = document.getElementById("modify-vote");
@@ -327,6 +377,7 @@ async function handleHasVoted(hasVoted) {
         modifyVote.style.display = "flex";
         modifyVote.addEventListener("click", function () {
             console.log("modify vote clicked");
+            OnVotingModalOpen();
         });
 
         //hide the vote button
@@ -390,6 +441,8 @@ async function setVotingPower(vp) {
     }
 }
 
+
+
 async function voteMainBody() {
     if (!isMetamaskInstalled()) { //utils.js
         console.log("Metamask is not installed");
@@ -415,53 +468,8 @@ async function voteMainBody() {
     }
 
     voteBtn.addEventListener("click", async function () {
-        console.log("Vote button clicked");
-        voteConfirmBtn.style.display = "none"; //to prevent flicker, its off at the start
-
-        const proposalChoices = proposalData.choices;
-        let choices = getAllChoices();
-        const totalVotes = Object.values(choices).reduce((a, b) => a + b, 0);
-        console.log(totalVotes);
-
-        const snapshotModalId = document.getElementById("snapshot-id");
-        snapshotModalId.innerText = proposalData.snapshot;
-
-        const modalSipName = document.getElementById("modal-sip-name");
-        modalSipName.innerText = proposalData.title;
-
-        if (totalVotes === 0) {
-            const modalChoice = document.getElementById("modal-choice");
-            modalChoice.innerText = "No choices made";
-        }
-        else {
-            const modalChoice = document.getElementById("modal-choice");
-            let choiceString = "";
-            for (let i = 1; i <= proposalData.choices.length; i++) {
-                const percentage = Math.round((choices[i] / totalVotes) * 100);
-                choiceString += percentage + "% for " + proposalChoices[i - 1] + ", ";
-            }
-
-            if (choiceString.length > 30) {
-                choiceString = choiceString.substring(0, 30) + "...";
-            }
-
-            modalChoice.innerText = choiceString;
-        }
-
-        modalValidation.style.display = "flex";
-
-        const vp = await getVotingPower(userAddress, proposalData.id);
-        await setVotingPower(vp);
-
-        const votingPowerModal = document.getElementById("modal-voting-power");
-        const vpModalInnerText = parseInt(votingPowerModal.innerText);
-
-        if (vpModalInnerText === 0 || vpModalInnerText === 0) {
-            voteConfirmBtn.style.display = "none";
-        }
-        else {
-            voteConfirmBtn.style.display = "flex";
-        }
+        console.log("vote btn clicked");
+        OnVotingModalOpen();
     });
 
     voteConfirmBtn.addEventListener("click", async function () {
@@ -606,7 +614,7 @@ async function main() {
 
     //handle what happens if user is already logged in
     if (isUserLoggedIn()) {
-        hasVoted = await fetchUserHasVoted(); 
+        hasVoted = await fetchUserHasVoted();
     }
 
     handleHasVoted(hasVoted); //here i change the buttons
