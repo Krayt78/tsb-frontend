@@ -609,7 +609,7 @@ async function main() {
 
     handleDiscourse(proposalData);
     hideSpashScreenWithAnimation();
-    oteMainBody(); //here i change the buttons
+    voteMainBody(); //here i change the buttons
 }
 
 main();
