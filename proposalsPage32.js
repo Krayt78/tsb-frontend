@@ -75,10 +75,21 @@ function handleFilterButtons() {
 
 async function fetchProposalsData() {
     const url = 'https://api.tsbdao.com/proposals/';
-    const options = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
-    };
+    let options;
+    if (await isMetaMaskConnected()) {
+        options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ address: userAddress })
+        };
+
+    }
+    else {
+        options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        };
+    }
 
     const response = await fetch(url, options);
     return await response.json();
