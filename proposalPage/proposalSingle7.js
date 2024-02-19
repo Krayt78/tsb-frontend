@@ -594,13 +594,6 @@ async function main() {
     //set the values from the proposal data
     await setValuesFromProposalData(proposalData);
 
-    //handle what happens if user is already logged in
-    if (isUserLoggedIn()) {
-        hasVoted = await fetchUserHasVoted(); 
-    }
-
-    handleHasVoted(hasVoted); //here i change the buttons
-
     //if the proposal is closed hide the vote panel
     if (proposalData.state === "closed") {
         const VotePanel = document.getElementById("VotePanel");
@@ -609,7 +602,14 @@ async function main() {
 
     handleDiscourse(proposalData);
     hideSpashScreenWithAnimation();
-    voteMainBody(); //here i change the buttons
+    await voteMainBody(); //here i change the buttons
+
+    //handle what happens if user is already logged in
+    if (isUserLoggedIn()) {
+        hasVoted = await fetchUserHasVoted(); 
+    }
+
+    handleHasVoted(hasVoted); //here i change the buttons
 }
 
 main();
