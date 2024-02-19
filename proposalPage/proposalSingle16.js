@@ -416,7 +416,9 @@ function getAllChoices() {
     for (let i = 1; i <= proposalData.choices.length; i++) {
         let choiceElement = document.getElementById("counter" + (i));
         let choice = parseInt(choiceElement.innerText);
-        choices[i] = choice;
+        if (choice > 0) {
+            choices[i] = choice;
+        }
     }
     return choices;
 }
@@ -454,7 +456,7 @@ async function voteMainBody() {
         hideVoteBtn();
         return;
     }
-    
+
     const isConnected = await isMetaMaskConnected(); //utils.js
 
     if (isConnected) {
