@@ -456,12 +456,7 @@ async function voteMainBody() {
         hideVoteBtn();
         return;
     }
-
-    const hub = 'https://testnet.hub.snapshot.org'; // or https://hub.snapshot.org for mainnet
-    const client = new snapshot.Client712(hub);
-    const web3 = new ethers.providers.Web3Provider(window.ethereum);
-    const [account] = await web3.listAccounts();
-
+    
     const isConnected = await isMetaMaskConnected(); //utils.js
 
     if (isConnected) {
@@ -483,6 +478,11 @@ async function voteMainBody() {
             console.log("No proposal data");
             return;
         }
+
+        const hub = 'https://testnet.hub.snapshot.org'; // or https://hub.snapshot.org for mainnet
+        const client = new snapshot.Client712(hub);
+        const web3 = new ethers.providers.Web3Provider(window.ethereum);
+        const [account] = await web3.listAccounts();
 
         const proposalSpace = proposalData.space.id;
         const proposalId = proposalData.id;
