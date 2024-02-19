@@ -358,7 +358,7 @@ async function OnVotingModalOpen() {
     const votingPowerModal = document.getElementById("modal-voting-power");
     const vpModalInnerText = parseInt(votingPowerModal.innerText);
 
-    if (vpModalInnerText === 0 || vpModalInnerText === 0) {
+    if (vpModalInnerText === 0 || vpModalInnerText === 0 || totalVotes === 0) {
         voteConfirmBtn.style.display = "none";
     }
     else {
@@ -409,7 +409,9 @@ function getAllChoices() {
     let choices = {};
     for (let i = 1; i <= proposalData.choices.length; i++) {
         let choiceElement = document.getElementById("counter" + (i));
-        const choice = parseInt(choiceElement.innerText);
+        let choice = parseInt(choiceElement.innerText);
+        //convert to BigNumber
+        choice = ethers.BigNumber.from(choice);
         choices[i] = choice;
     }
     return choices;
