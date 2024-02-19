@@ -416,9 +416,7 @@ function getAllChoices() {
     for (let i = 1; i <= proposalData.choices.length; i++) {
         let choiceElement = document.getElementById("counter" + (i));
         let choice = parseInt(choiceElement.innerText);
-        if (choice > 0) {
-            choices[i] = choice;
-        }
+        choices[i] = choice;
     }
     return choices;
 }
