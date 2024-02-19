@@ -76,8 +76,7 @@ async function setValuesFromProposalData(proposalData) {
     else {
         console.log("No ENS name found");
         if (authorAddress.length > 37) {
-            authorAddress = authorAddress.substring(0, 37);
-            authorAddress += "...";
+            authorAddress = authorAddress.substring(0, 7) + "..." + authorAddress.substring(authorAddress.length - 5, authorAddress.length);
         }
     }
 
