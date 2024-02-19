@@ -416,8 +416,6 @@ function getAllChoices() {
     for (let i = 1; i <= proposalData.choices.length; i++) {
         let choiceElement = document.getElementById("counter" + (i));
         let choice = parseInt(choiceElement.innerText);
-        //convert to BigNumber
-        choice = ethers.BigNumber.from(choice);
         choices[i] = choice;
     }
     return choices;
