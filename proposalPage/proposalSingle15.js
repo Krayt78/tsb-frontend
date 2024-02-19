@@ -494,8 +494,7 @@ async function voteMainBody() {
                 proposal: proposalId,
                 type: proposalType,
                 choice: choices,
-                reason: '',
-                app: 'my-app'
+                app: 'tsbdao'
             });
 
             console.log(receipt);
