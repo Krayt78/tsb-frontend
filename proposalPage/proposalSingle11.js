@@ -374,11 +374,17 @@ async function handleHasVoted(hasVoted) {
         //show the already voted message
         alreadyVoted.style.display = "flex";
         //show the modify vote button
-        modifyVote.style.display = "flex";
-        modifyVote.addEventListener("click", function () {
-            console.log("modify vote clicked");
-            OnVotingModalOpen();
-        });
+
+        if (proposalData.state === "closed") {
+            modifyVote.style.display = "none";
+        }
+        else {
+            modifyVote.style.display = "flex";
+            modifyVote.addEventListener("click", function () {
+                console.log("modify vote clicked");
+                OnVotingModalOpen();
+            });
+        }
 
         //hide the vote button
         hideVoteBtn();
@@ -443,11 +449,15 @@ async function setVotingPower(vp) {
     }
 }
 
-
-
 async function voteMainBody() {
     if (!isMetamaskInstalled()) { //utils.js
         console.log("Metamask is not installed");
+        hideLogInToVoteBtn();
+        hideVoteBtn();
+        return;
+    }
+
+    if(proposalData.state === "closed"){
         hideLogInToVoteBtn();
         hideVoteBtn();
         return;
