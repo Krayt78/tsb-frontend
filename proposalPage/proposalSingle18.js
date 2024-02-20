@@ -521,11 +521,6 @@ function isUserLoggedIn() {
 }
 
 async function handleDiscourse(proposalData) {
-    const discussionId = proposalData.discussionId;
-    //only keep the numbers after the last /
-    const discussionIdNumber = discussionId.split("/").pop();
-    console.log(discussionIdNumber);
-
     const sipCategory = document.getElementById("sip-category");
     sipCategory.innerText = proposalData.category;
 
@@ -535,17 +530,7 @@ async function handleDiscourse(proposalData) {
 
     if (proposalData.comments.length > 0) {
 
-        let posts = proposalData.comments;
-
-        //only keep the username, the create_at and the cooked (the content)
-        const postsData = posts.map(post => {
-            return {
-                username: post.username,
-                created_at: post.created_at,
-                cooked: post.cooked
-            }
-        });
-
+        const postsData = proposalData.comments;
         console.log(postsData);
 
         let numberOfComments = numberOfCommentsLimit;
