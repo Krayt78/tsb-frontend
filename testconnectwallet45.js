@@ -133,7 +133,7 @@ async function ConnectToProvider(providerButtonClicked) {
         }
 
         // Create a new ethers provider with MetaMask's provider
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        let provider = new ethers.providers.Web3Provider(window.ethereum);
 
         // edge case if MM and CBW are both installed
         if (window.ethereum.providers?.length) {
