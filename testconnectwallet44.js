@@ -124,7 +124,7 @@ async function onWalletConnected() {
     voteBtn2.style.display = "flex";
 }
 
-async function ConnectToProvider(provider) {
+async function ConnectToProvider(providerButtonClicked) {
     console.log("ConnectToProvider called");
     try {
         // Check if MetaMask is installed and connected
@@ -139,8 +139,8 @@ async function ConnectToProvider(provider) {
         if (window.ethereum.providers?.length) {
             window.ethereum.providers.forEach(async (p) => {
                 console.log(p);
-                if (p.isMetaMask && provider == "MetaMask") provider = p;
-                if (p.isCoinbaseWallet && provider == "Coinbase") provider = p;
+                if (p.isMetaMask && providerButtonClicked == "MetaMask") provider = p;
+                if (p.isCoinbaseWallet && providerButtonClicked == "Coinbase") provider = p;
             });
         }
 
