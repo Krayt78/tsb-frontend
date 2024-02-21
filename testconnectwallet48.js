@@ -147,13 +147,15 @@ async function ConnectToProvider(providerButtonClicked) {
         let provider = new ethers.providers.Web3Provider(window.ethereum);
 
         // edge case if MM and CBW are both installed
-        /*if (window.ethereum.providers?.length) {
+        if (window.ethereum.providers?.length) {
             window.ethereum.providers.forEach(async (p) => {
                 console.log(p);
                 if (p.isMetaMask && providerButtonClicked == "MetaMask") provider = p;
                 if (p.isCoinbaseWallet && providerButtonClicked == "Coinbase") provider = p;
             });
-        }*/
+        }
+
+        provider = new ethers.providers.Web3Provider(provider);
 
         // Prompt user for account connections
         await provider.send("eth_requestAccounts", []);
