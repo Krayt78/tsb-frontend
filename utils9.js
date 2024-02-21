@@ -40,9 +40,10 @@ const isWalletInjectorConnected = async () => {
         return true;
     }
 
-    console.log("providersLenght: ", provider.providers.length);
-    for (let i = 0; i < provider.providers.length; i++) {
-        const newProvider = new ethers.providers.Web3Provider(provider.providers[i]);
+    const providers = provider.provider.providers;
+    console.log("providersLenght: ", providers.length);
+    for (let i = 0; i < providers.length; i++) {
+        const newProvider = new ethers.providers.Web3Provider(providers[i]);
         console.log("newProvider: ", newProvider);
         const accounts = await newProvider.listAccounts();
         console.log("accounts: ", accounts.length);
