@@ -33,13 +33,6 @@ const isWalletInjectorConnected = async () => {
     }
 
     const provider = new ethers.providers.Web3Provider(window.ethereum)
-    console.log("provider: ", provider);
-    const accounts = await provider.listAccounts();
-    console.log("accounts: ", accounts.length);
-    if (accounts.length > 0) {
-        return true;
-    }
-
     const providers = provider.provider.providers;
     console.log("providersLenght: ", providers.length);
     for (let i = 0; i < providers.length; i++) {
