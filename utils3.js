@@ -21,19 +21,24 @@ const isWalletInjectorInstalled = () => {
     if (window.ethereum) {
         return true;
     }
+    console.log("WalletInjector not installed");
     return false;
 }
 
 const isWalletInjectorConnected = async () => {
     // Check if a WalletInjector is installed and connected
     if (!window.ethereum) {
+        console.log("WalletInjector not installed");
         return false;
     }
 
     const providers = new ethers.providers.Web3Provider(window.ethereum)
+    console.log("providers: ", providers.length);
     for (let i = 0; i < providers.length; i++) {
         const provider = new ethers.providers.Web3Provider(providers[i]);
+        console.log("provider: ", provider);
         const accounts = await provider.listAccounts();
+        console.log("accounts: ", accounts.length);
         if (accounts.length > 0) {
             return true;
         }
