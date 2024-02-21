@@ -184,7 +184,7 @@ coinbaseBtn.addEventListener("click", async () => {
 });
 
 async function checkIfLoggedIn() {
-    const isConnected = await isMetaMaskConnected();
+    const isConnected = await isWalletInjectorConnected();
     console.log(isConnected);
     if (isConnected) {
         hideLoginButton();

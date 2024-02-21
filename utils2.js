@@ -16,7 +16,7 @@ async function getEns(address){
     return ens;
 }
 
-const isMetamaskInstalled = () => {
+const isWalletInjectorInstalled = () => {
     //Check if MetaMask is installed
     if (window.ethereum) {
         return true;
@@ -24,13 +24,19 @@ const isMetamaskInstalled = () => {
     return false;
 }
 
-const isMetaMaskConnected = async () => {
-    // Check if MetaMask is installed and connected
+const isWalletInjectorConnected = async () => {
+    // Check if a WalletInjector is installed and connected
     if (!window.ethereum) {
         return false;
     }
 
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-    const accounts = await provider.listAccounts();
-    return accounts.length > 0;
+    const providers = new ethers.providers.Web3Provider(window.ethereum)
+    for (let i = 0; i < providers.length; i++) {
+        const provider = new ethers.providers.Web3Provider(providers[i]);
+        const accounts = await provider.listAccounts();
+        if (accounts.length > 0) {
+            return true;
+        }
+    }
+    return false;
 }

@@ -76,7 +76,7 @@ function handleFilterButtons() {
 async function fetchProposalsData() {
     const url = 'https://api.tsbdao.com/proposals/';
     let options;
-    if (await isMetaMaskConnected()) {
+    if (await isWalletInjectorConnected()) {
         options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

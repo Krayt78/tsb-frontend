@@ -448,14 +448,14 @@ async function setVotingPower(vp) {
 }
 
 async function voteMainBody() {
-    if (!isMetamaskInstalled()) { //utils.js
-        console.log("Metamask is not installed");
+    if (!isWalletInjectorInstalled()) { //utils.js
+        console.log("No WalletInjectors is installed");
         hideLogInToVoteBtn();
         hideVoteBtn();
         return;
     }
 
-    const isConnected = await isMetaMaskConnected(); //utils.js
+    const isConnected = await isWalletInjectorConnected(); //utils.js
 
     if (isConnected) {
         hideLogInToVoteBtn();
