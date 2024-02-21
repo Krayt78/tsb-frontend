@@ -120,6 +120,11 @@ async function onWalletConnected() {
 
     const voteBtn2 = document.getElementById("vote-btn");
     const logInToVoteBtn2 = document.getElementById("login-vote");
+
+    if(!voteBtn2 || !logInToVoteBtn2) {
+        return;
+    }
+    
     logInToVoteBtn2.style.display = "none";
     voteBtn2.style.display = "flex";
 }
