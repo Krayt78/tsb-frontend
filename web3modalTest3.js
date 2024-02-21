@@ -1,40 +1,42 @@
-import { createWeb3Modal, defaultConfig } from './node_modules/@web3modal/ethers5'
+import { createWeb3Modal, walletConnectProvider } from 'https://esm.sh/@web3modal/wagmi?bundle'
+import { createConfig, configureChains } from "https://esm.sh/@wagmi/core@1.4.2";
+import { arbitrum, mainnet } from 'https://esm.sh/@wagmi/core@1.4.2/chains'
+import { publicProvider } from "https://esm.sh/@wagmi/core@1.4.2/providers/public";
+import { WalletConnectConnector } from "https://esm.sh/@wagmi/core@1.4.2/connectors/walletConnect?bundle";
+import { CoinbaseWalletConnector } from 'https://esm.sh/@wagmi/core@1.4.2/connectors/coinbaseWallet?bundle';
+import { InjectedConnector } from 'https://esm.sh/@wagmi/core@1.4.2/connectors/injected?bundle';
 
-// 1. Get projectId
-const projectId = '70692dcde0f21c835821dfe78f00d32a'
+const projectId = 'YOUR_PROJECT_ID'
 
-// 2. Set chains
-const mainnet = {
-    chainId: 1,
-    name: 'Ethereum',
-    currency: 'ETH',
-    explorerUrl: 'https://etherscan.io',
-    rpcUrl: 'https://cloudflare-eth.com'
-}
+const chains = [mainnet, arbitrum]
 
-// 3. Create modal
+const { publicClient } = configureChains(chains, [
+    walletConnectProvider({ projectId }),
+    publicProvider()
+]);
+
 const metadata = {
-    name: 'My Website',
-    description: 'My Website description',
-    url: 'https://thesandbox-dao.webflow.io', // origin must match your domain & subdomain
-    icons: ['https://avatars.mywebsite.com/']
+    name: 'Web3Modal',
+    description: 'Web3Modal Example',
+    url: 'https://web3modal.com',
+    icons: ['https://avatars.githubusercontent.com/u/37784886']
 }
 
-const modal = createWeb3Modal({
-    ethersConfig: defaultConfig({ metadata }),
-    chains: [mainnet],
-    projectId,
-    enableAnalytics: true // Optional - defaults to your Cloud configuration
-})
+const wagmiConfig = createConfig({
+    autoConnect: true,
+    connectors: [
+        new WalletConnectConnector({ chains, options: { projectId, showQrModal: false, metadata} }),
+        new InjectedConnector({ chains, options: { shimDisconnect: true } }),
+        new CoinbaseWalletConnector({ chains, options: { appName: metadata?.name ?? 'Unknown' } })
+    ],
+    publicClient
+});
 
-modal.open().then(async (provider) => {
-    const web3Provider = new ethers.providers.Web3Provider(provider)
-    const signer = web3Provider.getSigner()
-    const address = await signer.getAddress()
-    console.log('Address:', address)
-    // The user is now connected
-    // Here you can start your application logic
-    // or call your custom login function
-    // myLoginFunction(address)
-    // ...
+const modal = createWeb3Modal({ wagmiConfig, projectId, chains, themeMode: 'light' })
+modal.open();
+//watchAccount((account) => console.log(account))
+
+const loginButtonweb3modal = document.getElementById("loginButtonweb3modal");
+loginButtonweb3modal.addEventListener("click", async () => {
+    modal.open();
 });

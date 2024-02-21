@@ -2,6 +2,7 @@ const loginButton = document.getElementById("loginButton");
 const loginModal = document.getElementById("modal-login");
 const idBlock = document.getElementById("id-block");
 const metamaskBtn = document.getElementById("metamask-button");
+const coinbaseBtn = document.getElementById("coinbase-button");
 
 let userAddress = "";
 let userEns = "";
@@ -35,7 +36,7 @@ async function showUserId() {
     const ens = await getEns(address);
     userEns = ens;
     console.log(ens);
-    
+
     const userId = document.getElementById("user-id");
 
     if (ens) {
@@ -123,8 +124,8 @@ async function onWalletConnected() {
     voteBtn2.style.display = "flex";
 }
 
-metamaskBtn.addEventListener("click", async () => {
-    console.log("Metamask button clicked");
+async function ConnectToProvider(provider) {
+    console.log("ConnectToProvider called");
     try {
         // Check if MetaMask is installed and connected
         if (!window.ethereum) {
@@ -133,6 +134,15 @@ metamaskBtn.addEventListener("click", async () => {
 
         // Create a new ethers provider with MetaMask's provider
         const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+        // edge case if MM and CBW are both installed
+        if (window.ethereum.providers?.length) {
+            window.ethereum.providers.forEach(async (p) => {
+                console.log(p);
+                if (p.isMetaMask && provider == "MetaMask") provider = p;
+                if (p.isCoinbaseWallet && provider == "Coinbase") provider = p;
+            });
+        }
 
         // Prompt user for account connections
         await provider.send("eth_requestAccounts", []);
@@ -148,6 +158,16 @@ metamaskBtn.addEventListener("click", async () => {
     } catch (error) {
         console.error('Error occurred while fetching the account balance:', error);
     }
+}
+
+metamaskBtn.addEventListener("click", async () => {
+    console.log("Metamask button clicked");
+    ConnectToProvider("MetaMask");
+});
+
+coinbaseBtn.addEventListener("click", async () => {
+    console.log("Coinbase button clicked");
+    ConnectToProvider("Coinbase");
 });
 
 async function checkIfLoggedIn() {
