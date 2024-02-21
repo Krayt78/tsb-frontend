@@ -125,24 +125,30 @@ async function onWalletConnected() {
 }
 
 async function ConnectToProvider(providerButtonClicked) {
+
+    if(providerButtonClicked != "MetaMask" && providerButtonClicked != "Coinbase") {
+        console.log("Invalid providerButtonClicked");
+        return;
+    }
+
     console.log("ConnectToProvider called");
     try {
         // Check if MetaMask is installed and connected
         if (!window.ethereum) {
-            throw new Error('Please install MetaMask');
+            throw new Error('Please install MetaMask or coinbase wallet to continue!');
         }
 
         // Create a new ethers provider with MetaMask's provider
         let provider = new ethers.providers.Web3Provider(window.ethereum);
 
         // edge case if MM and CBW are both installed
-        if (window.ethereum.providers?.length) {
+        /*if (window.ethereum.providers?.length) {
             window.ethereum.providers.forEach(async (p) => {
                 console.log(p);
                 if (p.isMetaMask && providerButtonClicked == "MetaMask") provider = p;
                 if (p.isCoinbaseWallet && providerButtonClicked == "Coinbase") provider = p;
             });
-        }
+        }*/
 
         // Prompt user for account connections
         await provider.send("eth_requestAccounts", []);
