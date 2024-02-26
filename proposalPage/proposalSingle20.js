@@ -477,10 +477,27 @@ async function voteMainBody() {
             return;
         }
 
+        if (!window.ethereum) {
+            console.log("WalletInjector not installed");
+            return false;
+        }
+
         const hub = 'https://testnet.hub.snapshot.org'; // or https://hub.snapshot.org for mainnet
         const client = new snapshot.Client712(hub);
-        const web3 = new ethers.providers.Web3Provider(window.ethereum);
-        const [account] = await web3.listAccounts();
+
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const providers = provider.provider.providers;
+        for (let i = 0; i < providers.length; i++) {
+            const newProvider = new ethers.providers.Web3Provider(providers[i]);
+            const accounts = await newProvider.listAccounts();
+            if (accounts.length > 0) {
+                provider = newProvider;
+            }
+        }
+
+        const [account] = await provider.listAccounts();
+
+        console.log(account);
 
         const proposalSpace = proposalData.space.id;
         const proposalId = proposalData.id;
@@ -489,7 +506,7 @@ async function voteMainBody() {
         let choices = getAllChoices();
 
         try {
-            const receipt = await client.vote(web3, account, {
+            const receipt = await client.vote(provider, account, {
                 space: proposalSpace,
                 proposal: proposalId,
                 type: proposalType,
