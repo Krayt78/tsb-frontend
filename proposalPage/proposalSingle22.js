@@ -485,7 +485,7 @@ async function voteMainBody() {
         const hub = 'https://testnet.hub.snapshot.org'; // or https://hub.snapshot.org for mainnet
         const client = new snapshot.Client712(hub);
 
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        /*const provider = new ethers.providers.Web3Provider(window.ethereum)
         const providers = provider.provider.providers;
 
         if (providers) { //this is a check to see if we have both metamask and coinbase wallet
@@ -496,8 +496,9 @@ async function voteMainBody() {
                     provider = newProvider;
                 }
             }
-        }
+        }*/
 
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
         const [account] = await provider.listAccounts();
 
         console.log(account);
@@ -505,8 +506,12 @@ async function voteMainBody() {
         const proposalSpace = proposalData.space.id;
         const proposalId = proposalData.id;
         const proposalType = proposalData.type;
-
         let choices = getAllChoices();
+
+        console.log(proposalSpace);
+        console.log(proposalId);
+        console.log(proposalType);
+        console.log(choices);
 
         try {
             const receipt = await client.vote(provider, account, {
