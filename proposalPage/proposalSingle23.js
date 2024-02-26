@@ -47,6 +47,19 @@ async function fetchProposalData(proposalId) {
     return json;
 }
 
+async function RefreshProposalDataAfterVote(proposalId) {
+    const url = `https://api.tsbdao.com/proposals/refresh/${proposalId}`;
+    const options = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    };
+
+    const response = await fetch(url, options);
+    const json = await response.json();
+    console.log(json);
+    return json;
+}
+
 async function setValuesFromProposalData(proposalData) {
     window.parent.document.title = proposalData.title;
     title.innerText = proposalData.title;
@@ -269,7 +282,7 @@ function getTimeSincePost(created_at) {
 async function refreshDataAfterVote() {
     //TODO: send call to the backend that we voted so he can update the data and send it back
     const proposalId = proposalData.id;
-    proposalData = await fetchProposalData(proposalId);
+    proposalData = await RefreshProposalDataAfterVote(proposalId);
     await setValuesFromProposalData(proposalData);
 
     if (userAddress && userAddress != "" && !hasVoted) {
