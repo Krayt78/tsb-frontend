@@ -153,9 +153,9 @@ async function ConnectToProvider(providerButtonClicked) {
                 if (p.isMetaMask && providerButtonClicked == "MetaMask") provider = p;
                 if (p.isCoinbaseWallet && providerButtonClicked == "Coinbase") provider = p;
             });
-        }
 
-        provider = new ethers.providers.Web3Provider(provider);
+            provider = new ethers.providers.Web3Provider(provider);
+        }
 
         // Prompt user for account connections
         await provider.send("eth_requestAccounts", []);
