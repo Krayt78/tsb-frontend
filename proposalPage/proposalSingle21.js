@@ -487,11 +487,14 @@ async function voteMainBody() {
 
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const providers = provider.provider.providers;
-        for (let i = 0; i < providers.length; i++) {
-            const newProvider = new ethers.providers.Web3Provider(providers[i]);
-            const accounts = await newProvider.listAccounts();
-            if (accounts.length > 0) {
-                provider = newProvider;
+
+        if (providers) { //this is a check to see if we have both metamask and coinbase wallet
+            for (let i = 0; i < providers.length; i++) {
+                const newProvider = new ethers.providers.Web3Provider(providers[i]);
+                const accounts = await newProvider.listAccounts();
+                if (accounts.length > 0) {
+                    provider = newProvider;
+                }
             }
         }
 
