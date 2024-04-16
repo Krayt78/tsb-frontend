@@ -1,8 +1,8 @@
 let proposalData = null;
-const quorum = 500;
+const quorum = 2500;
 const numberOfChoicesLimit = 15;
 const numberOfCommentsLimit = 3;
-const snapshotUrl = "https://testnet.snapshot.org/#/geraldinehenry.eth/";
+const snapshotUrl = "https://testnet.snapshot.org/#/geraldine.eth/";
 
 const title = document.getElementById("sip-title");
 const category = document.getElementById("sip-category");
