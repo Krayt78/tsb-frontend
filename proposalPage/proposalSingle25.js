@@ -424,7 +424,11 @@ function showVoteBtn() {
     voteBtn.style.display = "flex";
 }
 
-function getAllChoices() {
+function getAllChoices(proposalType) {
+    if(proposalType == "single-choice"){
+        return 1;
+    }
+
     let choices = {};
     for (let i = 1; i <= proposalData.choices.length; i++) {
         let choiceElement = document.getElementById("counter" + (i));
@@ -497,20 +501,6 @@ async function voteMainBody() {
 
         const hub = 'https://testnet.hub.snapshot.org'; // or https://hub.snapshot.org for mainnet
         const client = new snapshot.Client712(hub);
-
-        /*const provider = new ethers.providers.Web3Provider(window.ethereum)
-        const providers = provider.provider.providers;
-
-        if (providers) { //this is a check to see if we have both metamask and coinbase wallet
-            for (let i = 0; i < providers.length; i++) {
-                const newProvider = new ethers.providers.Web3Provider(providers[i]);
-                const accounts = await newProvider.listAccounts();
-                if (accounts.length > 0) {
-                    provider = newProvider;
-                }
-            }
-        }*/
-
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const [account] = await provider.listAccounts();
 
@@ -519,7 +509,8 @@ async function voteMainBody() {
         const proposalSpace = proposalData.space.id;
         const proposalId = proposalData.id;
         const proposalType = proposalData.type;
-        let choices = getAllChoices();
+
+        let choices = getAllChoices(proposalData.type);
 
         console.log(proposalSpace);
         console.log(proposalId);
