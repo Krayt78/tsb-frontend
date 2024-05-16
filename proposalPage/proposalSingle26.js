@@ -425,17 +425,24 @@ function showVoteBtn() {
 }
 
 function getAllChoices(proposalType) {
-    if(proposalType == "single-choice"){
-        return 1;
-    }
+    switch(proposalType){
+        case "weighted" :
+        case "quadratic" :
+            let choices = {};
+            for (let i = 1; i <= proposalData.choices.length; i++) {
+                let choiceElement = document.getElementById("counter" + (i));
+                let choice = parseInt(choiceElement.innerText);
+                choices[i] = choice;
+            }
+            return choices;
 
-    let choices = {};
-    for (let i = 1; i <= proposalData.choices.length; i++) {
-        let choiceElement = document.getElementById("counter" + (i));
-        let choice = parseInt(choiceElement.innerText);
-        choices[i] = choice;
+        case "single-choice" : 
+        case "approval" :
+        case "ranked-choice" :
+        case "custom" :
+        case "basic" :
+           throw new Error("Proposal Type Not implemented yet");
     }
-    return choices;
 }
 
 async function getVotingPower(address, proposalId) {
@@ -510,14 +517,14 @@ async function voteMainBody() {
         const proposalId = proposalData.id;
         const proposalType = proposalData.type;
 
-        let choices = getAllChoices(proposalData.type);
-
-        console.log(proposalSpace);
-        console.log(proposalId);
-        console.log(proposalType);
-        console.log(choices);
-
         try {
+            let choices = getAllChoices(proposalData.type);
+
+            console.log(proposalSpace);
+            console.log(proposalId);
+            console.log(proposalType);
+            console.log(choices);
+        
             const receipt = await client.vote(provider, account, {
                 space: proposalSpace,
                 proposal: proposalId,
