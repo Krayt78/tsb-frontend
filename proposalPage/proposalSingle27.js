@@ -334,7 +334,16 @@ async function OnVotingModalOpen() {
     voteConfirmBtn.style.display = "none"; //to prevent flicker, its off at the start
 
     const proposalChoices = proposalData.choices;
-    let choices = getAllChoices();
+    let choices;
+    try {
+        choices = getAllChoices();
+        console.log(choices);
+    }
+    catch (error) {
+        console.log(error);
+        return;
+    }
+    
     const totalVotes = Object.values(choices).reduce((a, b) => a + b, 0);
     console.log(totalVotes);
 
