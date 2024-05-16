@@ -336,7 +336,11 @@ async function OnVotingModalOpen() {
     const proposalChoices = proposalData.choices;
     let choices;
     try {
-        choices = getAllChoices();
+        choices = getAllChoices(proposalData.type);
+        if(!choices){
+            throw new Error("No choices found");
+        }
+        
         console.log(choices);
     }
     catch (error) {
@@ -451,6 +455,8 @@ function getAllChoices(proposalType) {
         case "custom" :
         case "basic" :
            throw new Error("Proposal Type Not implemented yet");
+        default:
+            throw new Error("Error with the proposal type");
     }
 }
 
