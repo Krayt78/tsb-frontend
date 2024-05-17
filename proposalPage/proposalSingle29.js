@@ -284,13 +284,9 @@ async function refreshDataAfterVote() {
     const proposalId = proposalData.id;
     proposalData = await RefreshProposalDataAfterVote(proposalId);
     await setValuesFromProposalData(proposalData);
-
-    if (userAddress && userAddress != "" && !hasVoted) {
-        hasVoted = await fetchUserHasVoted();
-
-        if (hasVoted) {
-            handleHasVoted();
-        }
+    
+    if (hasVoted) {
+        handleHasVoted();
     }
 }
 
@@ -554,6 +550,7 @@ async function voteMainBody() {
             const modalConfirmation = document.getElementById("modal-confirmation");
             modalConfirmation.style.display = "flex";
 
+            hasVoted = true;
             //need to fetch again to update the visuals
             await refreshDataAfterVote();
         }
