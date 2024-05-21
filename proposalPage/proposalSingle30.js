@@ -15,6 +15,8 @@ const sipSnapshot = document.getElementById("sip-snapshot");
 
 const voteNb = document.getElementById("sip-vote-nb");
 const votesLeftToQuorum = document.getElementById("quorum-nb");
+votesLeftToQuorum.style.visibility = "hidden";
+
 const votesToQuorum = document.getElementById("sip-quorum");
 const quorumReached = document.getElementById("sip-quorum-reached");
 
@@ -119,12 +121,12 @@ async function setValuesFromProposalData(proposalData) {
     voteNb.innerText = proposalData.nbVotes;
 
     if (proposalData.nbVotes > quorum) {
-        votesLeftToQuorum.style.visibility = "hidden";
+        //votesLeftToQuorum.style.visibility = "hidden";
         votesToQuorum.style.visibility = "hidden";
         quorumReached.style.visibility = "visible";
     }
     else {
-        votesLeftToQuorum.innerText = quorum - proposalData.nbVotes;
+        //votesLeftToQuorum.innerText = quorum - proposalData.nbVotes;
         votesToQuorum.style.visibility = "block";
         quorumReached.style.visibility = "hidden";
     }
