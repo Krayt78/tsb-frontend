@@ -14,8 +14,6 @@ const endDate = document.getElementById("sip-date");
 const sipSnapshot = document.getElementById("sip-snapshot");
 
 const voteNb = document.getElementById("sip-vote-nb");
-const votesLeftToQuorum = document.getElementById("quorum-nb");
-votesLeftToQuorum.style.visibility = "hidden";
 
 const votesToQuorum = document.getElementById("sip-quorum");
 const quorumReached = document.getElementById("sip-quorum-reached");
