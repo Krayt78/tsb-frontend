@@ -1,5 +1,4 @@
 let proposalData = null;
-const quorum = 2500;
 const numberOfChoicesLimit = 15;
 const numberOfCommentsLimit = 3;
 const snapshotUrl = "https://testnet.snapshot.org/#/geraldine.eth/";
@@ -14,9 +13,6 @@ const endDate = document.getElementById("sip-date");
 const sipSnapshot = document.getElementById("sip-snapshot");
 
 const voteNb = document.getElementById("sip-vote-nb");
-
-const votesToQuorum = document.getElementById("sip-quorum");
-const quorumReached = document.getElementById("sip-quorum-reached");
 
 const proposalDetails = document.getElementById("filter-all-nb");
 const proposalContent = document.getElementById("proposal-content");
@@ -117,17 +113,6 @@ async function setValuesFromProposalData(proposalData) {
     proposalContent.innerHTML = html;
 
     voteNb.innerText = proposalData.nbVotes;
-
-    if (proposalData.nbVotes > quorum) {
-        //votesLeftToQuorum.style.visibility = "hidden";
-        votesToQuorum.style.visibility = "hidden";
-        quorumReached.style.visibility = "visible";
-    }
-    else {
-        //votesLeftToQuorum.innerText = quorum - proposalData.nbVotes;
-        votesToQuorum.style.visibility = "block";
-        quorumReached.style.visibility = "hidden";
-    }
 
     const numberOfChoices = proposalData.choices.length;
     console.log(numberOfChoices);
