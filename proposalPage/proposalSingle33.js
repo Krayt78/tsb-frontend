@@ -1,7 +1,7 @@
 let proposalData = null;
 const numberOfChoicesLimit = 15;
 const numberOfCommentsLimit = 3;
-const snapshotUrl = "https://testnet.snapshot.org/#/geraldine.eth/";
+const snapshotUrl = "https://snapshot.org/#/sandboxdao.eth/";
 
 const title = document.getElementById("sip-title");
 const category = document.getElementById("sip-category");
