@@ -506,7 +506,7 @@ async function voteMainBody() {
             return false;
         }
 
-        const hub = 'https://testnet.hub.snapshot.org'; // or https://hub.snapshot.org for mainnet
+        const hub = 'https://hub.snapshot.org'; // or https://hub.snapshot.org for mainnet
         const client = new snapshot.Client712(hub);
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const [account] = await provider.listAccounts();
