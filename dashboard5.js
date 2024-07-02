@@ -134,28 +134,28 @@ async function fetchWalletBalances() {
     return json;
 }
 
-function setSandRemainingSmallElements(walletBalances) {
-    sandInitiativesElements.sandRemainingSmall.innerHTML = walletBalances["SAND Initiatives"].balance;
-    liveOpsElements.sandRemainingSmall.innerHTML = walletBalances["Liveops"].balance;
-    gameContentElements.sandRemainingSmall.innerHTML = walletBalances["Game Content"].balance;
-    otherElements.sandRemainingSmall.innerHTML = walletBalances["Other"].balance;
-    operationsElements.sandRemainingSmall.innerHTML = walletBalances["Operations"].balance;
-    stakingElements.sandRemainingSmall.innerHTML = walletBalances["Staking"].balance;
-    sandboxForGoodElements.sandRemainingSmall.innerHTML = walletBalances["Sandbox for Good"].balance;
-    platformElements.sandRemainingSmall.innerHTML = walletBalances["Platform"].balance;
-    nftElements.sandRemainingSmall.innerHTML = walletBalances["NFT"].balance;
+function setSandRemainingSmallElements(walletBalancesDict) {
+    sandInitiativesElements.sandRemainingSmall.innerHTML = walletBalancesDict["SAND Initiatives"].balance;
+    liveOpsElements.sandRemainingSmall.innerHTML = walletBalancesDict["Liveops"].balance;
+    gameContentElements.sandRemainingSmall.innerHTML = walletBalancesDict["Game Content"].balance;
+    otherElements.sandRemainingSmall.innerHTML = walletBalancesDict["Other"].balance;
+    operationsElements.sandRemainingSmall.innerHTML = walletBalancesDict["Operations"].balance;
+    stakingElements.sandRemainingSmall.innerHTML = walletBalancesDict["Staking"].balance;
+    sandboxForGoodElements.sandRemainingSmall.innerHTML = walletBalancesDict["Sandbox for Good"].balance;
+    platformElements.sandRemainingSmall.innerHTML = walletBalancesDict["Platform"].balance;
+    nftElements.sandRemainingSmall.innerHTML = walletBalancesDict["NFT"].balance;
 }
 
-function setSandRemainingElements(walletBalances) {
-    sandInitiativesElements.sandRemaining.innerHTML = walletBalances["SAND Initiatives"].balance;
-    liveOpsElements.sandRemaining.innerHTML = walletBalances["Liveops"].balance;
-    gameContentElements.sandRemaining.innerHTML = walletBalances["Game Content"].balance;
-    otherElements.sandRemaining.innerHTML = walletBalances["Other"].balance;
-    operationsElements.sandRemaining.innerHTML = walletBalances["Operations"].balance;
-    stakingElements.sandRemaining.innerHTML = walletBalances["Staking"].balance;
-    sandboxForGoodElements.sandRemaining.innerHTML = walletBalances["Sandbox for Good"].balance;
-    platformElements.sandRemaining.innerHTML = walletBalances["Platform"].balance;
-    nftElements.sandRemaining.innerHTML = walletBalances["NFT"].balance;
+function setSandRemainingElements(walletBalancesDict) {
+    sandInitiativesElements.sandRemaining.innerHTML = walletBalancesDict["SAND Initiatives"].balance;
+    liveOpsElements.sandRemaining.innerHTML = walletBalancesDict["Liveops"].balance;
+    gameContentElements.sandRemaining.innerHTML = walletBalancesDict["Game Content"].balance;
+    otherElements.sandRemaining.innerHTML = walletBalancesDict["Other"].balance;
+    operationsElements.sandRemaining.innerHTML = walletBalancesDict["Operations"].balance;
+    stakingElements.sandRemaining.innerHTML = walletBalancesDict["Staking"].balance;
+    sandboxForGoodElements.sandRemaining.innerHTML = walletBalancesDict["Sandbox for Good"].balance;
+    platformElements.sandRemaining.innerHTML = walletBalancesDict["Platform"].balance;
+    nftElements.sandRemaining.innerHTML = walletBalancesDict["NFT"].balance;
 }
 
 function setPercentageRemainingToElement(walletBalance, percentageRemainingElement, fillingBarElement) {
@@ -165,16 +165,16 @@ function setPercentageRemainingToElement(walletBalance, percentageRemainingEleme
     //sandInitiativesElements.fillingBar.style.width = percentage + "%";
 }
 
-function setPercentageRemainingElements(walletBalances) {
-    setPercentageRemainingToElement(walletBalances["SAND Initiatives"], sandInitiativesElements.percentageRemaining, sandInitiativesElements.fillingBar);
-    setPercentageRemainingToElement(walletBalances["Liveops"], liveOpsElements.percentageRemaining, liveOpsElements.fillingBar);
-    setPercentageRemainingToElement(walletBalances["Game Content"], gameContentElements.percentageRemaining, gameContentElements.fillingBar);
-    setPercentageRemainingToElement(walletBalances["Other"], otherElements.percentageRemaining, otherElements.fillingBar);
-    setPercentageRemainingToElement(walletBalances["Operations"], operationsElements.percentageRemaining, operationsElements.fillingBar);
-    setPercentageRemainingToElement(walletBalances["Staking"], stakingElements.percentageRemaining, stakingElements.fillingBar);
-    setPercentageRemainingToElement(walletBalances["Sandbox for Good"], sandboxForGoodElements.percentageRemaining, sandboxForGoodElements.fillingBar);
-    setPercentageRemainingToElement(walletBalances["Platform"], platformElements.percentageRemaining, platformElements.fillingBar);
-    setPercentageRemainingToElement(walletBalances["NFT"], nftElements.percentageRemaining, nftElements.fillingBar);
+function setPercentageRemainingElements(walletBalancesDict) {
+    setPercentageRemainingToElement(walletBalancesDict["SAND Initiatives"], sandInitiativesElements.percentageRemaining, sandInitiativesElements.fillingBar);
+    setPercentageRemainingToElement(walletBalancesDict["Liveops"], liveOpsElements.percentageRemaining, liveOpsElements.fillingBar);
+    setPercentageRemainingToElement(walletBalancesDict["Game Content"], gameContentElements.percentageRemaining, gameContentElements.fillingBar);
+    setPercentageRemainingToElement(walletBalancesDict["Other"], otherElements.percentageRemaining, otherElements.fillingBar);
+    setPercentageRemainingToElement(walletBalancesDict["Operations"], operationsElements.percentageRemaining, operationsElements.fillingBar);
+    setPercentageRemainingToElement(walletBalancesDict["Staking"], stakingElements.percentageRemaining, stakingElements.fillingBar);
+    setPercentageRemainingToElement(walletBalancesDict["Sandbox for Good"], sandboxForGoodElements.percentageRemaining, sandboxForGoodElements.fillingBar);
+    setPercentageRemainingToElement(walletBalancesDict["Platform"], platformElements.percentageRemaining, platformElements.fillingBar);
+    setPercentageRemainingToElement(walletBalancesDict["NFT"], nftElements.percentageRemaining, nftElements.fillingBar);
 }
 
 function setPercentageAmount(percentageRemaining, percentage) {
@@ -191,23 +191,23 @@ function setColorOfFillinBar(fillingBar, percentage) {
     }
 }
 
-function setViewTransactionsElements(walletBalances) {
-    sandInitiativesElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalances["SAND Initiatives"].address;
-    // liveOpsElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalances["Liveops"].address;
-    // gameContentElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalances["Game Content"].address;
-    // otherElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalances["Other"].address;
-    // operationsElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalances["Operations"].address;
-    // stakingElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalances["Staking"].address;
-    // sandboxForGoodElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalances["Sandbox for Good"].address;
-    // platformElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalances["Platform"].address;
-    // nftElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalances["NFT"].address;
+function setViewTransactionsElements(walletBalancesDict) {
+    sandInitiativesElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["SAND Initiatives"].address;
+    // liveOpsElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Liveops"].address;
+    // gameContentElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Game Content"].address;
+    // otherElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Other"].address;
+    // operationsElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Operations"].address;
+    // stakingElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Staking"].address;
+    // sandboxForGoodElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Sandbox for Good"].address;
+    // platformElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Platform"].address;
+    // nftElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["NFT"].address;
 }
 
-function setElementsAccordingToBalances(walletBalances) {
-    setSandRemainingElements(walletBalances);
-    setSandRemainingSmallElements(walletBalances);
-    setViewTransactionsElements(walletBalances);
-    setPercentageRemainingElements(walletBalances);
+function setElementsAccordingToBalances(walletBalancesDict) {
+    setSandRemainingElements(walletBalancesDict);
+    setSandRemainingSmallElements(walletBalancesDict);
+    setViewTransactionsElements(walletBalancesDict);
+    setPercentageRemainingElements(walletBalancesDict);
 }
 
 async function main(){
@@ -215,7 +215,13 @@ async function main(){
     walletBalances = await fetchWalletBalances();
     console.log(walletBalances);
 
-    setElementsAccordingToBalances(walletBalances);
+    //dictionary of walletBalances for easy access
+    let walletBalancesDict = {};
+    for (let i=0; i < walletBalances.length; i++) {
+        walletBalancesDict[walletBalances[i].name] = walletBalances[i];
+    }
+
+    setElementsAccordingToBalances(walletBalancesDict);
 }
 
 main();
