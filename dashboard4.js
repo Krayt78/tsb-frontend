@@ -134,7 +134,7 @@ async function fetchWalletBalances() {
     return json;
 }
 
-function setSandRemainingSmallElement(walletBalances) {
+function setSandRemainingSmallElements(walletBalances) {
     sandInitiativesElements.sandRemainingSmall.innerHTML = walletBalances["SAND Initiatives"].balance;
     liveOpsElements.sandRemainingSmall.innerHTML = walletBalances["Liveops"].balance;
     gameContentElements.sandRemainingSmall.innerHTML = walletBalances["Game Content"].balance;
@@ -146,7 +146,7 @@ function setSandRemainingSmallElement(walletBalances) {
     nftElements.sandRemainingSmall.innerHTML = walletBalances["NFT"].balance;
 }
 
-function setSandRemainingElement(walletBalances) {
+function setSandRemainingElements(walletBalances) {
     sandInitiativesElements.sandRemaining.innerHTML = walletBalances["SAND Initiatives"].balance;
     liveOpsElements.sandRemaining.innerHTML = walletBalances["Liveops"].balance;
     gameContentElements.sandRemaining.innerHTML = walletBalances["Game Content"].balance;
@@ -158,11 +158,23 @@ function setSandRemainingElement(walletBalances) {
     nftElements.sandRemaining.innerHTML = walletBalances["NFT"].balance;
 }
 
-function setPercentageRemainingElement(walletBalances) {
-    const percentage = (walletBalances["SAND Initiatives"].balance / walletBalances["SAND Initiatives"].annualBudget) * 100;
-    setPercentageAmount(sandInitiativesElements.percentageRemaining, percentage);
-    setColorOfFillinBar(sandInitiativesElements.fillingBar, percentage);
+function setPercentageRemainingToElement(walletBalance, percentageRemainingElement, fillingBarElement) {
+    const percentage = (walletBalance.balance / walletBalance.annualBudget) * 100;
+    setPercentageAmount(percentageRemainingElement, percentage);
+    setColorOfFillinBar(fillingBarElement, percentage);
     //sandInitiativesElements.fillingBar.style.width = percentage + "%";
+}
+
+function setPercentageRemainingElements(walletBalances) {
+    setPercentageRemainingToElement(walletBalances["SAND Initiatives"], sandInitiativesElements.percentageRemaining, sandInitiativesElements.fillingBar);
+    setPercentageRemainingToElement(walletBalances["Liveops"], liveOpsElements.percentageRemaining, liveOpsElements.fillingBar);
+    setPercentageRemainingToElement(walletBalances["Game Content"], gameContentElements.percentageRemaining, gameContentElements.fillingBar);
+    setPercentageRemainingToElement(walletBalances["Other"], otherElements.percentageRemaining, otherElements.fillingBar);
+    setPercentageRemainingToElement(walletBalances["Operations"], operationsElements.percentageRemaining, operationsElements.fillingBar);
+    setPercentageRemainingToElement(walletBalances["Staking"], stakingElements.percentageRemaining, stakingElements.fillingBar);
+    setPercentageRemainingToElement(walletBalances["Sandbox for Good"], sandboxForGoodElements.percentageRemaining, sandboxForGoodElements.fillingBar);
+    setPercentageRemainingToElement(walletBalances["Platform"], platformElements.percentageRemaining, platformElements.fillingBar);
+    setPercentageRemainingToElement(walletBalances["NFT"], nftElements.percentageRemaining, nftElements.fillingBar);
 }
 
 function setPercentageAmount(percentageRemaining, percentage) {
@@ -179,7 +191,7 @@ function setColorOfFillinBar(fillingBar, percentage) {
     }
 }
 
-function setViewTransactionsElement(walletBalances) {
+function setViewTransactionsElements(walletBalances) {
     sandInitiativesElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalances["SAND Initiatives"].address;
     // liveOpsElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalances["Liveops"].address;
     // gameContentElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalances["Game Content"].address;
@@ -192,10 +204,10 @@ function setViewTransactionsElement(walletBalances) {
 }
 
 function setElementsAccordingToBalances(walletBalances) {
-    setSandRemainingElement(walletBalances);
-    setSandRemainingSmallElement(walletBalances);
-    setViewTransactionsElement(walletBalances);
-    setPercentageRemainingElement(walletBalances);
+    setSandRemainingElements(walletBalances);
+    setSandRemainingSmallElements(walletBalances);
+    setViewTransactionsElements(walletBalances);
+    setPercentageRemainingElements(walletBalances);
 }
 
 async function main(){
