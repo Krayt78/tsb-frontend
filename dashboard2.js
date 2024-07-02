@@ -161,7 +161,7 @@ function setSandRemainingElement(walletBalances) {
 function setPercentageRemainingElement(walletBalances) {
     sandInitiativesElements.percentageRemaining.innerHTML = (walletBalances["SAND Initiatives"].balance / walletBalances["SAND Initiatives"].annualBudget) * 100 + "%";
     const percentage = (walletBalances["SAND Initiatives"].balance / walletBalances["SAND Initiatives"].annualBudget) * 100;
-    sandInitiativesElements.fillingBar.style.width = percentage + "%";
+    //sandInitiativesElements.fillingBar.style.width = percentage + "%";
     setColorOfFillinBar(sandInitiativesElements.fillingBar, percentage);
 }
 
