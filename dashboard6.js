@@ -134,28 +134,33 @@ async function fetchWalletBalances() {
     return json;
 }
 
+function numberToStringithCommas(x) {
+    //get the number and place a comma every 3 digits
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 function setSandRemainingSmallElements(walletBalancesDict) {
-    sandInitiativesElements.sandRemainingSmall.innerHTML = walletBalancesDict["SAND Initiatives"].balance;
-    liveOpsElements.sandRemainingSmall.innerHTML = walletBalancesDict["Liveops"].balance;
-    gameContentElements.sandRemainingSmall.innerHTML = walletBalancesDict["Game Content"].balance;
-    otherElements.sandRemainingSmall.innerHTML = walletBalancesDict["Other"].balance;
-    operationsElements.sandRemainingSmall.innerHTML = walletBalancesDict["Operations"].balance;
-    stakingElements.sandRemainingSmall.innerHTML = walletBalancesDict["Staking"].balance;
-    sandboxForGoodElements.sandRemainingSmall.innerHTML = walletBalancesDict["Sandbox for Good"].balance;
-    platformElements.sandRemainingSmall.innerHTML = walletBalancesDict["Platform"].balance;
-    nftElements.sandRemainingSmall.innerHTML = walletBalancesDict["NFT"].balance;
+    sandInitiativesElements.sandRemainingSmall.innerHTML = numberToStringithCommas(walletBalancesDict["SAND Initiatives"].balance);
+    liveOpsElements.sandRemainingSmall.innerHTML = numberToStringithCommas(walletBalancesDict["Liveops"].balance);
+    gameContentElements.sandRemainingSmall.innerHTML = numberToStringithCommas(walletBalancesDict["Game Content"].balance);
+    otherElements.sandRemainingSmall.innerHTML = numberToStringithCommas(walletBalancesDict["Other"].balance);
+    operationsElements.sandRemainingSmall.innerHTML = numberToStringithCommas(walletBalancesDict["Operations"].balance);
+    stakingElements.sandRemainingSmall.innerHTML = numberToStringithCommas(walletBalancesDict["Staking"].balance);
+    sandboxForGoodElements.sandRemainingSmall.innerHTML = numberToStringithCommas(walletBalancesDict["Sandbox for Good"].balance);
+    platformElements.sandRemainingSmall.innerHTML = numberToStringithCommas(walletBalancesDict["Platform"].balance);
+    nftElements.sandRemainingSmall.innerHTML = numberToStringithCommas(walletBalancesDict["NFT"].balance);
 }
 
 function setSandRemainingElements(walletBalancesDict) {
-    sandInitiativesElements.sandRemaining.innerHTML = walletBalancesDict["SAND Initiatives"].balance;
-    liveOpsElements.sandRemaining.innerHTML = walletBalancesDict["Liveops"].balance;
-    gameContentElements.sandRemaining.innerHTML = walletBalancesDict["Game Content"].balance;
-    otherElements.sandRemaining.innerHTML = walletBalancesDict["Other"].balance;
-    operationsElements.sandRemaining.innerHTML = walletBalancesDict["Operations"].balance;
-    stakingElements.sandRemaining.innerHTML = walletBalancesDict["Staking"].balance;
-    sandboxForGoodElements.sandRemaining.innerHTML = walletBalancesDict["Sandbox for Good"].balance;
-    platformElements.sandRemaining.innerHTML = walletBalancesDict["Platform"].balance;
-    nftElements.sandRemaining.innerHTML = walletBalancesDict["NFT"].balance;
+    sandInitiativesElements.sandRemaining.innerHTML = numberToStringithCommas(walletBalancesDict["SAND Initiatives"].balance);
+    liveOpsElements.sandRemaining.innerHTML = numberToStringithCommas(walletBalancesDict["Liveops"].balance);
+    gameContentElements.sandRemaining.innerHTML = numberToStringithCommas(walletBalancesDict["Game Content"].balance);
+    otherElements.sandRemaining.innerHTML = numberToStringithCommas(walletBalancesDict["Other"].balance);
+    operationsElements.sandRemaining.innerHTML = numberToStringithCommas(walletBalancesDict["Operations"].balance);
+    stakingElements.sandRemaining.innerHTML = numberToStringithCommas(walletBalancesDict["Staking"].balance);
+    sandboxForGoodElements.sandRemaining.innerHTML = numberToStringithCommas(walletBalancesDict["Sandbox for Good"].balance);
+    platformElements.sandRemaining.innerHTML = numberToStringithCommas(walletBalancesDict["Platform"].balance);
+    nftElements.sandRemaining.innerHTML = numberToStringithCommas(walletBalancesDict["NFT"].balance);
 }
 
 function setPercentageRemainingToElement(walletBalance, percentageRemainingElement, fillingBarElement) {
