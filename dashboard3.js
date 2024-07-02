@@ -159,10 +159,14 @@ function setSandRemainingElement(walletBalances) {
 }
 
 function setPercentageRemainingElement(walletBalances) {
-    sandInitiativesElements.percentageRemaining.innerHTML = (walletBalances["SAND Initiatives"].balance / walletBalances["SAND Initiatives"].annualBudget) * 100 + "%";
     const percentage = (walletBalances["SAND Initiatives"].balance / walletBalances["SAND Initiatives"].annualBudget) * 100;
-    //sandInitiativesElements.fillingBar.style.width = percentage + "%";
+    setPercentageAmount(sandInitiativesElements.percentageRemaining, percentage);
     setColorOfFillinBar(sandInitiativesElements.fillingBar, percentage);
+    //sandInitiativesElements.fillingBar.style.width = percentage + "%";
+}
+
+function setPercentageAmount(percentageRemaining, percentage) {
+    percentageRemaining.innerHTML = percentage.toFixed(1).toString() + "%";
 }
 
 function setColorOfFillinBar(fillingBar, percentage) {
@@ -196,7 +200,7 @@ function setElementsAccordingToBalances(walletBalances) {
 
 async function main(){
     //will activate this later when backend is rdy
-    //walletBalances = await fetchWalletBalances();
+    walletBalances = await fetchWalletBalances();
     console.log(walletBalances);
 
     setElementsAccordingToBalances(walletBalances);
