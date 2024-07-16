@@ -198,14 +198,14 @@ function setColorOfFillinBar(fillingBar, percentage) {
 
 function setViewTransactionsElements(walletBalancesDict) {
     sandInitiativesElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["SAND Initiatives"].address;
-    // liveOpsElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Liveops"].address;
-    // gameContentElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Game Content"].address;
-    // otherElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Other"].address;
-    // operationsElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Operations"].address;
-    // stakingElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Staking"].address;
-    // sandboxForGoodElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Sandbox for Good"].address;
-    // platformElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Platform"].address;
-    // nftElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["NFT"].address;
+    liveOpsElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Liveops"].address;
+    gameContentElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Game Content"].address;
+    otherElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Other"].address;
+    operationsElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Operations"].address;
+    stakingElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Staking"].address;
+    sandboxForGoodElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Sandbox for Good"].address;
+    platformElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["Platform"].address;
+    nftElements.viewTransactions.href = "https://polygonscan.com/address/" + walletBalancesDict["NFT"].address;
 }
 
 function setCurrentBalanceElement(walletBalancesDict) {
@@ -213,13 +213,15 @@ function setCurrentBalanceElement(walletBalancesDict) {
     for (let key in walletBalancesDict) {
         totalBalance += parseFloat(walletBalancesDict[key].balance);
     }
+    console.log(totalBalance);
     currentBalanceElement.innerHTML = numberToStringWithCommas(totalBalance);
 }
 
 function setElementsAccordingToBalances(walletBalancesDict) {
     setSandRemainingElements(walletBalancesDict);
     setSandRemainingSmallElements(walletBalancesDict);
-    setViewTransactionsElements(walletBalancesDict);
+    //removingt this for now, its handled in frontend
+    //setViewTransactionsElements(walletBalancesDict);
     setPercentageRemainingElements(walletBalancesDict);
     setCurrentBalanceElement(walletBalancesDict);
 }
