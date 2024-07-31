@@ -109,7 +109,7 @@ async function setValuesFromProposalData(proposalData) {
     sipSnapshot.setAttribute("href", snapshotUrl + "proposal/" + proposalData.id);
 
     const mdParser = new marked.Marked(); // import marked module first
-    const html = mdParser.parse(proposalData.body); //TODO: Warning: 🚨 Marked does not sanitize the output HTML. Please use a sanitize library, like DOMPurify (recommended), sanitize-html or insane on the output HTML! 
+    const html = mdParser.parse(replaceIpfsUrls(proposalData.body)); //TODO: Warning: 🚨 Marked does not sanitize the output HTML. Please use a sanitize library, like DOMPurify (recommended), sanitize-html or insane on the output HTML! 
     proposalContent.innerHTML = html;
 
     voteNb.innerText = proposalData.nbVotes;
@@ -123,6 +123,10 @@ async function setValuesFromProposalData(proposalData) {
     else {
         handleChoices(numberOfChoices);
     }
+}
+
+function replaceIpfsUrls(content) {
+    return content.replace(/ipfs:\/\/([a-zA-Z0-9]+)/g, 'https://ipfs.io/ipfs/$1');
 }
 
 function handleChoices(numberOfChoices) {
