@@ -127,7 +127,7 @@ async function setValuesFromProposalData(proposalData) {
 }
 
 function replaceIpfsUrls(content) {
-    return content.replace(/ipfs:\/\/([a-zA-Z0-9]+)/g, 'https://ipfs.io/ipfs/$1');
+    return content.replace(/ipfs:\/\/([a-zA-Z0-9]+)/g, 'https://snapshot.4everland.link/ipfs/$1');
 }
 
 function handleChoices(numberOfChoices) {
