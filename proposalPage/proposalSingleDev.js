@@ -1,7 +1,7 @@
 let proposalData = null;
 const numberOfChoicesLimit = 15;
 const numberOfCommentsLimit = 3;
-const snapshotUrl = "https://snapshot.org/#/sandboxdao.eth/";
+const snapshotUrl = "https://testnet.snapshot.org/#/geraldine.eth/";
 
 const title = document.getElementById("sip-title");
 const category = document.getElementById("sip-category");
@@ -32,7 +32,7 @@ const discourseLink = document.getElementById("discourse-link");
 let hasVoted = false;
 
 async function fetchProposalData(proposalId) {
-    const url = `https://api.tsbdao.com/proposals/${proposalId}`;
+    const url = `http://localhost:3000/proposals-dev/${proposalId}`;
     const options = {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
@@ -45,7 +45,7 @@ async function fetchProposalData(proposalId) {
 }
 
 async function RefreshProposalDataAfterVote(proposalId) {
-    const url = `https://api.tsbdao.com/proposals/refresh/${proposalId}`;
+    const url = `http://localhost:3000/proposals-dev/refresh/${proposalId}`;
     const options = {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
@@ -306,7 +306,7 @@ function hideSpashScreenWithAnimation() {
 }
 
 async function fetchUserHasVoted() {
-    const url = "https://api.tsbdao.com/proposals/hasVoted";
+    const url = "http://localhost:3000/proposals-dev/hasVoted";
     const options = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -454,7 +454,7 @@ function getAllChoices(proposalType) {
 }
 
 async function getVotingPower(address, proposalId) {
-    const url = `https://api.tsbdao.com/proposals/vp`;
+    const url = `http://localhost:3000/proposals-dev/vp`;
     const body = {
         address: address,
         proposalId: proposalId
@@ -514,7 +514,7 @@ async function voteMainBody() {
             return false;
         }
 
-        const hub = 'https://hub.snapshot.org'; // or https://hub.snapshot.org for mainnet
+        const hub = 'https://testnet.hub.snapshot.org'; // or https://hub.snapshot.org for mainnet
         const client = new snapshot.Client712(hub);
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const [account] = await provider.listAccounts();
@@ -533,7 +533,6 @@ async function voteMainBody() {
             console.log(proposalId);
             console.log(proposalType);
             console.log(choices);
-            console.log(proposalReason);
         
             const receipt = await client.vote(provider, account, {
                 space: proposalSpace,
